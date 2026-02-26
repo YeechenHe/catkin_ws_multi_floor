@@ -1,0 +1,9 @@
+<library path="libimproved_global_planner">
+  <class name="improved_global_planner/ImprovedAStarPlanner"
+         type="improved_global_planner::ImprovedAStarPlanner"
+         base_class_type="nav_core::BaseGlobalPlanner">
+    <description>
+      Improved A* global planner for multi-floor navigation (based on global_planner).
+    </description>
+  </class>
+</library>

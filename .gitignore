@@ -1,0 +1,27 @@
+# Catkin 编译产物（不要提交到 Git）
+build/
+devel/
+install/
+logs/
+
+# Catkin 工作空间标记（可选保留，一般忽略）
+.catkin_tools/
+.catkin_workspace
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+*.egg
+
+# IDE / 编辑器
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# 系统文件
+.DS_Store
+Thumbs.db

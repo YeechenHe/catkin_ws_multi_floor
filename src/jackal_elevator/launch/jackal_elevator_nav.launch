@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<launch>
+  
+  <!--- Run Jackal Gazebo -->  
+  <arg name="paused" default="false"/>
+  <arg name="use_sim_time" default="true"/>
+  <arg name="gui" default="true"/>
+  <arg name="headless" default="false"/>
+  <arg name="debug" default="false"/>
+  <arg name="world_name" default="$(find jackal_elevator)/worlds/modified_elevator.world" />
+  <arg name="map_file" default="$(find jackal_elevator)/maps/jackal_race.yaml"/> <!-- Generate map using SLAM, put map in the appropriate folder and refer here -->
+  <arg name="config" default="navigation" />
+  <arg name="front_laser" default="true" />
+
+  <!-- Launch Gazebo with the specified world -->
+  <include file="$(find jackal_elevator)/launch/jackal_repos_world.launch">
+    <arg name="gui" value="$(arg gui)" />
+    <arg name="use_sim_time" value="$(arg use_sim_time)" />
+    <arg name="headless" value="$(arg headless)" />
+    <arg name="world_name" value="$(arg world_name)" />
+    <arg name="front_laser" value="$(arg front_laser)" />
+  </include>
+
+  <!--- Run Map Server, AMCL, and Move Base -->
+  <include file="$(find jackal_navigation)/launch/amcl_demo.launch">
+    <arg name="map_file" value="$(arg map_file)"/>    
+  </include>
+
+  <!--- Run Jackal RViz -->  
+  <include file="$(find jackal_viz)/launch/view_robot.launch">
+    <arg name="config" value="$(arg config)"/>    
+  </include>
+
+</launch>

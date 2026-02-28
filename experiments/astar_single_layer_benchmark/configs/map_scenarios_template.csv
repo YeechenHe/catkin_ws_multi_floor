@@ -1,0 +1,4 @@
+zone_id,scene_type,width_cells,height_cells,origin_x,origin_y,corridor_width_cells,obstacle_density,notes
+open_zone_01,open,120,80,0,0,14,0.05,宽阔区域示例
+normal_zone_01,normal,80,60,130,0,8,0.10,常规区域示例
+narrow_zone_01,narrow,70,50,220,0,4,0.12,狭窄瓶颈区域示例

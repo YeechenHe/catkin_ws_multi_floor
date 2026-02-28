@@ -1,0 +1,3 @@
+run_id,algo,scene_type,point_id,repeat_idx,success,plan_time_ms,expanded_nodes,peak_open_list,path_length_m,min_clearance_m,mean_clearance_m,sum_abs_turn_rad,nav_time_s,replan_count,collision_count,notes
+1,baseline,open,open_01,1,1,0.0,,,0.0,0.0,0.0,0.0,,,,模板行，后续覆盖
+2,improved,open,open_01,1,1,0.0,,,0.0,0.0,0.0,0.0,,,,模板行，后续覆盖

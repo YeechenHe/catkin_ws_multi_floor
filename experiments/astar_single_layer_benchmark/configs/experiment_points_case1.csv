@@ -1,0 +1,2 @@
+point_id,scene_type,start_x,start_y,start_yaw,goal_x,goal_y,goal_yaw,repeat,notes
+cross_zone_01,mixed,2.00,5.00,0.0,22.25,5.15,0.0,20,24m×10m地图，强制穿过open-normal-narrow-open的单组验证

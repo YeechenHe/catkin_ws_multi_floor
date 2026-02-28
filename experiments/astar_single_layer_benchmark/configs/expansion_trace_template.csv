@@ -1,0 +1,11 @@
+run_id,algo,point_id,step_idx,mx,my
+1,baseline,cross_zone_01,1,40,100
+1,baseline,cross_zone_01,2,150,100
+1,baseline,cross_zone_01,3,260,100
+1,baseline,cross_zone_01,4,360,100
+1,baseline,cross_zone_01,5,445,103
+2,improved,cross_zone_01,1,40,100
+2,improved,cross_zone_01,2,150,104
+2,improved,cross_zone_01,3,260,98
+2,improved,cross_zone_01,4,360,102
+2,improved,cross_zone_01,5,445,103

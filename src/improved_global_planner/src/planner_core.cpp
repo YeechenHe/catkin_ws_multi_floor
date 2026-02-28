@@ -133,7 +133,49 @@ void ImprovedAStarPlanner::initialize(std::string name, costmap_2d::Costmap2D* c
             if (use_improved_astar)
             {
                 // 使用改进版 A*（ImprovedAStarExpansion）
-                planner_ = new ImprovedAStarExpansion(p_calc_, cx, cy);
+                ImprovedAStarExpansion* ie = new ImprovedAStarExpansion(p_calc_, cx, cy);
+
+                // -------------------- 密度自适应 A* 参数（rosparam） --------------------
+                // 这些参数用于根据局部障碍物密度在“宽阔/常规/狭窄”三模式间切换权重。
+                int density_radius;
+                double inflation_lambda, threshold_open, threshold_narrow;
+                double w_obs_open, w_obs_normal, w_obs_narrow;
+                double w_dir_open, w_dir_normal, w_dir_narrow;
+                double alpha_open, alpha_normal, alpha_narrow;
+
+                private_nh.param("adaptive_density_radius", density_radius, 2);
+                private_nh.param("adaptive_inflation_lambda", inflation_lambda, 0.5);
+                private_nh.param("adaptive_threshold_open", threshold_open, 0.20);
+                private_nh.param("adaptive_threshold_narrow", threshold_narrow, 0.45);
+
+                private_nh.param("adaptive_w_obs_open", w_obs_open, 0.15);
+                private_nh.param("adaptive_w_obs_normal", w_obs_normal, 0.45);
+                private_nh.param("adaptive_w_obs_narrow", w_obs_narrow, 0.90);
+
+                private_nh.param("adaptive_w_dir_open", w_dir_open, 0.35);
+                private_nh.param("adaptive_w_dir_normal", w_dir_normal, 0.25);
+                private_nh.param("adaptive_w_dir_narrow", w_dir_narrow, 0.15);
+
+                private_nh.param("adaptive_alpha_open", alpha_open, 1.35);
+                private_nh.param("adaptive_alpha_normal", alpha_normal, 1.15);
+                private_nh.param("adaptive_alpha_narrow", alpha_narrow, 1.00);
+
+                ie->setAdaptiveParams(density_radius,
+                                      static_cast<float>(inflation_lambda),
+                                      static_cast<float>(threshold_open),
+                                      static_cast<float>(threshold_narrow),
+                                      static_cast<float>(w_obs_open),
+                                      static_cast<float>(w_obs_normal),
+                                      static_cast<float>(w_obs_narrow),
+                                      static_cast<float>(w_dir_open),
+                                      static_cast<float>(w_dir_normal),
+                                      static_cast<float>(w_dir_narrow),
+                                      static_cast<float>(alpha_open),
+                                      static_cast<float>(alpha_normal),
+                                      static_cast<float>(alpha_narrow));
+                // ----------------------------------------------------------------------
+
+                planner_ = ie;
             }
             else
             {

@@ -51,6 +51,28 @@
       use_quadratic: true
       use_grid_path: false
       allow_unknown: true
+
+      # ---------------- 密度自适应 A* 粗略参数（后续可调） ----------------
+      # 密度计算：rho = (N_occ + lambda * N_inflation) / N_total
+      adaptive_density_radius: 2        # 局部窗口半径 r，窗口大小 = (2r+1)^2
+      adaptive_inflation_lambda: 0.5    # 膨胀区计数权重 lambda
+      adaptive_threshold_open: 0.20     # rho below open threshold -> 宽阔模式
+      adaptive_threshold_narrow: 0.45   # rho above narrow threshold -> 狭窄模式
+
+      # 障碍惩罚权重（安全）
+      adaptive_w_obs_open: 0.15
+      adaptive_w_obs_normal: 0.45
+      adaptive_w_obs_narrow: 0.90
+
+      # 方向对齐权重（效率）
+      adaptive_w_dir_open: 0.35
+      adaptive_w_dir_normal: 0.25
+      adaptive_w_dir_narrow: 0.15
+
+      # Weighted A* 启发系数 alpha（速度）
+      adaptive_alpha_open: 1.35
+      adaptive_alpha_normal: 1.15
+      adaptive_alpha_narrow: 1.00
     </rosparam>
 
     <!--- Run Jackal RViz -->  

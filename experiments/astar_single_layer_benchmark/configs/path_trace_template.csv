@@ -1,0 +1,11 @@
+run_id,algo,point_id,seq,x,y
+1,baseline,cross_zone_01,0,2.00,5.00
+1,baseline,cross_zone_01,1,8.50,5.00
+1,baseline,cross_zone_01,2,14.50,5.00
+1,baseline,cross_zone_01,3,19.00,5.05
+1,baseline,cross_zone_01,4,22.25,5.15
+2,improved,cross_zone_01,0,2.00,5.00
+2,improved,cross_zone_01,1,8.30,5.10
+2,improved,cross_zone_01,2,14.30,4.95
+2,improved,cross_zone_01,3,19.10,5.05
+2,improved,cross_zone_01,4,22.25,5.15

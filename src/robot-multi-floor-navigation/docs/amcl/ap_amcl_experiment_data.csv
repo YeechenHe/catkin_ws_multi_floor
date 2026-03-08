@@ -1,0 +1,9 @@
+method,pert,run_id,reloc_ok,task_ok,retries,dt_L0_s,dt_L1_s,linear_L0_m,linear_L1_m,angular_L0_rad,angular_L1_rad
+apamcl,0.2_0.2_0.1,1,2,True,0,1.158,1.162,0.28,0.28,0.1,0.1
+apamcl,0.2_0.2_0.1,2,0,False,0,,,,,,
+apamcl,0,1,2,True,0,1.024,1.102,0.0,0.0,0.0,0.0
+apamcl,0,2,0,False,0,,,,,,
+baseline,0.2_0.2_0.1,1,2,True,0,1.136,1.144,0.28,0.28,0.1,0.1
+baseline,0.2_0.2_0.1,2,0,False,0,,,,,,
+baseline,0,1,2,False,0,1.125,1.127,0.0,0.0,0.0,0.0
+baseline,0,2,0,False,0,,,,,,

@@ -1,0 +1,9 @@
+method,pert,run_id,reloc_ok,task_ok,retries,dt_L0_s,dt_L1_s,linear_L0_m,linear_L1_m,angular_L0_rad,angular_L1_rad
+baseline,0.2_0.2_0.1,1,0,False,0,,,,,,
+baseline,0.2_0.2_0.1,2,2,True,0,1.018,1.022,0.28,0.28,0.1,0.1
+baseline,0,1,2,False,0,1.147,1.154,0.0,0.0,0.0,0.0
+baseline,0,2,2,True,0,1.046,1.054,0.0,0.0,0.0,0.0
+relocc,0.2_0.2_0.1,1,0,False,0,,,,,,
+relocc,0.2_0.2_0.1,2,2,True,0,1.249,1.255,0.28,0.28,0.1,0.1
+relocc,0,1,0,False,0,,,,,,
+relocc,0,2,2,True,0,1.351,1.353,0.0,0.0,0.0,0.0

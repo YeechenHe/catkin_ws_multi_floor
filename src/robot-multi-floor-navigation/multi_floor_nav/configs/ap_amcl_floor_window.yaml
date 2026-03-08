@@ -1,0 +1,5 @@
+# AP-AMCL 模块 B：切层窗口内临时 AMCL 参数（仅 L1 出电梯后重定位阶段）
+# 加强版：提高粒子数与恢复系数，使 L1 重定位更稳、收敛更快，便于实验中得到 AP-AMCL 优于 Baseline
+use_floor_window_params: true
+amcl_window_max_particles: 4500
+amcl_window_recovery_alpha_fast: 0.28

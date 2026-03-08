@@ -1,0 +1,6 @@
+# 模块 C：重定位完成判据优化（基于协方差的置信度 + 连续 K 帧）
+# 放宽 K=2、tau=0.5，使判据可满足且仍优于单帧判据（连续 2 帧 C_t>τ 才通过，减少误判）
+use_covariance_reloc: true
+reloc_confidence_lambda: 1.0
+reloc_confidence_tau: 0.5
+reloc_confidence_K: 2

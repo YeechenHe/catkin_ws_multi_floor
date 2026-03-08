@@ -18,7 +18,8 @@
 #include <angles/angles.h>
 #include <math.h>
 #include <multi_floor_nav/IntTrigger.h>
-
+#include <dynamic_reconfigure/client.h>
+#include <amcl/AMCLConfig.h>
 
 class MultiFloorNav{
     private:
@@ -45,6 +46,22 @@ class MultiFloorNav{
         actionlib_msgs::GoalStatusArray move_base_status_msg;
         geometry_msgs::Pose2D desired_init_pose, desired_goal_pose;
         multi_floor_nav::IntTrigger srv;
+        // 模块 B：切层窗口参数切换（AP-AMCL）
+        bool use_floor_window_params_;
+        int amcl_window_max_particles_;
+        double amcl_window_recovery_alpha_fast_;
+        amcl::AMCLConfig amcl_config_saved_;  // 切层前保存的 AMCL 参数，用于恢复
+        dynamic_reconfigure::Client<amcl::AMCLConfig>* amcl_reconf_client_;
+        void apply_amcl_floor_window_params(bool use_window);
+
+        // 模块 C：重定位完成判据优化（基于协方差的置信度 + 连续 K 帧）
+        bool use_covariance_reloc_;
+        double reloc_confidence_lambda_;
+        double reloc_confidence_tau_;
+        int reloc_confidence_K_;
+        int reloc_confidence_consecutive_count_;
+        ros::Time reloc_check_start_time_;  // 进入 CHECK_INITPOSE 的时刻，用于超时后重试
+        double reloc_check_timeout_sec_;
 
         void amclPoseCallback(const geometry_msgs::PoseWithCovarianceStamped::ConstPtr& msg);
         void odomCallback(const nav_msgs::Odometry::ConstPtr& msg);

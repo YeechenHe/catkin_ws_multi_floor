@@ -1,0 +1,9 @@
+method,pert,run_id,reloc_ok,task_ok,retries,dt_L0_s,dt_L1_s,linear_L0_m,linear_L1_m,angular_L0_rad,angular_L1_rad
+baseline,0.2_0.2_0.1,1,2,False,0,1.192,1.194,0.0,0.0,0.0,0.0
+baseline,0.2_0.2_0.1,2,2,True,0,1.154,1.156,0.0,0.0,0.0,0.0
+baseline,0,1,0,False,0,,,,,,
+baseline,0,2,2,True,0,1.162,1.167,0.0,0.0,0.0,0.0
+spamcl,0.2_0.2_0.1,1,2,True,0,1.005,1.009,0.09,0.03,0.02,0.0
+spamcl,0.2_0.2_0.1,2,2,True,0,1.046,1.049,0.1,0.07,0.03,0.02
+spamcl,0,1,2,True,0,1.134,1.139,0.03,0.08,0.01,0.02
+spamcl,0,2,2,False,0,1.005,1.008,0.1,0.03,0.03,0.0

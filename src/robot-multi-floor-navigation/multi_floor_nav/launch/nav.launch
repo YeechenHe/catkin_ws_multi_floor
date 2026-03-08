@@ -14,6 +14,18 @@
     <arg name="config" default="navigation" />
     <arg name="front_laser" default="true" />
     <arg name="scan_topic" default="front/scan" />
+    <!-- 为 true 时启用 SPA-AMCL 模块 A：电梯出口区域初始化 -->
+    <arg name="use_region_init" default="false" />
+    <!-- 为 true 时启用 AP-AMCL 模块 B：切层窗口内临时提高 max_particles / recovery_alpha_fast（仅 L1 重定位阶段） -->
+    <arg name="use_ap_amcl" default="false" />
+    <!-- 为 true 时启用模块 C：重定位完成判据优化（C_t > tau 连续 K 帧才通过） -->
+    <arg name="use_covariance_reloc" default="false" />
+    <!-- 初值扰动（补充实验用）：对发布的 initialpose 加偏移，模拟出口估计不准；默认 0 表示不扰动 -->
+    <arg name="init_pose_offset_x" default="0.0" />
+    <arg name="init_pose_offset_y" default="0.0" />
+    <arg name="init_pose_offset_theta" default="0.0" />
+    <!-- 为 true 时使用 move_base 标准全局规划器 navfn（默认，减少 NO PATH）；false 使用 ImprovedAStarPlanner -->
+    <arg name="use_navfn" default="true" />
 
     <!-- Launch Gazebo with the specified world -->
     <include file="$(find jackal_elevator)/launch/jackal_repos_world.launch">
@@ -40,40 +52,37 @@
         <rosparam file="$(find multi_floor_nav)/configs/amcl.yaml" command="load"/>
     </node>
 
-    <!--- Run Move Base -->
+    <!-- 全局规划器（须在 move_base 启动前设置）：use_navfn 为 true 时用 navfn；false 时用 ImprovedAStarPlanner -->
+    <group if="$(arg use_navfn)">
+        <param name="move_base/base_global_planner" value="navfn/NavfnROS" />
+        <param name="move_base/NavfnROS/allow_unknown" value="true" />
+    </group>
+    <group unless="$(arg use_navfn)">
+        <param name="move_base/base_global_planner" value="improved_global_planner/ImprovedAStarPlanner" />
+        <rosparam ns="move_base/ImprovedAStarPlanner" subst_value="true">
+          use_dijkstra: false
+          use_improved_astar: false
+          use_quadratic: true
+          use_grid_path: false
+          allow_unknown: true
+          adaptive_density_radius: 2
+          adaptive_inflation_lambda: 0.5
+          adaptive_threshold_open: 0.20
+          adaptive_threshold_narrow: 0.45
+          adaptive_w_obs_open: 0.15
+          adaptive_w_obs_normal: 0.45
+          adaptive_w_obs_narrow: 0.90
+          adaptive_w_dir_open: 0.35
+          adaptive_w_dir_normal: 0.25
+          adaptive_w_dir_narrow: 0.15
+          adaptive_alpha_open: 1.35
+          adaptive_alpha_normal: 1.15
+          adaptive_alpha_narrow: 1.00
+        </rosparam>
+    </group>
+
+    <!--- Run Move Base（路径规划统一走 move_base） -->
     <include file="$(find jackal_navigation)/launch/include/move_base.launch" />
-
-    <!-- 使用改进 A* 全局规划器 -->
-    <param name="move_base/base_global_planner" value="improved_global_planner/ImprovedAStarPlanner" />
-    <rosparam ns="move_base/ImprovedAStarPlanner" subst_value="true">
-      use_dijkstra: false          # false 时使用 A*（或改进 A*）
-      use_improved_astar: false    # true: 使用 ImprovedAStarExpansion；false: 使用原始 AStarExpansion
-      use_quadratic: true
-      use_grid_path: false
-      allow_unknown: true
-
-      # ---------------- 密度自适应 A* 粗略参数（后续可调） ----------------
-      # 密度计算：rho = (N_occ + lambda * N_inflation) / N_total
-      adaptive_density_radius: 2        # 局部窗口半径 r，窗口大小 = (2r+1)^2
-      adaptive_inflation_lambda: 0.5    # 膨胀区计数权重 lambda
-      adaptive_threshold_open: 0.20     # rho below open threshold -> 宽阔模式
-      adaptive_threshold_narrow: 0.45   # rho above narrow threshold -> 狭窄模式
-
-      # 障碍惩罚权重（安全）
-      adaptive_w_obs_open: 0.15
-      adaptive_w_obs_normal: 0.45
-      adaptive_w_obs_narrow: 0.90
-
-      # 方向对齐权重（效率）
-      adaptive_w_dir_open: 0.35
-      adaptive_w_dir_normal: 0.25
-      adaptive_w_dir_narrow: 0.15
-
-      # Weighted A* 启发系数 alpha（速度）
-      adaptive_alpha_open: 1.35
-      adaptive_alpha_normal: 1.15
-      adaptive_alpha_narrow: 1.00
-    </rosparam>
 
     <!--- Run Jackal RViz -->  
     <include file="$(find jackal_viz)/launch/view_robot.launch">
@@ -83,7 +92,24 @@
     <!-- Run Change Map Node -->
     <node pkg="multi_floor_nav" type="change_map_node" name="change_map_node"/>
 
-    <!-- Run Multi Floor Navigation Node -->
-    <node pkg="multi_floor_nav" type="multi_floor_navigation_node" name="multi_floor_navigation_node" output="screen"/>
+    <!-- SPA-AMCL 区域初始化参数（仅当 use_region_init:=true 时加载） -->
+    <group if="$(arg use_region_init)">
+        <rosparam file="$(find multi_floor_nav)/configs/spa_amcl_region_init.yaml" ns="multi_floor_navigation_node"/>
+    </group>
+    <!-- AP-AMCL 模块 B 切层窗口参数（仅当 use_ap_amcl:=true 时加载，用于 Baseline vs AP-AMCL 对比） -->
+    <group if="$(arg use_ap_amcl)">
+        <rosparam file="$(find multi_floor_nav)/configs/ap_amcl_floor_window.yaml" ns="multi_floor_navigation_node"/>
+    </group>
+    <!-- 模块 C 重定位置信度判据（仅当 use_covariance_reloc:=true 时加载） -->
+    <group if="$(arg use_covariance_reloc)">
+        <rosparam file="$(find multi_floor_nav)/configs/reloc_confidence_criterion.yaml" ns="multi_floor_navigation_node"/>
+    </group>
+
+    <!-- Run Multi Floor Navigation Node（初值扰动 / AP-AMCL / 模块 C 通过 args 或 rosparam 传入） -->
+    <node pkg="multi_floor_nav" type="multi_floor_navigation_node" name="multi_floor_navigation_node" output="screen">
+        <param name="init_pose_offset_x" value="$(arg init_pose_offset_x)"/>
+        <param name="init_pose_offset_y" value="$(arg init_pose_offset_y)"/>
+        <param name="init_pose_offset_theta" value="$(arg init_pose_offset_theta)"/>
+    </node>
 
 </launch>

@@ -13,7 +13,12 @@ MultiFloorNav::MultiFloorNav(){
     max_linear_error = 0.0;
     curr_odom.pose.pose.orientation = first_odom.pose.pose.orientation =
         tf::createQuaternionMsgFromRollPitchYaw(0.0, 0.0, 0.0);
-    desired_map_level = 0; 
+    desired_map_level = 0;
+    use_floor_window_params_ = false;
+    amcl_reconf_client_ = nullptr;
+    use_covariance_reloc_ = false;
+    reloc_confidence_consecutive_count_ = 0;
+    reloc_check_timeout_sec_ = 45.0;
 }
 
 void MultiFloorNav::initialize(ros::NodeHandle& n){
@@ -34,6 +39,27 @@ void MultiFloorNav::initialize(ros::NodeHandle& n){
     start_sub = n.subscribe("start",1, &MultiFloorNav::startCallback, this);
 
     change_map_client = n.serviceClient<multi_floor_nav::IntTrigger>("change_map");
+
+    // 模块 B：切层窗口参数切换（AP-AMCL）
+    ros::param::param<bool>("~use_floor_window_params", use_floor_window_params_, false);
+    ros::param::param<int>("~amcl_window_max_particles", amcl_window_max_particles_, 3500);
+    ros::param::param<double>("~amcl_window_recovery_alpha_fast", amcl_window_recovery_alpha_fast_, 0.2);
+    if (use_floor_window_params_) {
+        amcl_reconf_client_ = new dynamic_reconfigure::Client<amcl::AMCLConfig>("amcl", 0, 0);
+        ROS_INFO("[Multi Floor Nav] AP-AMCL: floor-window params enabled (window: max_particles=%d, recovery_alpha_fast=%.2f)",
+                 amcl_window_max_particles_, amcl_window_recovery_alpha_fast_);
+    }
+
+    // 模块 C：重定位完成判据优化（C_t = exp(-λ·tr(Σ))，连续 K 帧 C_t > tau 才通过）
+    ros::param::param<bool>("~use_covariance_reloc", use_covariance_reloc_, false);
+    ros::param::param<double>("~reloc_confidence_lambda", reloc_confidence_lambda_, 1.0);
+    ros::param::param<double>("~reloc_confidence_tau", reloc_confidence_tau_, 0.8);
+    ros::param::param<int>("~reloc_confidence_K", reloc_confidence_K_, 3);
+    ros::param::param<double>("~reloc_check_timeout_sec", reloc_check_timeout_sec_, 45.0);
+    if (use_covariance_reloc_) {
+        ROS_INFO("[Multi Floor Nav] Module C: covariance reloc criterion enabled (lambda=%.2f, tau=%.2f, K=%d)",
+                 reloc_confidence_lambda_, reloc_confidence_tau_, reloc_confidence_K_);
+    }
 }
 
 void MultiFloorNav::amclPoseCallback(const geometry_msgs::PoseWithCovarianceStamped::ConstPtr& msg){
@@ -61,6 +87,18 @@ tf2::Quaternion MultiFloorNav::convertYawtoQuartenion(double yaw){
 }
 
 void MultiFloorNav::set_init_pose(geometry_msgs::Pose2D pose){
+    // 初值扰动（用于补充实验：模拟电梯出口估计不准，发布的 initialpose 带偏差）
+    double offset_x = 0.0, offset_y = 0.0, offset_theta = 0.0;
+    ros::NodeHandle np("~");
+    ros::param::param<double>("~init_pose_offset_x", offset_x, 0.0);
+    ros::param::param<double>("~init_pose_offset_y", offset_y, 0.0);
+    ros::param::param<double>("~init_pose_offset_theta", offset_theta, 0.0);
+    pose.x += offset_x;
+    pose.y += offset_y;
+    pose.theta += offset_theta;
+    if (offset_x != 0.0 || offset_y != 0.0 || offset_theta != 0.0)
+        ROS_WARN("[Multi Floor Nav] Initial pose perturbation applied: offset_x=%.2f, offset_y=%.2f, offset_theta=%.2f", offset_x, offset_y, offset_theta);
+
     geometry_msgs::PoseWithCovarianceStamped init_pose;
 
     init_pose.header.frame_id = "map";
@@ -78,27 +116,56 @@ void MultiFloorNav::set_init_pose(geometry_msgs::Pose2D pose){
     init_pose.pose.pose.orientation.z= quat[2];
     init_pose.pose.pose.orientation.w= quat[3];
 
-    ROS_INFO("[Multi Floor Nav] Initializing Robot at x: %.1f, y: %.1f, yaw: %.1f", pose.x, pose.y, pose.theta);
+    // 区域初始化增强（模块 A 最简版）：用电梯出口区域协方差让 AMCL 在出口附近散布粒子
+    double sigma_x = 0.0, sigma_y = 0.0, sigma_yaw = 0.0;
+    ros::param::param<double>("~region_init_sigma_x", sigma_x, 0.0);
+    ros::param::param<double>("~region_init_sigma_y", sigma_y, 0.0);
+    ros::param::param<double>("~region_init_sigma_yaw", sigma_yaw, 0.0);
+    for (int i = 0; i < 36; ++i) init_pose.pose.covariance[i] = 0.0;
+    if (sigma_x > 0.0) init_pose.pose.covariance[0]  = sigma_x * sigma_x;
+    if (sigma_y > 0.0) init_pose.pose.covariance[7]  = sigma_y * sigma_y;
+    if (sigma_yaw > 0.0) init_pose.pose.covariance[35] = sigma_yaw * sigma_yaw;
+
+    ROS_INFO("[Multi Floor Nav] Initializing Robot at x: %.1f, y: %.1f, yaw: %.1f (region sigma: x=%.2f, y=%.2f, yaw=%.2f)",
+             pose.x, pose.y, pose.theta, sigma_x, sigma_y, sigma_yaw);
     initial_pose_pub.publish(init_pose);
 }
 
 bool MultiFloorNav::check_robot_pose(geometry_msgs::Pose2D pose){
     while (!received_amcl_pose);
-    
+
     double amcl_x = curr_pose.pose.pose.position.x;
     double amcl_y = curr_pose.pose.pose.position.y;
     double diff_x = fabs(pose.x - amcl_x);
     double diff_y = fabs(pose.y - amcl_y);
-    double linear_error = sqrt(pow(diff_x,2) + pow(diff_y,2)); //Find linear error
+    double linear_error = sqrt(pow(diff_x,2) + pow(diff_y,2));
     double amcl_yaw = tf::getYaw(curr_pose.pose.pose.orientation);
-    double angular_error = fabs(angles::normalize_angle(pose.theta-amcl_yaw));
-    ROS_INFO(
-        "[Multi Floor Nav] Current Robot Pose, x: %.2f, y: %.2f, yaw: %.2f",amcl_x, amcl_y, amcl_yaw);
-    ROS_INFO("[Multi Floor Nav] Linear Error: %.2f, Angular Error: %.2f",linear_error, angular_error);
-    if((linear_error < max_linear_error))
-        return true;
-    else 
-        return false;
+    double angular_error = fabs(angles::normalize_angle(pose.theta - amcl_yaw));
+    ROS_INFO("[Multi Floor Nav] Current Robot Pose, x: %.2f, y: %.2f, yaw: %.2f", amcl_x, amcl_y, amcl_yaw);
+    ROS_INFO("[Multi Floor Nav] Linear Error: %.2f, Angular Error: %.2f", linear_error, angular_error);
+
+    bool linear_ok = (linear_error < max_linear_error);
+
+    if (use_covariance_reloc_) {
+        // 模块 C：C_t = exp(-λ · tr(Σ))，tr(Σ) 取 x,y,yaw 方差（covariance 索引 0,7,35）
+        double tr_sigma = curr_pose.pose.covariance[0] + curr_pose.pose.covariance[7] + curr_pose.pose.covariance[35];
+        double C_t = exp(-reloc_confidence_lambda_ * tr_sigma);
+        bool confidence_ok = (C_t > reloc_confidence_tau_);
+        ROS_INFO("[Multi Floor Nav] Module C: tr(Σ)=%.4f, C_t=%.4f (tau=%.2f), frame_ok=%d",
+                 tr_sigma, C_t, reloc_confidence_tau_, (linear_ok && confidence_ok) ? 1 : 0);
+        if (linear_ok && confidence_ok) {
+            reloc_confidence_consecutive_count_++;
+            bool passed = (reloc_confidence_consecutive_count_ >= reloc_confidence_K_);
+            if (passed)
+                ROS_INFO("[Multi Floor Nav] Module C: reloc passed (consecutive %d >= K=%d)", reloc_confidence_consecutive_count_, reloc_confidence_K_);
+            return passed;
+        } else {
+            reloc_confidence_consecutive_count_ = 0;
+            return false;
+        }
+    }
+
+    return linear_ok;
 }
 
 void MultiFloorNav::send_simple_goal(geometry_msgs::Pose2D goal_pose){
@@ -162,6 +229,27 @@ bool MultiFloorNav::reached_distance(double distance){
   return false;
 }
 
+void MultiFloorNav::apply_amcl_floor_window_params(bool use_window){
+    if (!amcl_reconf_client_) return;
+    amcl::AMCLConfig config;
+    if (!amcl_reconf_client_->getCurrentConfiguration(config, ros::Duration(3.0))) {
+        ROS_WARN("[Multi Floor Nav] AP-AMCL: failed to get current AMCL config (timeout 3s)");
+        return;
+    }
+    if (use_window) {
+        amcl_config_saved_ = config;
+        config.max_particles = amcl_window_max_particles_;
+        config.recovery_alpha_fast = amcl_window_recovery_alpha_fast_;
+        amcl_reconf_client_->setConfiguration(config);
+        ROS_INFO("[Multi Floor Nav] AP-AMCL: applied floor-window params (max_particles=%d, recovery_alpha_fast=%.2f)",
+                 amcl_window_max_particles_, amcl_window_recovery_alpha_fast_);
+    } else {
+        amcl_reconf_client_->setConfiguration(amcl_config_saved_);
+        ROS_INFO("[Multi Floor Nav] AP-AMCL: restored AMCL params (max_particles=%d, recovery_alpha_fast=%.2f)",
+                 amcl_config_saved_.max_particles, amcl_config_saved_.recovery_alpha_fast);
+    }
+}
+
 void MultiFloorNav::execute(){
     switch(nav_state){
         case MultiFloorNav::State::LOAD_MAP:
@@ -178,6 +266,9 @@ void MultiFloorNav::execute(){
                         desired_init_pose.x = 3.0;
                         desired_init_pose.y = -0.5;
                         desired_init_pose.theta = M_PI;
+                        // 模块 B：进入 L1 切层窗口，临时提高 AMCL 粒子数/恢复速度
+                        if (use_floor_window_params_)
+                            apply_amcl_floor_window_params(true);
                     }
                     nav_state = MultiFloorNav::State::INIT_POSE;
                 }
@@ -187,21 +278,33 @@ void MultiFloorNav::execute(){
             }
             break;
         case MultiFloorNav::State::INIT_POSE:
+            if (use_covariance_reloc_)
+                reloc_confidence_consecutive_count_ = 0;
             set_init_pose(desired_init_pose);
-            ROS_INFO("[Multi Floor Nav] Initializing Pose to x: %.2f, y: %.2f at level: %d", 
+            ROS_INFO("[Multi Floor Nav] Initializing Pose to x: %.2f, y: %.2f at level: %d",
                         desired_init_pose.x, desired_init_pose.y, desired_map_level);
+            reloc_check_start_time_ = ros::Time::now();
             nav_state = MultiFloorNav::State::CHECK_INITPOSE;
             ros::Duration(1.0).sleep();
             break;
         case MultiFloorNav::State::CHECK_INITPOSE:
             if(check_robot_pose(desired_init_pose)){
                 ROS_INFO("[Multi Floor Nav] Robot at correct pose");
+                // 模块 B：L1 重定位完成，恢复 AMCL 参数
+                if (desired_map_level == 1 && use_floor_window_params_)
+                    apply_amcl_floor_window_params(false);
                 nav_state = MultiFloorNav::State::NAV_TO_GOAL;
                 ros::Duration(1.0).sleep();
             }
             else{
-                ROS_INFO("[Multi Floor Nav] Setting initial pose failed. Will Retry");
-                nav_state = MultiFloorNav::State::INIT_POSE;
+                // 模块 C：未通过时留在 CHECK_INITPOSE 以累积连续 K 帧，超时后再重试
+                if (use_covariance_reloc_ &&
+                    (ros::Time::now() - reloc_check_start_time_).toSec() < reloc_check_timeout_sec_) {
+                    ; // 保持 CHECK_INITPOSE，下一周期继续检查
+                } else {
+                    ROS_INFO("[Multi Floor Nav] Setting initial pose failed. Will Retry");
+                    nav_state = MultiFloorNav::State::INIT_POSE;
+                }
             }
             break;
         case MultiFloorNav::State::NAV_TO_GOAL:

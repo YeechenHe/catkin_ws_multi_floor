@@ -118,6 +118,16 @@ $ rostopic pub /start std_msgs/Empty "{}"
 This will start the state machine on `multi_floor_nav_node`. 
 The purpose for this topic is to allow enough time on slower machines to load visualization tools such as Gazebo.
 
+## AMCL 相关文档与脚本（多楼层定位改进）
+
+与 AMCL 改进方案、基线实验流程、数据采集脚本相关的资料已统一归类：
+
+- **文档**：[docs/amcl/](docs/amcl/) — 改进方案说明、基线实验流程、后续新增 AMCL 文档请放于此目录。
+- **脚本**：[scripts/amcl/](scripts/amcl/) — 基线 rosbag 录制等 AMCL 相关脚本，后续新增请放于此目录。
+- **配置**：`multi_floor_nav/configs/amcl.yaml` — AMCL 参数。
+
+详见 [docs/amcl/README.md](docs/amcl/README.md) 与 [scripts/amcl/README.md](scripts/amcl/README.md)。
+
 ## Demo 
 https://github.com/user-attachments/assets/d79f4a2a-3cd6-49e2-abfe-5730887da829
 

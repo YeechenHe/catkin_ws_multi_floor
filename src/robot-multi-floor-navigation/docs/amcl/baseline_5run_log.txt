@@ -1,0 +1,10 @@
+# Baseline-AMCL 5 次运行记录
+# 每行一次运行，格式：次数 日期 结果 备注
+# 结果：成功 / 失败
+# 备注：若失败可写卡住步骤，如 CHECK_INITPOSE / NAV_TO_GOAL 超时 / 出电梯后定位错
+
+1	YYYY-MM-DD HH:MM	成功	
+2	YYYY-MM-DD HH:MM	成功	
+3	YYYY-MM-DD HH:MM	成功	
+4	YYYY-MM-DD HH:MM	成功	
+5	YYYY-MM-DD HH:MM	成功	

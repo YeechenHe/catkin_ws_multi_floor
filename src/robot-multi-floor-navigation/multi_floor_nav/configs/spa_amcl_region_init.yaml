@@ -1,0 +1,8 @@
+# SPA-AMCL 模块 A 最简版：电梯出口区域初始化
+# 供 multi_floor_navigation_node 使用（需加载到该节点私有命名空间）
+# 非零时 AMCL 会在 initialpose 中心附近按高斯散布粒子，减轻单点初值敏感
+# 基线对比时请勿加载本文件（或全部设为 0）
+
+region_init_sigma_x: 0.3    # 出口位置 x 方向标准差 (m)
+region_init_sigma_y: 0.3    # 出口位置 y 方向标准差 (m)
+region_init_sigma_yaw: 0.2  # 出口朝向标准差 (rad)，约 11°

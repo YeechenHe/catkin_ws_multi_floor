@@ -1,0 +1,52 @@
+method,pert,run_id,reloc_ok,task_ok,retries,dt_L0_s,dt_L1_s,linear_L0_m,linear_L1_m,angular_L0_rad,angular_L1_rad,e_pass_linear_L0,e_pass_yaw_L0,e_tr_sigma_L0,e_C_t_L0,e_pass_linear_L1,e_pass_yaw_L1,e_tr_sigma_L1,e_C_t_L1,e_pass_linear_init_L0,e_pass_yaw_init_L0,e_pass_linear_init_L1,e_pass_yaw_init_L1,mean_linear_after_L0,max_linear_after_L0,std_linear_after_L0,mean_linear_after_L1,max_linear_after_L1,std_linear_after_L1,false_accept,hlf_L0,hlf_L1,hlf_any
+baseline,0.2_0.2_0.1,1,2,True,0,3.144,3.149,0.28,0.28,0.11,0.11,0.283,0.1101,0.0,1.0,0.2827,0.1095,0.0857,0.9179,0.0002,0.0101,0.0001,0.0095,0.3887,0.6157,0.1257,0.2586,0.3177,0.0377,0,0,0,0
+baseline,0.2_0.2_0.1,2,2,True,0,3.006,3.01,0.28,0.28,0.13,0.13,0.2831,0.1296,0.0,1.0,0.2821,0.1288,0.0,1.0,0.0003,0.0296,0.001,0.0288,0.2974,0.3172,0.0149,0.2608,0.3002,0.0372,0,0,0,0
+baseline,0.2_0.2_0.1,3,2,True,0,3.196,3.202,0.0,0.0,0.0,0.0,0.2831,0.1048,0.0,1.0,0.2822,0.1044,-0.0,1.0,0.0003,0.0048,0.0008,0.0044,0.2954,0.3119,0.0127,0.2666,0.3181,0.0369,0,0,0,0
+baseline,0.4_0.4_0.2,4,0,False,32,,,0.57,0.57,0.19,0.18,,,,,,,,,,,,,,,,,,,0,,,
+spamcl,0.2_0.2_0.1,1,2,False,2,3.126,9.536,0.27,0.53,0.05,0.39,0.2717,0.0535,0.0405,0.9604,0.4911,0.4233,0.1391,0.8701,0.0864,0.0465,0.2163,0.3233,0.354,0.5431,0.1031,0.4669,0.5216,0.058,1,0,1,1
+spamcl,0.2_0.2_0.1,2,2,True,1,3.127,6.337,0.47,0.51,0.08,0.05,0.4666,0.0782,0.057,0.9446,0.4916,0.0531,0.0161,0.984,0.4808,0.0218,0.5179,0.1531,0.4346,0.4796,0.0589,0.3929,0.5021,0.1242,0,1,1,1
+spamcl,0.2_0.2_0.1,3,2,True,1,3.012,6.223,0.3,0.5,0.03,0.18,0.3776,0.0711,0.0671,0.9351,0.3713,0.0504,0.0202,0.98,0.3027,0.0289,0.4493,0.1504,0.3529,0.3816,0.0401,0.3226,0.3768,0.0713,0,0,0,0
+spamcl,0.4_0.4_0.2,4,2,True,1,6.149,12.359,0.46,0.61,0.1,0.17,0.4558,0.1008,0.0479,0.9532,0.3823,0.1605,0.0017,0.9983,0.5199,0.0992,0.7339,0.3605,0.4227,0.4655,0.055,0.3291,0.3828,0.0493,0,1,1,1
+
+# Summary (reloc_ok: 2 = both L0&L1 passed)
+  baseline pert=0.2_0.2_0.1: n=3 task_ok=3/3 reloc_2ok=3/3 false_accept=0/3 total_retries=0
+  baseline pert=0.4_0.4_0.2: n=1 task_ok=0/1 reloc_2ok=0/1 false_accept=0/1 total_retries=32
+  spamcl pert=0.2_0.2_0.1: n=3 task_ok=2/3 reloc_2ok=3/3 false_accept=1/3 total_retries=4
+  spamcl pert=0.4_0.4_0.2: n=1 task_ok=1/1 reloc_2ok=1/1 false_accept=0/1 total_retries=1
+
+# Convergence time (s) mean±std
+  baseline pert=0.2_0.2_0.1: dt_L0=3.1153±0.0802s dt_L1=3.1203±0.081s
+  baseline pert=0.4_0.4_0.2: (no pass)
+  spamcl pert=0.2_0.2_0.1: dt_L0=3.0883±0.054s dt_L1=7.3653±1.5356s
+  spamcl pert=0.4_0.4_0.2: dt_L0=6.149±0s dt_L1=12.359±0s
+
+# Pass-time error (e_pass) mean±std
+  baseline pert=0.2_0.2_0.1: L0: lin=0.2831±0.0m yaw=0.1148±0.0107rad L1: lin=0.2823±0.0003m yaw=0.1142±0.0105rad
+  baseline pert=0.4_0.4_0.2: (no pass)
+  spamcl pert=0.2_0.2_0.1: L0: lin=0.372±0.0797m yaw=0.0676±0.0104rad L1: lin=0.4513±0.0566m yaw=0.1756±0.1752rad
+  spamcl pert=0.4_0.4_0.2: L0: lin=0.4558±0m yaw=0.1008±0rad L1: lin=0.3823±0m yaw=0.1605±0rad
+
+# Pass-time confidence tr(Σ) and C_t=exp(-λ·tr) mean±std
+  baseline pert=0.2_0.2_0.1: L0: tr=0.0 C_t=1.0 L1: tr=0.0286 C_t=0.9726
+  baseline pert=0.4_0.4_0.2: (no RELOC_PASS)
+  spamcl pert=0.2_0.2_0.1: L0: tr=0.0549 C_t=0.9467 L1: tr=0.0585 C_t=0.9447
+  spamcl pert=0.4_0.4_0.2: L0: tr=0.0479 C_t=0.9532 L1: tr=0.0017 C_t=0.9983
+
+# Same metrics restricted to runs with reloc_ok>=2 (mean±std)
+  baseline pert=0.2_0.2_0.1 n=3: L0 tr=0.0 C_t=1.0 dt_L0=3.1153s | after mean_lin=0.3272 max_lin~0.4149 | L1 tr=0.0286 C_t=0.9726 dt_L1=3.1203s | after mean_lin=0.262 max_lin~0.312
+  spamcl pert=0.2_0.2_0.1 n=3: L0 tr=0.0549 C_t=0.9467 dt_L0=3.0883s | after mean_lin=0.3805 max_lin~0.4681 | L1 tr=0.0585 C_t=0.9447 dt_L1=7.3653s | after mean_lin=0.3941 max_lin~0.4668
+  spamcl pert=0.4_0.4_0.2 n=1: L0 tr=0.0479 C_t=0.9532 dt_L0=6.149s | after mean_lin=0.4227 max_lin~0.4655 | L1 tr=0.0017 C_t=0.9983 dt_L1=12.359s | after mean_lin=0.3291 max_lin~0.3828
+
+# After-pass stability (2s window) mean±std
+  baseline pert=0.2_0.2_0.1: L0: mean_lin=0.3272±0.0435m max_lin~0.4149m L1: mean_lin=0.262±0.0034m max_lin~0.312m
+  baseline pert=0.4_0.4_0.2: (no pass)
+  spamcl pert=0.2_0.2_0.1: L0: mean_lin=0.3805±0.0383m max_lin~0.4681m L1: mean_lin=0.3941±0.0589m max_lin~0.4668m
+  spamcl pert=0.4_0.4_0.2: L0: mean_lin=0.4227±0m max_lin~0.4655m L1: mean_lin=0.3291±0m max_lin~0.3828m
+
+# Hard Localization Failure (HLF) — thresholds: lin>0.45m OR yaw>0.15rad
+# hlf_L0/L1: per-layer (1=HLF, 0=safe, blank=no pass event)
+# hlf_rate: HLF events / RELOC_PASS events across all scored layers
+  baseline pert=0.2_0.2_0.1: HLF=0/6 (0%)  [L0: 0/3  L1: 0/3]
+  baseline pert=0.4_0.4_0.2: HLF=N/A   [L0: 0/0  L1: 0/0]
+  spamcl pert=0.2_0.2_0.1: HLF=3/6 (50%)  [L0: 1/3  L1: 2/3]
+  spamcl pert=0.4_0.4_0.2: HLF=2/2 (100%)  [L0: 1/1  L1: 1/1]

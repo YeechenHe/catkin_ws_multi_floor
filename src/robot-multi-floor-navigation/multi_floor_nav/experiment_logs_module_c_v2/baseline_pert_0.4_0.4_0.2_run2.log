@@ -1,0 +1,670 @@
+xacro: in-order processing became default in ROS Melodic. You can drop the option.
+... logging to /home/eethanhe/.ros/log/20c3657c-2c0c-11f1-8d1e-01badb8e21cf/roslaunch-eethanhe-Lenovo-Legion-R9000P2021H-411154.log
+Checking log directory for disk usage. This may take a while.
+Press Ctrl-C to interrupt
+Done checking log file disk usage. Usage is <1GB.
+]2;/home/eethanhe/catkin_ws/src/robot-multi-floor-navigation/multi_floor_nav/launch/nav.launch
+[1mstarted roslaunch server http://eethanhe-Lenovo-Legion-R9000P2021H:42189/[0m
+
+SUMMARY
+========
+
+PARAMETERS
+ * /amcl/auto_update_noise: 0.0
+ * /amcl/base_frame_id: base_link
+ * /amcl/expected_laser_freq: 5.0
+ * /amcl/first_map_only: False
+ * /amcl/global_frame_id: map
+ * /amcl/gui_publish_rate: 10.0
+ * /amcl/initial_pose_a: 0.0
+ * /amcl/initial_pose_x: 0.0
+ * /amcl/initial_pose_y: 0.0
+ * /amcl/kld_err: 0.05
+ * /amcl/kld_z: 0.99
+ * /amcl/laser_lambda_short: 0.1
+ * /amcl/laser_likelihood_max_dist: 2.0
+ * /amcl/laser_max_beams: 720
+ * /amcl/laser_max_range: 30.0
+ * /amcl/laser_min_range: 0.1
+ * /amcl/laser_model_type: likelihood_field
+ * /amcl/laser_sigma_hit: 0.2
+ * /amcl/laser_z_hit: 0.5
+ * /amcl/laser_z_max: 0.05
+ * /amcl/laser_z_rand: 0.5
+ * /amcl/laser_z_short: 0.05
+ * /amcl/max_particles: 2000
+ * /amcl/min_particles: 500
+ * /amcl/odom_alpha1: 0.2
+ * /amcl/odom_alpha2: 0.2
+ * /amcl/odom_alpha3: 0.2
+ * /amcl/odom_alpha4: 0.2
+ * /amcl/odom_alpha5: 0.1
+ * /amcl/odom_frame_id: odom
+ * /amcl/odom_model_type: diff
+ * /amcl/odom_update_interval: 0.1
+ * /amcl/recovery_alpha_fast: 0.1
+ * /amcl/recovery_alpha_slow: 0.001
+ * /amcl/resample_interval: 1
+ * /amcl/transform_tolerance: 1.0
+ * /amcl/update_min_a: 0.3927
+ * /amcl/update_min_d: 0.1
+ * /amcl/use_map_topic: False
+ * /ekf_localization/base_link_frame: base_link
+ * /ekf_localization/frequency: 50
+ * /ekf_localization/imu0: /imu/data
+ * /ekf_localization/imu0_config: [False, False, Fa...
+ * /ekf_localization/imu0_differential: False
+ * /ekf_localization/odom0: /jackal_velocity_...
+ * /ekf_localization/odom0_config: [False, False, Fa...
+ * /ekf_localization/odom0_differential: False
+ * /ekf_localization/odom_frame: odom
+ * /ekf_localization/predict_to_current_time: True
+ * /ekf_localization/world_frame: odom
+ * /gazebo/enable_ros_network: True
+ * /jackal_joint_publisher/publish_rate: 50
+ * /jackal_joint_publisher/type: joint_state_contr...
+ * /jackal_velocity_controller/angular/z/has_acceleration_limits: True
+ * /jackal_velocity_controller/angular/z/has_velocity_limits: True
+ * /jackal_velocity_controller/angular/z/max_acceleration: 25.0
+ * /jackal_velocity_controller/angular/z/max_velocity: 4.0
+ * /jackal_velocity_controller/cmd_vel_timeout: 0.25
+ * /jackal_velocity_controller/enable_odom_tf: False
+ * /jackal_velocity_controller/k_l: 0.1
+ * /jackal_velocity_controller/k_r: 0.1
+ * /jackal_velocity_controller/left_wheel: ['front_left_whee...
+ * /jackal_velocity_controller/linear/x/has_acceleration_limits: True
+ * /jackal_velocity_controller/linear/x/has_velocity_limits: True
+ * /jackal_velocity_controller/linear/x/max_acceleration: 20.0
+ * /jackal_velocity_controller/linear/x/max_velocity: 2.0
+ * /jackal_velocity_controller/pose_covariance_diagonal: [0.001, 0.001, 10...
+ * /jackal_velocity_controller/publish_cmd: True
+ * /jackal_velocity_controller/publish_rate: 50
+ * /jackal_velocity_controller/right_wheel: ['front_right_whe...
+ * /jackal_velocity_controller/twist_covariance_diagonal: [0.001, 0.001, 0....
+ * /jackal_velocity_controller/type: diff_drive_contro...
+ * /jackal_velocity_controller/wheel_radius_multiplier: 1.0
+ * /jackal_velocity_controller/wheel_separation_multiplier: 1.5
+ * /move_base/NavfnROS/allow_unknown: True
+ * /move_base/TrajectoryPlannerROS/acc_lim_theta: 20.0
+ * /move_base/TrajectoryPlannerROS/acc_lim_x: 10.0
+ * /move_base/TrajectoryPlannerROS/angular_sim_granularity: 0.02
+ * /move_base/TrajectoryPlannerROS/controller_frequency: 20.0
+ * /move_base/TrajectoryPlannerROS/dwa: True
+ * /move_base/TrajectoryPlannerROS/escape_reset_dist: 0.1
+ * /move_base/TrajectoryPlannerROS/escape_reset_theta: 0.1
+ * /move_base/TrajectoryPlannerROS/escape_vel: -0.5
+ * /move_base/TrajectoryPlannerROS/gdist_scale: 1.0
+ * /move_base/TrajectoryPlannerROS/heading_lookahead: 0.325
+ * /move_base/TrajectoryPlannerROS/heading_scoring: False
+ * /move_base/TrajectoryPlannerROS/heading_scoring_timestep: 0.8
+ * /move_base/TrajectoryPlannerROS/holonomic_robot: False
+ * /move_base/TrajectoryPlannerROS/latch_xy_goal_tolerance: False
+ * /move_base/TrajectoryPlannerROS/max_vel_theta: 1.57
+ * /move_base/TrajectoryPlannerROS/max_vel_x: 0.5
+ * /move_base/TrajectoryPlannerROS/meter_scoring: True
+ * /move_base/TrajectoryPlannerROS/min_in_place_vel_theta: 0.314
+ * /move_base/TrajectoryPlannerROS/min_vel_theta: -1.57
+ * /move_base/TrajectoryPlannerROS/min_vel_x: 0.1
+ * /move_base/TrajectoryPlannerROS/occdist_scale: 0.1
+ * /move_base/TrajectoryPlannerROS/oscillation_reset_dist: 0.05
+ * /move_base/TrajectoryPlannerROS/pdist_scale: 0.75
+ * /move_base/TrajectoryPlannerROS/publish_cost_grid_pc: True
+ * /move_base/TrajectoryPlannerROS/sim_granularity: 0.02
+ * /move_base/TrajectoryPlannerROS/sim_time: 2.0
+ * /move_base/TrajectoryPlannerROS/simple_attractor: False
+ * /move_base/TrajectoryPlannerROS/vtheta_samples: 20
+ * /move_base/TrajectoryPlannerROS/vx_samples: 6
+ * /move_base/TrajectoryPlannerROS/xy_goal_tolerance: 0.25
+ * /move_base/TrajectoryPlannerROS/yaw_goal_tolerance: 0.157
+ * /move_base/base_global_planner: navfn/NavfnROS
+ * /move_base/base_local_planner: base_local_planne...
+ * /move_base/clearing_rotation_allowed: True
+ * /move_base/controller_frequency: 20.0
+ * /move_base/controller_patience: 15.0
+ * /move_base/global_costmap/footprint: [[-0.21, -0.165],...
+ * /move_base/global_costmap/footprint_padding: 0.1
+ * /move_base/global_costmap/global_frame: map
+ * /move_base/global_costmap/height: 40.0
+ * /move_base/global_costmap/inflater_layer/inflation_radius: 0.3
+ * /move_base/global_costmap/map_type: costmap
+ * /move_base/global_costmap/meter_scoring: True
+ * /move_base/global_costmap/obstacle_range: 2.5
+ * /move_base/global_costmap/obstacles_layer/observation_sources: scan
+ * /move_base/global_costmap/obstacles_layer/scan/clearing: True
+ * /move_base/global_costmap/obstacles_layer/scan/data_type: LaserScan
+ * /move_base/global_costmap/obstacles_layer/scan/marking: True
+ * /move_base/global_costmap/obstacles_layer/scan/max_obstacle_height: 2.0
+ * /move_base/global_costmap/obstacles_layer/scan/min_obstacle_height: -2.0
+ * /move_base/global_costmap/obstacles_layer/scan/obstacle_range: 2.5
+ * /move_base/global_costmap/obstacles_layer/scan/raytrace_range: 3.0
+ * /move_base/global_costmap/obstacles_layer/scan/sensor_frame: front_laser
+ * /move_base/global_costmap/obstacles_layer/scan/topic: front/scan
+ * /move_base/global_costmap/origin_x: -20.0
+ * /move_base/global_costmap/origin_y: -20.0
+ * /move_base/global_costmap/origin_z: 0.0
+ * /move_base/global_costmap/plugins: [{'name': 'static...
+ * /move_base/global_costmap/publish_frequency: 5.0
+ * /move_base/global_costmap/publish_voxel_map: False
+ * /move_base/global_costmap/raytrace_range: 3.0
+ * /move_base/global_costmap/resolution: 0.05
+ * /move_base/global_costmap/robot_base_frame: base_link
+ * /move_base/global_costmap/rolling_window: False
+ * /move_base/global_costmap/static_map: True
+ * /move_base/global_costmap/transform_tolerance: 0.5
+ * /move_base/global_costmap/update_frequency: 20.0
+ * /move_base/global_costmap/width: 40.0
+ * /move_base/global_costmap/z_resolution: 1
+ * /move_base/global_costmap/z_voxels: 2
+ * /move_base/local_costmap/footprint: [[-0.21, -0.165],...
+ * /move_base/local_costmap/footprint_padding: 0.1
+ * /move_base/local_costmap/global_frame: map
+ * /move_base/local_costmap/height: 10.0
+ * /move_base/local_costmap/inflater_layer/inflation_radius: 0.3
+ * /move_base/local_costmap/map_type: costmap
+ * /move_base/local_costmap/meter_scoring: True
+ * /move_base/local_costmap/obstacle_range: 2.5
+ * /move_base/local_costmap/obstacles_layer/observation_sources: scan
+ * /move_base/local_costmap/obstacles_layer/scan/clearing: True
+ * /move_base/local_costmap/obstacles_layer/scan/data_type: LaserScan
+ * /move_base/local_costmap/obstacles_layer/scan/marking: True
+ * /move_base/local_costmap/obstacles_layer/scan/max_obstacle_height: 2.0
+ * /move_base/local_costmap/obstacles_layer/scan/min_obstacle_height: -2.0
+ * /move_base/local_costmap/obstacles_layer/scan/obstacle_range: 2.5
+ * /move_base/local_costmap/obstacles_layer/scan/raytrace_range: 3.0
+ * /move_base/local_costmap/obstacles_layer/scan/sensor_frame: front_laser
+ * /move_base/local_costmap/obstacles_layer/scan/topic: front/scan
+ * /move_base/local_costmap/origin_z: 0.0
+ * /move_base/local_costmap/plugins: [{'name': 'obstac...
+ * /move_base/local_costmap/publish_frequency: 5.0
+ * /move_base/local_costmap/publish_voxel_map: False
+ * /move_base/local_costmap/raytrace_range: 3.0
+ * /move_base/local_costmap/resolution: 0.05
+ * /move_base/local_costmap/robot_base_frame: base_link
+ * /move_base/local_costmap/rolling_window: True
+ * /move_base/local_costmap/static_map: False
+ * /move_base/local_costmap/transform_tolerance: 0.5
+ * /move_base/local_costmap/update_frequency: 20.0
+ * /move_base/local_costmap/width: 10.0
+ * /move_base/local_costmap/z_resolution: 1
+ * /move_base/local_costmap/z_voxels: 2
+ * /move_base/oscillation_distance: 0.5
+ * /move_base/oscillation_timeout: 0.0
+ * /move_base/planner_frequency: 20.0
+ * /move_base/planner_patience: 5.0
+ * /move_base/recovery_behavior_enabled: True
+ * /move_base/shutdown_costmaps: False
+ * /multi_floor_navigation_node/init_pose_offset_theta: 0.2
+ * /multi_floor_navigation_node/init_pose_offset_x: 0.4
+ * /multi_floor_navigation_node/init_pose_offset_y: 0.4
+ * /multi_floor_navigation_node/region_init_sigma_x: 0
+ * /multi_floor_navigation_node/region_init_sigma_y: 0
+ * /multi_floor_navigation_node/region_init_sigma_yaw: 0
+ * /robot_description: <?xml version="1....
+ * /rosdistro: noetic
+ * /rosversion: 1.17.0
+ * /twist_marker_server/link_name: base_link
+ * /twist_mux/locks: [{'name': 'e_stop...
+ * /twist_mux/topics: [{'name': 'joy', ...
+ * /use_gui: True
+ * /use_sim_time: True
+
+NODES
+  /
+    amcl (amcl/amcl)
+    change_map_node (multi_floor_nav/change_map_node)
+    controller_spawner (controller_manager/spawner)
+    ekf_localization (robot_localization/ekf_localization_node)
+    gazebo (gazebo_ros/gzserver)
+    map_server0 (map_server/map_server)
+    map_server1 (map_server/map_server)
+    move_base (move_base/move_base)
+    multi_floor_navigation_node (multi_floor_nav/multi_floor_navigation_node)
+    robot_state_publisher (robot_state_publisher/robot_state_publisher)
+    rviz (rviz/rviz)
+    twist_marker_server (interactive_marker_twist_server/marker_server)
+    twist_mux (twist_mux/twist_mux)
+    urdf_spawner (gazebo_ros/spawn_model)
+[ INFO] [1774856603.947050500]: Finished loading Gazebo ROS API Plugin.
+[ INFO] [1774856603.953068973]: waitForService: Service [/gazebo/set_physics_properties] has not been advertised, waiting...
+[1;33mWarning [Model.cc:216][0m Non-unique name[door] detected 2 times in XML children of model with name[elevator].
+[1;33mWarning [Model.cc:309][0m Joint with name [door] in model with name [elevator] has a name collision, changing joint name to [door_joint].
+[ERROR] [1774856605.159561, 0.000000]: Spawn service failed. Exiting.
+[ INFO] [1774856604.980682261]: waitForService: Service [/gazebo/set_physics_properties] is now available.
+[ INFO] [1774856605.163001259, 1054.799000000]: Physics dynamic reconfigure ready.
+[1;33mWarning [parser_urdf.cc:1161][0m multiple inconsistent <gravity> exists due to fixed joint reduction overwriting previous value [true] with [false].
+[1;33mWarning [parser_urdf.cc:1161][0m multiple inconsistent <gravity> exists due to fixed joint reduction overwriting previous value [false] with [true].
+[ERROR] [1774856605.612557384, 1054.799000000]: No p gain specified for pid.  Namespace: /gazebo_ros_control/pid_gains/front_left_wheel
+[ERROR] [1774856605.612978664, 1054.799000000]: No p gain specified for pid.  Namespace: /gazebo_ros_control/pid_gains/front_right_wheel
+[ERROR] [1774856605.613381437, 1054.799000000]: No p gain specified for pid.  Namespace: /gazebo_ros_control/pid_gains/rear_left_wheel
+[ERROR] [1774856605.613753549, 1054.799000000]: No p gain specified for pid.  Namespace: /gazebo_ros_control/pid_gains/rear_right_wheel
+[ WARN] [1774856605.657189584, 1054.802000000]: Failed to meet update rate! Took 1054.8019999999999072
+[ WARN] [1774856605.658177693, 1054.803000000]: Failed to meet update rate! Took 1054.7829999999999018
+[ WARN] [1774856605.937753130]: Interactive marker 'robot_twist_marker' contains unnormalized quaternions. This warning will only be output once but may be true for others; enable DEBUG messages for ros.rviz.quaternions to see more details.
+[ WARN] [1774856606.385459307, 1055.521000000]: Timed out waiting for transform from base_link to map to become available before running costmap, tf error: canTransform: target_frame map does not exist.. canTransform returned after 1055.52 timeout was 0.1.
+[ WARN] [1774856606.939765104, 1056.068000000]: global_costmap: Pre-Hydro parameter "static_map" unused since "plugins" is provided
+[ WARN] [1774856606.940434600, 1056.069000000]: global_costmap: Pre-Hydro parameter "map_type" unused since "plugins" is provided
+[ WARN] [1774856638.694572060, 1087.405000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774856638.907545642, 1087.617000000]: local_costmap: Pre-Hydro parameter "static_map" unused since "plugins" is provided
+[ WARN] [1774856638.907802587, 1087.618000000]: local_costmap: Pre-Hydro parameter "map_type" unused since "plugins" is provided
+[ WARN] [1774856638.945690178, 1087.655000000]: Parameter pdist_scale is deprecated. Please use the name path_distance_bias instead.
+[ WARN] [1774856638.946220480, 1087.656000000]: Parameter gdist_scale is deprecated. Please use the name goal_distance_bias instead.
+[ WARN] [1774856639.740920179, 1088.442000000]: The origin for the sensor at (0.21, 0.23) is out of map bounds. So, the costmap cannot raytrace for it.
+[ WARN] [1774856644.976127819, 1093.611000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774856651.278898042, 1099.814000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774856657.559454446, 1106.016000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ INFO] [1774856603.644967775]: [Multi Floor Nav] Module A sigma: L0=(0.000,0.000,0.000) L1=(0.000,0.000,0.000)
+[ INFO] [1774856603.645922780]: [Multi Floor Nav] Module A delay: L0=6.0s  L1=6.0s  backoff: factor=1.30 max=2.00
+[ INFO] [1774856638.670374829, 1087.381000000]: [Multi Floor Nav] Successfully loaded map for level: 0
+[ INFO] [1774856638.694717050, 1087.406000000]: [Multi Floor Nav] Initializing Robot at x: 5.4, y: -0.1, yaw: 0.2 (level=0, sigma: x=0.000, y=0.000, yaw=0.000, retry=0)
+[ INFO] [1774856638.694826840, 1087.406000000]: [Multi Floor Nav] Initializing Pose to x: 5.00, y: -0.50 at level: 0
+[ INFO] [1774856639.708147669, 1088.410000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (1.0/6.0s, L0)...
+[ INFO] [1774856640.922408905, 1089.610000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (2.2/6.0s, L0)...
+[ INFO] [1774856641.930794285, 1090.610000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (3.2/6.0s, L0)...
+[ INFO] [1774856643.146170113, 1091.808000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (4.4/6.0s, L0)...
+[ INFO] [1774856644.158743853, 1092.809000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (5.4/6.0s, L0)...
+[ INFO] [1774856644.773125777, 1093.411000000]: [Multi Floor Nav] Current Robot Pose, x: 5.40, y: -0.10, yaw: 0.25
+[ INFO] [1774856644.773194430, 1093.411000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.25
+[ INFO] [1774856644.773229770, 1093.411000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry (retry #1)
+[ INFO] [1774856644.976238936, 1093.611000000]: [Multi Floor Nav] Initializing Robot at x: 5.4, y: -0.1, yaw: 0.2 (level=0, sigma: x=0.000, y=0.000, yaw=0.000, retry=1)
+[ INFO] [1774856644.976312199, 1093.611000000]: [Multi Floor Nav] Initializing Pose to x: 5.00, y: -0.50 at level: 0
+[ INFO] [1774856645.996960530, 1094.614000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (1.0/6.0s, L0)...
+[ INFO] [1774856647.015976398, 1095.615000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (2.0/6.0s, L0)...
+[ INFO] [1774856648.231559933, 1096.814000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (3.2/6.0s, L0)...
+[ INFO] [1774856649.250705077, 1097.814000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (4.2/6.0s, L0)...
+[ INFO] [1774856650.265373347, 1098.814000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (5.2/6.0s, L0)...
+[ INFO] [1774856651.076356042, 1099.614000000]: [Multi Floor Nav] Current Robot Pose, x: 5.40, y: -0.10, yaw: 0.24
+[ INFO] [1774856651.076416035, 1099.614000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.24
+[ INFO] [1774856651.076440898, 1099.614000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry (retry #2)
+[ INFO] [1774856651.278926607, 1099.814000000]: [Multi Floor Nav] Initializing Robot at x: 5.4, y: -0.1, yaw: 0.2 (level=0, sigma: x=0.000, y=0.000, yaw=0.000, retry=2)
+[ INFO] [1774856651.278948467, 1099.814000000]: [Multi Floor Nav] Initializing Pose to x: 5.00, y: -0.50 at level: 0
+[ INFO] [1774856652.295588556, 1100.816000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (1.0/6.0s, L0)...
+[ INFO] [1774856653.311342783, 1101.817000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (2.0/6.0s, L0)...
+[ INFO] [1774856654.323373999, 1102.817000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (3.0/6.0s, L0)...
+[ INFO] [1774856655.332211319, 1103.817000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (4.0/6.0s, L0)...
+[ INFO] [1774856656.344791136, 1104.817000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (5.0/6.0s, L0)...
+[ INFO] [1774856657.359601322, 1105.817000000]: [Multi Floor Nav] Current Robot Pose, x: 5.40, y: -0.10, yaw: 0.24
+[ INFO] [1774856657.359626605, 1105.817000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.24
+[ INFO] [1774856657.359634706, 1105.817000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry (retry #3)
+[ INFO] [1774856657.559485037, 1106.016000000]: [Multi Floor Nav] Initializing Robot at x: 5.4, y: -0.1, yaw: 0.2 (level=0, s[ WARN] [1774856663.827192804, 1112.218000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774856670.117300306, 1118.421000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774856676.427826086, 1124.626000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+igma: x=0.000, y=0.000, yaw=0.000, retry=3)
+[ INFO] [1774856657.559506408, 1106.016000000]: [Multi Floor Nav] Initializing Pose to x: 5.00, y: -0.50 at level: 0
+[ INFO] [1774856658.571916511, 1107.018000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (1.0/6.0s, L0)...
+[ INFO] [1774856659.582770907, 1108.019000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (2.0/6.0s, L0)...
+[ INFO] [1774856660.592963002, 1109.019000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (3.0/6.0s, L0)...
+[ INFO] [1774856661.606650705, 1110.020000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (4.0/6.0s, L0)...
+[ INFO] [1774856662.816340014, 1111.218000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (5.2/6.0s, L0)...
+[ INFO] [1774856663.626358834, 1112.018000000]: [Multi Floor Nav] Current Robot Pose, x: 5.40, y: -0.10, yaw: 0.25
+[ INFO] [1774856663.626378809, 1112.018000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.25
+[ INFO] [1774856663.626388307, 1112.018000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry (retry #4)
+[ INFO] [1774856663.827221858, 1112.218000000]: [Multi Floor Nav] Initializing Robot at x: 5.4, y: -0.1, yaw: 0.2 (level=0, sigma: x=0.000, y=0.000, yaw=0.000, retry=4)
+[ INFO] [1774856663.827254753, 1112.218000000]: [Multi Floor Nav] Initializing Pose to x: 5.00, y: -0.50 at level: 0
+[ INFO] [1774856664.843232471, 1113.222000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (1.0/6.0s, L0)...
+[ INFO] [1774856666.057588202, 1114.422000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (2.2/6.0s, L0)...
+[ INFO] [1774856667.273052170, 1115.620000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (3.4/6.0s, L0)...
+[ INFO] [1774856668.287622732, 1116.621000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (4.4/6.0s, L0)...
+[ INFO] [1774856669.303968652, 1117.621000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (5.4/6.0s, L0)...
+[ INFO] [1774856669.913835708, 1118.221000000]: [Multi Floor Nav] Current Robot Pose, x: 5.40, y: -0.10, yaw: 0.24
+[ INFO] [1774856669.913882641, 1118.221000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.24
+[ INFO] [1774856669.913904361, 1118.221000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry (retry #5)
+[ INFO] [1774856670.117364700, 1118.421000000]: [Multi Floor Nav] Initializing Robot at x: 5.4, y: -0.1, yaw: 0.2 (level=0, sigma: x=0.000, y=0.000, yaw=0.000, retry=5)
+[ INFO] [1774856670.117431817, 1118.421000000]: [Multi Floor Nav] Initializing Pose to x: 5.00, y: -0.50 at level: 0
+[ INFO] [1774856671.138134065, 1119.424000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (1.0/6.0s, L0)...
+[ INFO] [1774856672.153800781, 1120.424000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (2.0/6.0s, L0)...
+[ INFO] [1774856673.171164841, 1121.424000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (3.0/6.0s, L0)...
+[ INFO] [1774856674.190199986, 1122.424000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (4.0/6.0s, L0)...
+[ INFO] [1774856675.207369329, 1123.424000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (5.0/6.0s, L0)...
+[ INFO] [1774856676.224360160, 1124.425000000]: [Multi Floor Nav] Current Robot Pose, x: 5.40, y: -0.10, yaw: 0.25
+[ INFO] [1774856676.224430769, 1124.425000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.25
+[ INFO] [1774856676.224471766, 1124.425000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry (retry #6)
+[ INFO] [1774856676.427892854, 1124.626000000]: [Multi Floor Nav] Initializing Robot at x: 5.4, y: -0.1, yaw: 0.2 (level=0, sigma: x=0.000, y=0.000, yaw=0.000, retry=6)
+[ INFO] [1774856676.427938739, 1124.626000000]: [Multi Floor Nav] Initializing Pose to x: 5.00, y: -0.50 at level: 0
+[ INFO] [1774856677.443464307, 1125.629000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (1.0/6.0s, L0)...
+[ INFO] [1774856678.458696123, 1126.630000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (2.0/6.0s, L0)...
+[ INFO] [1774856679.471563335, 1127.630000000]: [Multi Fl[ WARN] [1774856682.718989513, 1130.830000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774856688.993669222, 1137.033000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774856695.264419191, 1143.237000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+oor Nav] Waiting for AMCL nomotion updates (3.0/6.0s, L0)...
+[ INFO] [1774856680.690605184, 1128.829000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (4.2/6.0s, L0)...
+[ INFO] [1774856681.705409155, 1129.830000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (5.2/6.0s, L0)...
+[ INFO] [1774856682.514631230, 1130.629000000]: [Multi Floor Nav] Current Robot Pose, x: 5.40, y: -0.10, yaw: 0.24
+[ INFO] [1774856682.514693737, 1130.629000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.24
+[ INFO] [1774856682.514729496, 1130.630000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry (retry #7)
+[ INFO] [1774856682.719067246, 1130.830000000]: [Multi Floor Nav] Initializing Robot at x: 5.4, y: -0.1, yaw: 0.2 (level=0, sigma: x=0.000, y=0.000, yaw=0.000, retry=7)
+[ INFO] [1774856682.719229975, 1130.830000000]: [Multi Floor Nav] Initializing Pose to x: 5.00, y: -0.50 at level: 0
+[ INFO] [1774856683.731738833, 1131.832000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (1.0/6.0s, L0)...
+[ INFO] [1774856684.744437030, 1132.833000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (2.0/6.0s, L0)...
+[ INFO] [1774856685.756107797, 1133.833000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (3.0/6.0s, L0)...
+[ INFO] [1774856686.973135503, 1135.033000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (4.2/6.0s, L0)...
+[ INFO] [1774856687.983724085, 1136.033000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (5.2/6.0s, L0)...
+[ INFO] [1774856688.790440825, 1136.833000000]: [Multi Floor Nav] Current Robot Pose, x: 5.40, y: -0.10, yaw: 0.25
+[ INFO] [1774856688.790458355, 1136.833000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.25
+[ INFO] [1774856688.790466596, 1136.833000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry (retry #8)
+[ INFO] [1774856688.993751564, 1137.033000000]: [Multi Floor Nav] Initializing Robot at x: 5.4, y: -0.1, yaw: 0.2 (level=0, sigma: x=0.000, y=0.000, yaw=0.000, retry=8)
+[ INFO] [1774856688.993854719, 1137.033000000]: [Multi Floor Nav] Initializing Pose to x: 5.00, y: -0.50 at level: 0
+[ INFO] [1774856690.008970321, 1138.036000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (1.0/6.0s, L0)...
+[ INFO] [1774856691.220066645, 1139.235000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (2.2/6.0s, L0)...
+[ INFO] [1774856692.231074203, 1140.236000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (3.2/6.0s, L0)...
+[ INFO] [1774856693.442440183, 1141.436000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (4.4/6.0s, L0)...
+[ INFO] [1774856694.656850530, 1142.636000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (5.6/6.0s, L0)...
+[ INFO] [1774856695.061859940, 1143.037000000]: [Multi Floor Nav] Current Robot Pose, x: 5.40, y: -0.10, yaw: 0.24
+[ INFO] [1774856695.061885851, 1143.037000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.24
+[ INFO] [1774856695.061895978, 1143.037000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry (retry #9)
+[ INFO] [1774856695.264498809, 1143.237000000]: [Multi Floor Nav] Initializing Robot at x: 5.4, y: -0.1, yaw: 0.2 (level=0, sigma: x=0.000, y=0.000, yaw=0.000, retry=9)
+[ INFO] [1774856695.264570327, 1143.237000000]: [Multi Floor Nav] Initializing Pose to x: 5.00, y: -0.50 at level: 0
+[ INFO] [1774856696.280205544, 1144.240000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (1.0/6.0s, L0)...
+[ INFO] [1774856697.490714158, 1145.440000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (2.2/6.0s, L0)...
+[ INFO] [1774856698.501241279, 1146.441000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (3.2/6.0s, L0)...
+[ INFO] [1774856699.712090088, 1147.639000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (4.4/6.0s, L0)...
+[ INFO] [1774856700.724315741, 1148.640000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (5.4/6.0s, L0)...
+[ INFO] [1774856701.332574500, 1149.239000000]: [Multi Floor Nav] Current Robot Pose, x: 5.40, y: -0.10, yaw: 0.24
+[ INFO] [1774856701.332599712, 1149.239000[ WARN] [1774856701.535590929, 1149.440000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774856707.818261349, 1155.643000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774856714.121464795, 1161.849000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774856720.413059001, 1168.051000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.24
+[ INFO] [1774856701.332623249, 1149.240000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry (retry #10)
+[ INFO] [1774856701.535669430, 1149.440000000]: [Multi Floor Nav] Initializing Robot at x: 5.4, y: -0.1, yaw: 0.2 (level=0, sigma: x=0.000, y=0.000, yaw=0.000, retry=10)
+[ INFO] [1774856701.535731868, 1149.440000000]: [Multi Floor Nav] Initializing Pose to x: 5.00, y: -0.50 at level: 0
+[ INFO] [1774856702.550857387, 1150.444000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (1.0/6.0s, L0)...
+[ INFO] [1774856703.764320202, 1151.643000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (2.2/6.0s, L0)...
+[ INFO] [1774856704.777980458, 1152.644000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (3.2/6.0s, L0)...
+[ INFO] [1774856705.990412420, 1153.843000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (4.4/6.0s, L0)...
+[ INFO] [1774856707.009189433, 1154.845000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (5.4/6.0s, L0)...
+[ INFO] [1774856707.615755666, 1155.443000000]: [Multi Floor Nav] Current Robot Pose, x: 5.40, y: -0.10, yaw: 0.24
+[ INFO] [1774856707.615800295, 1155.443000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.24
+[ INFO] [1774856707.615822225, 1155.443000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry (retry #11)
+[ INFO] [1774856707.818355565, 1155.643000000]: [Multi Floor Nav] Initializing Robot at x: 5.4, y: -0.1, yaw: 0.2 (level=0, sigma: x=0.000, y=0.000, yaw=0.000, retry=11)
+[ INFO] [1774856707.818475691, 1155.644000000]: [Multi Floor Nav] Initializing Pose to x: 5.00, y: -0.50 at level: 0
+[ INFO] [1774856708.838493288, 1156.648000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (1.0/6.0s, L0)...
+[ INFO] [1774856710.054894870, 1157.847000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (2.2/6.0s, L0)...
+[ INFO] [1774856711.273167281, 1159.046000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (3.4/6.0s, L0)...
+[ INFO] [1774856712.288578519, 1160.048000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (4.4/6.0s, L0)...
+[ INFO] [1774856713.510762023, 1161.249000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (5.6/6.0s, L0)...
+[ INFO] [1774856713.916415087, 1161.647000000]: [Multi Floor Nav] Current Robot Pose, x: 5.40, y: -0.10, yaw: 0.24
+[ INFO] [1774856713.916475429, 1161.647000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.24
+[ INFO] [1774856713.916505531, 1161.648000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry (retry #12)
+[ INFO] [1774856714.121531004, 1161.849000000]: [Multi Floor Nav] Initializing Robot at x: 5.4, y: -0.1, yaw: 0.2 (level=0, sigma: x=0.000, y=0.000, yaw=0.000, retry=12)
+[ INFO] [1774856714.121595118, 1161.849000000]: [Multi Floor Nav] Initializing Pose to x: 5.00, y: -0.50 at level: 0
+[ INFO] [1774856715.140653729, 1162.851000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (1.0/6.0s, L0)...
+[ INFO] [1774856716.156861922, 1163.852000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (2.0/6.0s, L0)...
+[ INFO] [1774856717.172142209, 1164.852000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (3.0/6.0s, L0)...
+[ INFO] [1774856718.187760385, 1165.853000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (4.0/6.0s, L0)...
+[ INFO] [1774856719.404043028, 1167.053000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (5.2/6.0s, L0)...
+[ INFO] [1774856720.211134465, 1167.851000000]: [Multi Floor Nav] Current Robot Pose, x: 5.40, y: -0.10, yaw: 0.24
+[ INFO] [1774856720.211154649, 1167.851000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.24
+[ INFO] [1774856720.211164427, 1167.851000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry (retry #13)
+[ INFO] [1774856720.413088125, 1168.051000000]: [Multi Floor Nav] Initializing Robot at x: 5.4, y: -0.1, yaw: 0.2 (level=0, sigma: x=0.000, y=0.000, yaw=0.000, retry=13)
+[ INFO] [1774856720.413111941, 1168.051000000]: [Multi Floor Nav] Initializing Pose to x: 5.00, [ WARN] [1774856726.685894281, 1174.254000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774856732.982196534, 1180.456000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774856739.279408885, 1186.658000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+y: -0.50 at level: 0
+[ INFO] [1774856721.428242488, 1169.054000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (1.0/6.0s, L0)...
+[ INFO] [1774856722.641242746, 1170.255000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (2.2/6.0s, L0)...
+[ INFO] [1774856723.853073239, 1171.454000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (3.4/6.0s, L0)...
+[ INFO] [1774856724.862827571, 1172.454000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (4.4/6.0s, L0)...
+[ INFO] [1774856725.874749416, 1173.454000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (5.4/6.0s, L0)...
+[ INFO] [1774856726.483772654, 1174.054000000]: [Multi Floor Nav] Current Robot Pose, x: 5.40, y: -0.10, yaw: 0.24
+[ INFO] [1774856726.483824615, 1174.054000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.24
+[ INFO] [1774856726.483855345, 1174.054000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry (retry #14)
+[ INFO] [1774856726.685934509, 1174.254000000]: [Multi Floor Nav] Initializing Robot at x: 5.4, y: -0.1, yaw: 0.2 (level=0, sigma: x=0.000, y=0.000, yaw=0.000, retry=14)
+[ INFO] [1774856726.685988706, 1174.254000000]: [Multi Floor Nav] Initializing Pose to x: 5.00, y: -0.50 at level: 0
+[ INFO] [1774856727.701308732, 1175.257000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (1.0/6.0s, L0)...
+[ INFO] [1774856728.916511634, 1176.458000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (2.2/6.0s, L0)...
+[ INFO] [1774856730.134597849, 1177.656000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (3.4/6.0s, L0)...
+[ INFO] [1774856731.150578989, 1178.656000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (4.4/6.0s, L0)...
+[ INFO] [1774856732.165693612, 1179.656000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (5.4/6.0s, L0)...
+[ INFO] [1774856732.778689961, 1180.256000000]: [Multi Floor Nav] Current Robot Pose, x: 5.40, y: -0.10, yaw: 0.24
+[ INFO] [1774856732.778708679, 1180.256000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.24
+[ INFO] [1774856732.778718177, 1180.256000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry (retry #15)
+[ INFO] [1774856732.982224191, 1180.456000000]: [Multi Floor Nav] Initializing Robot at x: 5.4, y: -0.1, yaw: 0.2 (level=0, sigma: x=0.000, y=0.000, yaw=0.000, retry=15)
+[ INFO] [1774856732.982254712, 1180.456000000]: [Multi Floor Nav] Initializing Pose to x: 5.00, y: -0.50 at level: 0
+[ INFO] [1774856734.006906046, 1181.459000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (1.0/6.0s, L0)...
+[ INFO] [1774856735.020410766, 1182.459000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (2.0/6.0s, L0)...
+[ INFO] [1774856736.235392132, 1183.658000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (3.2/6.0s, L0)...
+[ INFO] [1774856737.255635106, 1184.659000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (4.2/6.0s, L0)...
+[ INFO] [1774856738.269398028, 1185.659000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (5.2/6.0s, L0)...
+[ INFO] [1774856739.081128859, 1186.460000000]: [Multi Floor Nav] Current Robot Pose, x: 5.40, y: -0.10, yaw: 0.24
+[ INFO] [1774856739.081182287, 1186.460000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.24
+[ INFO] [1774856739.081219093, 1186.460000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry (retry #16)
+[ INFO] [1774856739.279437939, 1186.658000000]: [Multi Floor Nav] Initializing Robot at x: 5.4, y: -0.1, yaw: 0.2 (level=0, sigma: x=0.000, y=0.000, yaw=0.000, retry=16)
+[ INFO] [1774856739.279465107, 1186.658000000]: [Multi Floor Nav] Initializing Pose to x: 5.00, y: -0.50 at level: 0
+[ INFO] [1774856740.295870880, 1187.662000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (1.0/6.0s, L0)...
+[ INFO] [1774856741.511214372, 1188.860000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (2.2/6.0s, L0)...
+[ INFO] [1774856742.525389914, 1189.862000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (3.2/6.0s, L0)...
+[ INFO] [1774856743.737119556, 1191.061000000]: [Multi Floor Nav] Waiting[ WARN] [1774856745.554552478, 1192.859000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774856751.851553769, 1199.064000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774856758.158161053, 1205.269000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+ for AMCL nomotion updates (4.4/6.0s, L0)...
+[ INFO] [1774856744.747768550, 1192.061000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (5.4/6.0s, L0)...
+[ INFO] [1774856745.354039706, 1192.662000000]: [Multi Floor Nav] Current Robot Pose, x: 5.40, y: -0.10, yaw: 0.24
+[ INFO] [1774856745.354094880, 1192.662000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.24
+[ INFO] [1774856745.354150613, 1192.662000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry (retry #17)
+[ INFO] [1774856745.554592846, 1192.860000000]: [Multi Floor Nav] Initializing Robot at x: 5.4, y: -0.1, yaw: 0.2 (level=0, sigma: x=0.000, y=0.000, yaw=0.000, retry=17)
+[ INFO] [1774856745.554618617, 1192.860000000]: [Multi Floor Nav] Initializing Pose to x: 5.00, y: -0.50 at level: 0
+[ INFO] [1774856746.573417001, 1193.864000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (1.0/6.0s, L0)...
+[ INFO] [1774856747.786002683, 1195.063000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (2.2/6.0s, L0)...
+[ INFO] [1774856748.802206337, 1196.063000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (3.2/6.0s, L0)...
+[ INFO] [1774856749.817180720, 1197.063000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (4.2/6.0s, L0)...
+[ INFO] [1774856751.038850473, 1198.264000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (5.4/6.0s, L0)...
+[ INFO] [1774856751.648173678, 1198.864000000]: [Multi Floor Nav] Current Robot Pose, x: 5.40, y: -0.10, yaw: 0.24
+[ INFO] [1774856751.648231646, 1198.864000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.24
+[ INFO] [1774856751.648254135, 1198.864000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry (retry #18)
+[ INFO] [1774856751.851604334, 1199.064000000]: [Multi Floor Nav] Initializing Robot at x: 5.4, y: -0.1, yaw: 0.2 (level=0, sigma: x=0.000, y=0.000, yaw=0.000, retry=18)
+[ INFO] [1774856751.851621934, 1199.064000000]: [Multi Floor Nav] Initializing Pose to x: 5.00, y: -0.50 at level: 0
+[ INFO] [1774856752.872258042, 1200.067000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (1.0/6.0s, L0)...
+[ INFO] [1774856754.091979653, 1201.268000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (2.2/6.0s, L0)...
+[ INFO] [1774856755.310162248, 1202.467000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (3.4/6.0s, L0)...
+[ INFO] [1774856756.326503349, 1203.468000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (4.4/6.0s, L0)...
+[ INFO] [1774856757.545860459, 1204.667000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (5.6/6.0s, L0)...
+[ INFO] [1774856757.952915650, 1205.067000000]: [Multi Floor Nav] Current Robot Pose, x: 5.40, y: -0.10, yaw: 0.24
+[ INFO] [1774856757.952934647, 1205.067000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.24
+[ INFO] [1774856757.952942329, 1205.067000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry (retry #19)
+[ INFO] [1774856758.158245072, 1205.269000000]: [Multi Floor Nav] Initializing Robot at x: 5.4, y: -0.1, yaw: 0.2 (level=0, sigma: x=0.000, y=0.000, yaw=0.000, retry=19)
+[ INFO] [1774856758.158812320, 1205.270000000]: [Multi Floor Nav] Initializing Pose to x: 5.00, y: -0.50 at level: 0
+[ INFO] [1774856759.178143590, 1206.272000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (1.0/6.0s, L0)...
+[ INFO] [1774856760.192209272, 1207.274000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (2.0/6.0s, L0)...
+[ INFO] [1774856761.405310311, 1208.473000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (3.2/6.0s, L0)...
+[ INFO] [1774856762.419080287, 1209.473000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (4.2/6.0s, L0)...
+[ INFO] [1774856763.633968067, 1210.672000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (5.4/6.0s, L0)...
+[ INFO] [1774856764.241294589, 1211.272000000]: [Multi Floor Nav] Current Robot Pose, x: 5.40, y: -0.10, yaw: 0.24
+[ INFO] [1774856764.241317008, 1211.272000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.24
+[ INFO] [1774856764.241326506, 1211.272000000]: [Multi Floor Nav[ WARN] [1774856764.442295828, 1211.472000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774856770.720425470, 1217.674000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774856776.981170445, 1223.876000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774856783.241050370, 1230.078000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+] Setting initial pose failed. Will Retry (retry #20)
+[ INFO] [1774856764.442326767, 1211.472000000]: [Multi Floor Nav] Initializing Robot at x: 5.4, y: -0.1, yaw: 0.2 (level=0, sigma: x=0.000, y=0.000, yaw=0.000, retry=20)
+[ INFO] [1774856764.442345205, 1211.472000000]: [Multi Floor Nav] Initializing Pose to x: 5.00, y: -0.50 at level: 0
+[ INFO] [1774856765.459069174, 1212.475000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (1.0/6.0s, L0)...
+[ INFO] [1774856766.473202951, 1213.476000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (2.0/6.0s, L0)...
+[ INFO] [1774856767.687404613, 1214.675000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (3.2/6.0s, L0)...
+[ INFO] [1774856768.898124845, 1215.875000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (4.4/6.0s, L0)...
+[ INFO] [1774856769.910804953, 1216.876000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (5.4/6.0s, L0)...
+[ INFO] [1774856770.518423480, 1217.474000000]: [Multi Floor Nav] Current Robot Pose, x: 5.40, y: -0.10, yaw: 0.24
+[ INFO] [1774856770.518443035, 1217.474000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.24
+[ INFO] [1774856770.518452603, 1217.474000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry (retry #21)
+[ INFO] [1774856770.720460250, 1217.674000000]: [Multi Floor Nav] Initializing Robot at x: 5.4, y: -0.1, yaw: 0.2 (level=0, sigma: x=0.000, y=0.000, yaw=0.000, retry=21)
+[ INFO] [1774856770.720485672, 1217.674000000]: [Multi Floor Nav] Initializing Pose to x: 5.00, y: -0.50 at level: 0
+[ INFO] [1774856771.733303716, 1218.676000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (1.0/6.0s, L0)...
+[ INFO] [1774856772.743158829, 1219.678000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (2.0/6.0s, L0)...
+[ INFO] [1774856773.956220268, 1220.876000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (3.2/6.0s, L0)...
+[ INFO] [1774856774.965063105, 1221.877000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (4.2/6.0s, L0)...
+[ INFO] [1774856776.174362562, 1223.077000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (5.4/6.0s, L0)...
+[ INFO] [1774856776.780420354, 1223.677000000]: [Multi Floor Nav] Current Robot Pose, x: 5.40, y: -0.10, yaw: 0.24
+[ INFO] [1774856776.780452341, 1223.677000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.24
+[ INFO] [1774856776.780467427, 1223.677000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry (retry #22)
+[ INFO] [1774856776.981234210, 1223.876000000]: [Multi Floor Nav] Initializing Robot at x: 5.4, y: -0.1, yaw: 0.2 (level=0, sigma: x=0.000, y=0.000, yaw=0.000, retry=22)
+[ INFO] [1774856776.981290990, 1223.876000000]: [Multi Floor Nav] Initializing Pose to x: 5.00, y: -0.50 at level: 0
+[ INFO] [1774856777.994901799, 1224.879000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (1.0/6.0s, L0)...
+[ INFO] [1774856779.005184547, 1225.879000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (2.0/6.0s, L0)...
+[ INFO] [1774856780.215797433, 1227.079000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (3.2/6.0s, L0)...
+[ INFO] [1774856781.221314654, 1228.079000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (4.2/6.0s, L0)...
+[ INFO] [1774856782.232149565, 1229.079000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (5.2/6.0s, L0)...
+[ INFO] [1774856783.039263351, 1229.878000000]: [Multi Floor Nav] Current Robot Pose, x: 5.40, y: -0.10, yaw: 0.24
+[ INFO] [1774856783.039283814, 1229.878000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.24
+[ INFO] [1774856783.039293383, 1229.878000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry (retry #23)
+[ INFO] [1774856783.241078516, 1230.078000000]: [Multi Floor Nav] Initializing Robot at x: 5.4, y: -0.1, yaw: 0.2 (level=0, sigma: x=0.000, y=0.000, yaw=0.000, retry=23)
+[ INFO] [1774856783.241105684, 1230.078000000]: [Multi Floor Nav] Initializing Pose to x: 5.00, y: -0.50 at level: 0
+[ INFO] [1774856784.252709334, 1231.080000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (1.0/6.[ WARN] [1774856789.500760513, 1236.279000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774856795.774071688, 1242.484000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774856802.045659679, 1248.686000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+0s, L0)...
+[ INFO] [1774856785.262885365, 1232.080000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (2.0/6.0s, L0)...
+[ INFO] [1774856786.275758165, 1233.081000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (3.0/6.0s, L0)...
+[ INFO] [1774856787.283845882, 1234.082000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (4.0/6.0s, L0)...
+[ INFO] [1774856788.292042621, 1235.082000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (5.0/6.0s, L0)...
+[ INFO] [1774856789.299716531, 1236.080000000]: [Multi Floor Nav] Current Robot Pose, x: 5.40, y: -0.10, yaw: 0.24
+[ INFO] [1774856789.299736994, 1236.080000000]: [Multi Floor Nav] Linear Error: 0.56, Angular Error: 0.24
+[ INFO] [1774856789.299746143, 1236.080000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry (retry #24)
+[ INFO] [1774856789.500789077, 1236.279000000]: [Multi Floor Nav] Initializing Robot at x: 5.4, y: -0.1, yaw: 0.2 (level=0, sigma: x=0.000, y=0.000, yaw=0.000, retry=24)
+[ INFO] [1774856789.500821484, 1236.279000000]: [Multi Floor Nav] Initializing Pose to x: 5.00, y: -0.50 at level: 0
+[ INFO] [1774856790.514358261, 1237.282000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (1.0/6.0s, L0)...
+[ INFO] [1774856791.526085948, 1238.283000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (2.0/6.0s, L0)...
+[ INFO] [1774856792.737533573, 1239.484000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (3.2/6.0s, L0)...
+[ INFO] [1774856793.951874777, 1240.683000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (4.4/6.0s, L0)...
+[ INFO] [1774856795.166459307, 1241.882000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (5.6/6.0s, L0)...
+[ INFO] [1774856795.570728962, 1242.283000000]: [Multi Floor Nav] Current Robot Pose, x: 5.38, y: -0.09, yaw: 0.24
+[ INFO] [1774856795.570746981, 1242.283000000]: [Multi Floor Nav] Linear Error: 0.56, Angular Error: 0.24
+[ INFO] [1774856795.570755641, 1242.283000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry (retry #25)
+[ INFO] [1774856795.774169955, 1242.484000000]: [Multi Floor Nav] Initializing Robot at x: 5.4, y: -0.1, yaw: 0.2 (level=0, sigma: x=0.000, y=0.000, yaw=0.000, retry=25)
+[ INFO] [1774856795.774239446, 1242.484000000]: [Multi Floor Nav] Initializing Pose to x: 5.00, y: -0.50 at level: 0
+[ INFO] [1774856796.786650178, 1243.486000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (1.0/6.0s, L0)...
+[ INFO] [1774856797.798576563, 1244.488000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (2.0/6.0s, L0)...
+[ INFO] [1774856798.807686681, 1245.488000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (3.0/6.0s, L0)...
+[ INFO] [1774856799.819890544, 1246.488000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (4.0/6.0s, L0)...
+[ INFO] [1774856801.034544287, 1247.688000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (5.2/6.0s, L0)...
+[ INFO] [1774856801.843890888, 1248.487000000]: [Multi Floor Nav] Current Robot Pose, x: 5.40, y: -0.10, yaw: 0.24
+[ INFO] [1774856801.843911281, 1248.487000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.24
+[ INFO] [1774856801.843920361, 1248.487000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry (retry #26)
+[ INFO] [1774856802.045692085, 1248.686000000]: [Multi Floor Nav] Initializing Robot at x: 5.4, y: -0.1, yaw: 0.2 (level=0, sigma: x=0.000, y=0.000, yaw=0.000, retry=26)
+[ INFO] [1774856802.045725050, 1248.686000000]: [Multi Floor Nav] Initializing Pose to x: 5.00, y: -0.50 at level: 0
+[ INFO] [1774856803.062960114, 1249.688000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (1.0/6.0s, L0)...
+[ INFO] [1774856804.076908603, 1250.690000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (2.0/6.0s, L0)...
+[ INFO] [1774856805.292447580, 1251.889000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (3.2/6.0s, L0)...
+[ INFO] [1774856806.507235138, 1253.090000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (4.4/6.0s, L0)...
+[ INFO] [1774856807.523476296, 1254.091000000]: [Multi Floor Nav] Waiting for AMCL [ WARN] [1774856808.336361876, 1254.890000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774856814.627996311, 1261.095000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774856820.897417626, 1267.298000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774856827.174185579, 1273.502000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+nomotion updates (5.4/6.0s, L0)...
+[ INFO] [1774856808.132052272, 1254.689000000]: [Multi Floor Nav] Current Robot Pose, x: 5.40, y: -0.10, yaw: 0.24
+[ INFO] [1774856808.132117992, 1254.689000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.24
+[ INFO] [1774856808.132159478, 1254.689000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry (retry #27)
+[ INFO] [1774856808.336446873, 1254.891000000]: [Multi Floor Nav] Initializing Robot at x: 5.4, y: -0.1, yaw: 0.2 (level=0, sigma: x=0.000, y=0.000, yaw=0.000, retry=27)
+[ INFO] [1774856808.336541787, 1254.891000000]: [Multi Floor Nav] Initializing Pose to x: 5.00, y: -0.50 at level: 0
+[ INFO] [1774856809.352542622, 1255.893000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (1.0/6.0s, L0)...
+[ INFO] [1774856810.366396058, 1256.893000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (2.0/6.0s, L0)...
+[ INFO] [1774856811.385058252, 1257.894000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (3.0/6.0s, L0)...
+[ INFO] [1774856812.399463780, 1258.894000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (4.0/6.0s, L0)...
+[ INFO] [1774856813.616624603, 1260.094000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (5.2/6.0s, L0)...
+[ INFO] [1774856814.423357337, 1260.894000000]: [Multi Floor Nav] Current Robot Pose, x: 5.40, y: -0.10, yaw: 0.24
+[ INFO] [1774856814.423376822, 1260.894000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.24
+[ INFO] [1774856814.423386181, 1260.894000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry (retry #28)
+[ INFO] [1774856814.628086406, 1261.095000000]: [Multi Floor Nav] Initializing Robot at x: 5.4, y: -0.1, yaw: 0.2 (level=0, sigma: x=0.000, y=0.000, yaw=0.000, retry=28)
+[ INFO] [1774856814.628151707, 1261.096000000]: [Multi Floor Nav] Initializing Pose to x: 5.00, y: -0.50 at level: 0
+[ INFO] [1774856815.644174053, 1262.100000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (1.0/6.0s, L0)...
+[ INFO] [1774856816.856625432, 1263.301000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (2.2/6.0s, L0)...
+[ INFO] [1774856818.071751788, 1264.500000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (3.4/6.0s, L0)...
+[ INFO] [1774856819.284435108, 1265.699000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (4.6/6.0s, L0)...
+[ INFO] [1774856820.292442997, 1266.699000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (5.6/6.0s, L0)...
+[ INFO] [1774856820.696312324, 1267.098000000]: [Multi Floor Nav] Current Robot Pose, x: 5.40, y: -0.10, yaw: 0.24
+[ INFO] [1774856820.696352342, 1267.098000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.24
+[ INFO] [1774856820.696369104, 1267.098000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry (retry #29)
+[ INFO] [1774856820.897445492, 1267.298000000]: [Multi Floor Nav] Initializing Robot at x: 5.4, y: -0.1, yaw: 0.2 (level=0, sigma: x=0.000, y=0.000, yaw=0.000, retry=29)
+[ INFO] [1774856820.897470356, 1267.298000000]: [Multi Floor Nav] Initializing Pose to x: 5.00, y: -0.50 at level: 0
+[ INFO] [1774856821.913950230, 1268.301000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (1.0/6.0s, L0)...
+[ INFO] [1774856822.921769129, 1269.301000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (2.0/6.0s, L0)...
+[ INFO] [1774856823.933758860, 1270.301000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (3.0/6.0s, L0)...
+[ INFO] [1774856825.146095350, 1271.500000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (4.2/6.0s, L0)...
+[ INFO] [1774856826.162986098, 1272.501000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (5.2/6.0s, L0)...
+[ INFO] [1774856826.971697566, 1273.302000000]: [Multi Floor Nav] Current Robot Pose, x: 5.40, y: -0.10, yaw: 0.24
+[ INFO] [1774856826.971741705, 1273.302000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.24
+[ INFO] [1774856826.971764543, 1273.302000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry (retry #30)
+[ INFO] [1774856827.174215191, 1273.502000000]: [Multi Floor Nav] Initiali[ WARN] [1774856833.457094226, 1279.706000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774856839.742785756, 1285.908000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+zing Robot at x: 5.4, y: -0.1, yaw: 0.2 (level=0, sigma: x=0.000, y=0.000, yaw=0.000, retry=30)
+[ INFO] [1774856827.174235166, 1273.502000000]: [Multi Floor Nav] Initializing Pose to x: 5.00, y: -0.50 at level: 0
+[ INFO] [1774856828.189554074, 1274.505000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (1.0/6.0s, L0)...
+[ INFO] [1774856829.202660910, 1275.505000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (2.0/6.0s, L0)...
+[ INFO] [1774856830.216204183, 1276.506000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (3.0/6.0s, L0)...
+[ INFO] [1774856831.429316047, 1277.706000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (4.2/6.0s, L0)...
+[ INFO] [1774856832.644627970, 1278.905000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (5.4/6.0s, L0)...
+[ INFO] [1774856833.254808403, 1279.505000000]: [Multi Floor Nav] Current Robot Pose, x: 5.40, y: -0.10, yaw: 0.24
+[ INFO] [1774856833.254831799, 1279.505000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.24
+[ INFO] [1774856833.254843672, 1279.505000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry (retry #31)
+[ INFO] [1774856833.457176569, 1279.706000000]: [Multi Floor Nav] Initializing Robot at x: 5.4, y: -0.1, yaw: 0.2 (level=0, sigma: x=0.000, y=0.000, yaw=0.000, retry=31)
+[ INFO] [1774856833.457224480, 1279.706000000]: [Multi Floor Nav] Initializing Pose to x: 5.00, y: -0.50 at level: 0
+[ INFO] [1774856834.478271881, 1280.709000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (1.0/6.0s, L0)...
+[ INFO] [1774856835.489515641, 1281.709000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (2.0/6.0s, L0)...
+[ INFO] [1774856836.509342432, 1282.709000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (3.0/6.0s, L0)...
+[ INFO] [1774856837.724231609, 1283.910000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (4.2/6.0s, L0)...
+[ INFO] [1774856838.734599563, 1284.910000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (5.2/6.0s, L0)...
+[ INFO] [1774856839.540747379, 1285.708000000]: [Multi Floor Nav] Current Robot Pose, x: 5.40, y: -0.10, yaw: 0.24
+[ INFO] [1774856839.540775315, 1285.708000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.24
+[ INFO] [1774856839.540784813, 1285.708000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry (retry #32)
+[ INFO] [1774856839.742814321, 1285.908000000]: [Multi Floor Nav] Initializing Robot at x: 5.4, y: -0.1, yaw: 0.2 (level=0, sigma: x=0.000, y=0.000, yaw=0.000, retry=32)
+[ INFO] [1774856839.742832409, 1285.908000000]: [Multi Floor Nav] Initializing Pose to x: 5.00, y: -0.50 at level: 0
+[ INFO] [1774856840.756673344, 1286.911000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (1.0/6.0s, L0)...
+[ INFO] [1774856841.765930408, 1287.912000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (2.0/6.0s, L0)...
+[ INFO] [1774856606.942229512, 1056.071000000]: global_costmap: Using plugin "static_layer"
+[ INFO] [1774856606.946642062, 1056.076000000]: Requesting the map...
+[ INFO] [1774856638.767250495, 1087.478000000]: Resizing costmap to 992 X 992 at 0.020000 m/pix
+[ INFO] [1774856638.866612498, 1087.577000000]: Received a 992 X 992 map at 0.020000 m/pix
+[ INFO] [1774856638.868860398, 1087.579000000]: global_costmap: Using plugin "obstacles_layer"
+[ INFO] [1774856638.872317455, 1087.582000000]:     Subscribed to Topics: scan
+[ INFO] [1774856638.883994510, 1087.594000000]: global_costmap: Using plugin "inflater_layer"
+[ INFO] [1774856638.908196979, 1087.618000000]: local_costmap: Using plugin "obstacles_layer"
+[ INFO] [1774856638.910855684, 1087.621000000]:     Subscribed to Topics: scan
+[ INFO] [1774856638.918978324, 1087.629000000]: local_costmap: Using plugin "inflater_layer"
+[ INFO] [1774856638.938306315, 1087.648000000]: Created local_planner base_local_planner/TrajectoryPlannerROS
+[ INFO] [1774856638.942955137, 1087.653000000]: Sim period is set to 0.05
+[ INFO] [1774856638.994853868, 1087.704000000]: Recovery behavior will clear layer 'obstacles'
+[ INFO] [1774856638.998637151, 1087.708000000]: Recovery behavior will clear layer 'obstacles'
+[ INFO] [1774856639.094529666, 1087.803000000]: odom received!
+[WARN] [1774856857.676071, 1288.765000]: Controller Spawner error while taking down controllers: transport error completing service call: unable to receive data from sender, check sender's logs for details
+[31m[urdf_spawner-8] process has died [pid 411297, exit code 1, cmd /opt/ros/noetic/lib/gazebo_ros/spawn_model -urdf -model jackal -param robot_description -x 5.0 -y -0.5 -z 0.5 __name:=urdf_spawner __log:=/home/eethanhe/.ros/log/20c3657c-2c0c-11f1-8d1e-01badb8e21cf/urdf_spawner-8.log].
+log file: /home/eethanhe/.ros/log/20c3657c-2c0c-11f1-8d1e-01badb8e21cf/urdf_spawner-8*.log[0m
+[31m[controller_spawner-4] escalating to SIGTERM[0m
+[31m[gazebo-2] escalating to SIGTERM[0m
+
+auto-starting new master
+[1mprocess[master]: started with pid [411249][0m
+[1mROS_MASTER_URI=http://localhost:11311[0m
+]2;/home/eethanhe/catkin_ws/src/robot-multi-floor-navigation/multi_floor_nav/launch/nav.launch http://localhost:11311
+[1msetting /run_id to 20c3657c-2c0c-11f1-8d1e-01badb8e21cf[0m
+[1mprocess[rosout-1]: started with pid [411274][0m
+started core service [/rosout]
+[1mprocess[gazebo-2]: started with pid [411281][0m
+[1mprocess[robot_state_publisher-3]: started with pid [411285][0m
+[1mprocess[controller_spawner-4]: started with pid [411287][0m
+[1mprocess[ekf_localization-5]: started with pid [411288][0m
+[1mprocess[twist_mux-6]: started with pid [411289][0m
+[1mprocess[twist_marker_server-7]: started with pid [411294][0m
+[1mprocess[urdf_spawner-8]: started with pid [411297][0m
+[1mprocess[map_server0-9]: started with pid [411308][0m
+[1mprocess[map_server1-10]: started with pid [411310][0m
+[1mprocess[amcl-11]: started with pid [411317][0m
+[1mprocess[move_base-12]: started with pid [411320][0m
+[1mprocess[rviz-13]: started with pid [411324][0m
+[1mprocess[change_map_node-14]: started with pid [411333][0m
+[1mprocess[multi_floor_navigation_node-15]: started with pid [411342][0m
+[multi_floor_navigation_node-15] killing on exit
+[change_map_node-14] killing on exit
+[rviz-13] killing on exit
+[move_base-12] killing on exit
+[amcl-11] killing on exit
+[map_server1-10] killing on exit
+[map_server0-9] killing on exit
+[twist_marker_server-7] killing on exit
+[twist_mux-6] killing on exit
+[ekf_localization-5] killing on exit
+[controller_spawner-4] killing on exit
+[robot_state_publisher-3] killing on exit
+[gazebo-2] killing on exit
+[rosout-1] killing on exit
+[master] killing on exit
+shutting down processing monitor...
+... shutting down processing monitor complete
+[1mdone[0m

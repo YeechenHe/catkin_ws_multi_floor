@@ -12,6 +12,7 @@ find_package(catkin REQUIRED COMPONENTS
   nav_msgs
   roscpp
   std_msgs
+  std_srvs
   tf
   actionlib_msgs
   amcl

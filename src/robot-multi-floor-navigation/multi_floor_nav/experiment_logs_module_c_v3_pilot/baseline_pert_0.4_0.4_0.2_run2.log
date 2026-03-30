@@ -1,0 +1,1308 @@
+xacro: in-order processing became default in ROS Melodic. You can drop the option.
+... logging to /home/eethanhe/.ros/log/c52e2230-2759-11f1-af8b-b9b8cdd47afb/roslaunch-eethanhe-Lenovo-Legion-R9000P2021H-214551.log
+Checking log directory for disk usage. This may take a while.
+Press Ctrl-C to interrupt
+Done checking log file disk usage. Usage is <1GB.
+]2;/home/eethanhe/catkin_ws/src/robot-multi-floor-navigation/multi_floor_nav/launch/nav.launch
+[1mstarted roslaunch server http://eethanhe-Lenovo-Legion-R9000P2021H:46433/[0m
+
+SUMMARY
+========
+
+PARAMETERS
+ * /amcl/auto_update_noise: 0.0
+ * /amcl/base_frame_id: base_link
+ * /amcl/expected_laser_freq: 5.0
+ * /amcl/first_map_only: False
+ * /amcl/global_frame_id: map
+ * /amcl/gui_publish_rate: 10.0
+ * /amcl/initial_pose_a: 0.0
+ * /amcl/initial_pose_x: 0.0
+ * /amcl/initial_pose_y: 0.0
+ * /amcl/kld_err: 0.05
+ * /amcl/kld_z: 0.99
+ * /amcl/laser_lambda_short: 0.1
+ * /amcl/laser_likelihood_max_dist: 2.0
+ * /amcl/laser_max_beams: 720
+ * /amcl/laser_max_range: 30.0
+ * /amcl/laser_min_range: 0.1
+ * /amcl/laser_model_type: likelihood_field
+ * /amcl/laser_sigma_hit: 0.2
+ * /amcl/laser_z_hit: 0.5
+ * /amcl/laser_z_max: 0.05
+ * /amcl/laser_z_rand: 0.5
+ * /amcl/laser_z_short: 0.05
+ * /amcl/max_particles: 2000
+ * /amcl/min_particles: 500
+ * /amcl/odom_alpha1: 0.2
+ * /amcl/odom_alpha2: 0.2
+ * /amcl/odom_alpha3: 0.2
+ * /amcl/odom_alpha4: 0.2
+ * /amcl/odom_alpha5: 0.1
+ * /amcl/odom_frame_id: odom
+ * /amcl/odom_model_type: diff
+ * /amcl/odom_update_interval: 0.1
+ * /amcl/recovery_alpha_fast: 0.1
+ * /amcl/recovery_alpha_slow: 0.001
+ * /amcl/resample_interval: 1
+ * /amcl/transform_tolerance: 1.0
+ * /amcl/update_min_a: 0.3927
+ * /amcl/update_min_d: 0.1
+ * /amcl/use_map_topic: False
+ * /ekf_localization/base_link_frame: base_link
+ * /ekf_localization/frequency: 50
+ * /ekf_localization/imu0: /imu/data
+ * /ekf_localization/imu0_config: [False, False, Fa...
+ * /ekf_localization/imu0_differential: False
+ * /ekf_localization/odom0: /jackal_velocity_...
+ * /ekf_localization/odom0_config: [False, False, Fa...
+ * /ekf_localization/odom0_differential: False
+ * /ekf_localization/odom_frame: odom
+ * /ekf_localization/predict_to_current_time: True
+ * /ekf_localization/world_frame: odom
+ * /gazebo/enable_ros_network: True
+ * /jackal_joint_publisher/publish_rate: 50
+ * /jackal_joint_publisher/type: joint_state_contr...
+ * /jackal_velocity_controller/angular/z/has_acceleration_limits: True
+ * /jackal_velocity_controller/angular/z/has_velocity_limits: True
+ * /jackal_velocity_controller/angular/z/max_acceleration: 25.0
+ * /jackal_velocity_controller/angular/z/max_velocity: 4.0
+ * /jackal_velocity_controller/cmd_vel_timeout: 0.25
+ * /jackal_velocity_controller/enable_odom_tf: False
+ * /jackal_velocity_controller/k_l: 0.1
+ * /jackal_velocity_controller/k_r: 0.1
+ * /jackal_velocity_controller/left_wheel: ['front_left_whee...
+ * /jackal_velocity_controller/linear/x/has_acceleration_limits: True
+ * /jackal_velocity_controller/linear/x/has_velocity_limits: True
+ * /jackal_velocity_controller/linear/x/max_acceleration: 20.0
+ * /jackal_velocity_controller/linear/x/max_velocity: 2.0
+ * /jackal_velocity_controller/pose_covariance_diagonal: [0.001, 0.001, 10...
+ * /jackal_velocity_controller/publish_cmd: True
+ * /jackal_velocity_controller/publish_rate: 50
+ * /jackal_velocity_controller/right_wheel: ['front_right_whe...
+ * /jackal_velocity_controller/twist_covariance_diagonal: [0.001, 0.001, 0....
+ * /jackal_velocity_controller/type: diff_drive_contro...
+ * /jackal_velocity_controller/wheel_radius_multiplier: 1.0
+ * /jackal_velocity_controller/wheel_separation_multiplier: 1.5
+ * /move_base/NavfnROS/allow_unknown: True
+ * /move_base/TrajectoryPlannerROS/acc_lim_theta: 20.0
+ * /move_base/TrajectoryPlannerROS/acc_lim_x: 10.0
+ * /move_base/TrajectoryPlannerROS/angular_sim_granularity: 0.02
+ * /move_base/TrajectoryPlannerROS/controller_frequency: 20.0
+ * /move_base/TrajectoryPlannerROS/dwa: True
+ * /move_base/TrajectoryPlannerROS/escape_reset_dist: 0.1
+ * /move_base/TrajectoryPlannerROS/escape_reset_theta: 0.1
+ * /move_base/TrajectoryPlannerROS/escape_vel: -0.5
+ * /move_base/TrajectoryPlannerROS/gdist_scale: 1.0
+ * /move_base/TrajectoryPlannerROS/heading_lookahead: 0.325
+ * /move_base/TrajectoryPlannerROS/heading_scoring: False
+ * /move_base/TrajectoryPlannerROS/heading_scoring_timestep: 0.8
+ * /move_base/TrajectoryPlannerROS/holonomic_robot: False
+ * /move_base/TrajectoryPlannerROS/latch_xy_goal_tolerance: False
+ * /move_base/TrajectoryPlannerROS/max_vel_theta: 1.57
+ * /move_base/TrajectoryPlannerROS/max_vel_x: 0.5
+ * /move_base/TrajectoryPlannerROS/meter_scoring: True
+ * /move_base/TrajectoryPlannerROS/min_in_place_vel_theta: 0.314
+ * /move_base/TrajectoryPlannerROS/min_vel_theta: -1.57
+ * /move_base/TrajectoryPlannerROS/min_vel_x: 0.1
+ * /move_base/TrajectoryPlannerROS/occdist_scale: 0.1
+ * /move_base/TrajectoryPlannerROS/oscillation_reset_dist: 0.05
+ * /move_base/TrajectoryPlannerROS/pdist_scale: 0.75
+ * /move_base/TrajectoryPlannerROS/publish_cost_grid_pc: True
+ * /move_base/TrajectoryPlannerROS/sim_granularity: 0.02
+ * /move_base/TrajectoryPlannerROS/sim_time: 2.0
+ * /move_base/TrajectoryPlannerROS/simple_attractor: False
+ * /move_base/TrajectoryPlannerROS/vtheta_samples: 20
+ * /move_base/TrajectoryPlannerROS/vx_samples: 6
+ * /move_base/TrajectoryPlannerROS/xy_goal_tolerance: 0.25
+ * /move_base/TrajectoryPlannerROS/yaw_goal_tolerance: 0.157
+ * /move_base/base_global_planner: navfn/NavfnROS
+ * /move_base/base_local_planner: base_local_planne...
+ * /move_base/clearing_rotation_allowed: True
+ * /move_base/controller_frequency: 20.0
+ * /move_base/controller_patience: 15.0
+ * /move_base/global_costmap/footprint: [[-0.21, -0.165],...
+ * /move_base/global_costmap/footprint_padding: 0.1
+ * /move_base/global_costmap/global_frame: map
+ * /move_base/global_costmap/height: 40.0
+ * /move_base/global_costmap/inflater_layer/inflation_radius: 0.3
+ * /move_base/global_costmap/map_type: costmap
+ * /move_base/global_costmap/meter_scoring: True
+ * /move_base/global_costmap/obstacle_range: 2.5
+ * /move_base/global_costmap/obstacles_layer/observation_sources: scan
+ * /move_base/global_costmap/obstacles_layer/scan/clearing: True
+ * /move_base/global_costmap/obstacles_layer/scan/data_type: LaserScan
+ * /move_base/global_costmap/obstacles_layer/scan/marking: True
+ * /move_base/global_costmap/obstacles_layer/scan/max_obstacle_height: 2.0
+ * /move_base/global_costmap/obstacles_layer/scan/min_obstacle_height: -2.0
+ * /move_base/global_costmap/obstacles_layer/scan/obstacle_range: 2.5
+ * /move_base/global_costmap/obstacles_layer/scan/raytrace_range: 3.0
+ * /move_base/global_costmap/obstacles_layer/scan/sensor_frame: front_laser
+ * /move_base/global_costmap/obstacles_layer/scan/topic: front/scan
+ * /move_base/global_costmap/origin_x: -20.0
+ * /move_base/global_costmap/origin_y: -20.0
+ * /move_base/global_costmap/origin_z: 0.0
+ * /move_base/global_costmap/plugins: [{'name': 'static...
+ * /move_base/global_costmap/publish_frequency: 5.0
+ * /move_base/global_costmap/publish_voxel_map: False
+ * /move_base/global_costmap/raytrace_range: 3.0
+ * /move_base/global_costmap/resolution: 0.05
+ * /move_base/global_costmap/robot_base_frame: base_link
+ * /move_base/global_costmap/rolling_window: False
+ * /move_base/global_costmap/static_map: True
+ * /move_base/global_costmap/transform_tolerance: 0.5
+ * /move_base/global_costmap/update_frequency: 20.0
+ * /move_base/global_costmap/width: 40.0
+ * /move_base/global_costmap/z_resolution: 1
+ * /move_base/global_costmap/z_voxels: 2
+ * /move_base/local_costmap/footprint: [[-0.21, -0.165],...
+ * /move_base/local_costmap/footprint_padding: 0.1
+ * /move_base/local_costmap/global_frame: map
+ * /move_base/local_costmap/height: 10.0
+ * /move_base/local_costmap/inflater_layer/inflation_radius: 0.3
+ * /move_base/local_costmap/map_type: costmap
+ * /move_base/local_costmap/meter_scoring: True
+ * /move_base/local_costmap/obstacle_range: 2.5
+ * /move_base/local_costmap/obstacles_layer/observation_sources: scan
+ * /move_base/local_costmap/obstacles_layer/scan/clearing: True
+ * /move_base/local_costmap/obstacles_layer/scan/data_type: LaserScan
+ * /move_base/local_costmap/obstacles_layer/scan/marking: True
+ * /move_base/local_costmap/obstacles_layer/scan/max_obstacle_height: 2.0
+ * /move_base/local_costmap/obstacles_layer/scan/min_obstacle_height: -2.0
+ * /move_base/local_costmap/obstacles_layer/scan/obstacle_range: 2.5
+ * /move_base/local_costmap/obstacles_layer/scan/raytrace_range: 3.0
+ * /move_base/local_costmap/obstacles_layer/scan/sensor_frame: front_laser
+ * /move_base/local_costmap/obstacles_layer/scan/topic: front/scan
+ * /move_base/local_costmap/origin_z: 0.0
+ * /move_base/local_costmap/plugins: [{'name': 'obstac...
+ * /move_base/local_costmap/publish_frequency: 5.0
+ * /move_base/local_costmap/publish_voxel_map: False
+ * /move_base/local_costmap/raytrace_range: 3.0
+ * /move_base/local_costmap/resolution: 0.05
+ * /move_base/local_costmap/robot_base_frame: base_link
+ * /move_base/local_costmap/rolling_window: True
+ * /move_base/local_costmap/static_map: False
+ * /move_base/local_costmap/transform_tolerance: 0.5
+ * /move_base/local_costmap/update_frequency: 20.0
+ * /move_base/local_costmap/width: 10.0
+ * /move_base/local_costmap/z_resolution: 1
+ * /move_base/local_costmap/z_voxels: 2
+ * /move_base/oscillation_distance: 0.5
+ * /move_base/oscillation_timeout: 0.0
+ * /move_base/planner_frequency: 20.0
+ * /move_base/planner_patience: 5.0
+ * /move_base/recovery_behavior_enabled: True
+ * /move_base/shutdown_costmaps: False
+ * /multi_floor_navigation_node/init_pose_offset_theta: 0.2
+ * /multi_floor_navigation_node/init_pose_offset_x: 0.4
+ * /multi_floor_navigation_node/init_pose_offset_y: 0.4
+ * /robot_description: <?xml version="1....
+ * /rosdistro: noetic
+ * /rosversion: 1.17.0
+ * /twist_marker_server/link_name: base_link
+ * /twist_mux/locks: [{'name': 'e_stop...
+ * /twist_mux/topics: [{'name': 'joy', ...
+ * /use_gui: True
+ * /use_sim_time: True
+
+NODES
+  /
+    amcl (amcl/amcl)
+    change_map_node (multi_floor_nav/change_map_node)
+    controller_spawner (controller_manager/spawner)
+    ekf_localization (robot_localization/ekf_localization_node)
+    gazebo (gazebo_ros/gzserver)
+    map_server0 (map_server/map_server)
+    map_server1 (map_server/map_server)
+    move_base (move_base/move_base)
+    multi_floor_navigation_node (multi_floor_nav/multi_floor_navigation_node)
+    robot_state_publisher (robot_state_publisher/robot_state_publisher)
+    rviz (rviz/rviz)
+    twist_marker_server (interactive_marker_twist_server/marker_server)
+    twist_mux (twist_mux/twist_mux)
+    urdf_spawner (gazebo_ros/spawn_model)
+[ INFO] [1774340195.228649511]: Finished loading Gazebo ROS API Plugin.
+[ INFO] [1774340195.230979314]: waitForService: Service [/gazebo/set_physics_properties] has not been advertised, waiting...
+[1;33mWarning [Model.cc:216][0m Non-unique name[door] detected 2 times in XML children of model with name[elevator].
+[1;33mWarning [Model.cc:309][0m Joint with name [door] in model with name [elevator] has a name collision, changing joint name to [door_joint].
+[ INFO] [1774340197.032085660]: waitForService: Service [/gazebo/set_physics_properties] is now available.
+[ INFO] [1774340197.049709760]: Physics dynamic reconfigure ready.
+[1;33mWarning [parser_urdf.cc:1161][0m multiple inconsistent <gravity> exists due to fixed joint reduction overwriting previous value [true] with [false].
+[1;33mWarning [parser_urdf.cc:1161][0m multiple inconsistent <gravity> exists due to fixed joint reduction overwriting previous value [false] with [true].
+[ERROR] [1774340197.814349886, 1055.090000000]: No p gain specified for pid.  Namespace: /gazebo_ros_control/pid_gains/front_left_wheel
+[ERROR] [1774340197.814821392, 1055.090000000]: No p gain specified for pid.  Namespace: /gazebo_ros_control/pid_gains/front_right_wheel
+[ERROR] [1774340197.815223265, 1055.090000000]: No p gain specified for pid.  Namespace: /gazebo_ros_control/pid_gains/rear_left_wheel
+[ERROR] [1774340197.815595874, 1055.090000000]: No p gain specified for pid.  Namespace: /gazebo_ros_control/pid_gains/rear_right_wheel
+[ WARN] [1774340197.856937334, 1055.091000000]: Failed to meet update rate! Took 1055.0909999999998945
+[ WARN] [1774340197.857603281, 1055.092000000]: Timed out waiting for transform from base_link to map to become available before running costmap, tf error: canTransform: target_frame map does not exist. canTransform: source_frame base_link does not exist.. canTransform returned after 1055.09 timeout was 0.1.
+[ WARN] [1774340197.857976379, 1055.092000000]: Failed to meet update rate! Took 1055.071999999999889
+[ WARN] [1774340198.144665722]: Interactive marker 'robot_twist_marker' contains unnormalized quaternions. This warning will only be output once but may be true for others; enable DEBUG messages for ros.rviz.quaternions to see more details.
+[ WARN] [1774340199.151648490, 1056.374000000]: global_costmap: Pre-Hydro parameter "static_map" unused since "plugins" is provided
+[ WARN] [1774340199.151846144, 1056.374000000]: global_costmap: Pre-Hydro parameter "map_type" unused since "plugins" is provided
+[ WARN] [1774340229.845309583, 1086.695000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340229.881808878, 1086.731000000]: local_costmap: Pre-Hydro parameter "static_map" unused since "plugins" is provided
+[ WARN] [1774340229.882092508, 1086.732000000]: local_costmap: Pre-Hydro parameter "map_type" unused since "plugins" is provided
+[ WARN] [1774340229.920017076, 1086.765000000]: Parameter pdist_scale is deprecated. Please use the name path_distance_bias instead.
+[ WARN] [1774340229.920669125, 1086.766000000]: Parameter gdist_scale is deprecated. Please use the name goal_distance_bias instead.
+[ WARN] [1774340231.064779721, 1087.898000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340232.285275994, 1089.101000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340233.501400839, 1090.305000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340234.721543030, 1091.508000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340235.935915478, 1092.709000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340237.156723705, 1093.913000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ INFO] [1774340229.655810712, 1086.507000000]: [Multi Floor Nav] Successfully loaded map for level: 0
+[ INFO] [1774340229.846101177, 1086.696000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340229.846126879, 1086.696000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340230.859229525, 1087.696000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340230.859311101, 1087.696000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340230.859353496, 1087.696000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340231.065435751, 1087.899000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340231.065458659, 1087.899000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340232.080801928, 1088.899000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340232.080823858, 1088.899000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340232.080832938, 1088.899000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340232.286388793, 1089.102000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340232.286415961, 1089.102000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340233.296785830, 1090.103000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340233.296840656, 1090.103000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340233.296862238, 1090.103000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340233.502132927, 1090.306000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340233.502165823, 1090.306000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340234.516303209, 1091.306000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340234.516349235, 1091.306000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340234.516369280, 1091.306000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340234.722264642, 1091.508000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340234.722300052, 1091.508000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340235.732880651, 1092.508000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340235.732902092, 1092.508000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340235.732910473, 1092.508000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340235.936687307, 1092.710000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340235.936712939, 1092.710000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340236.950037095, 1093.710000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340236.950069991, 1093.710000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340236.950084728, 1093.710000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340237.158591082, 1093.914000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340237.158671052, 1093.914000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340238.173813773, 1094.914000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [177[ WARN] [1774340238.380422511, 1095.117000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340239.601416259, 1096.321000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340240.819328708, 1097.525000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340242.034894393, 1098.726000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340243.252600198, 1099.929000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340244.467256414, 1101.131000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340245.686234697, 1102.334000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+4340238.173860149, 1094.914000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340238.173892835, 1094.914000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340238.381063455, 1095.118000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340238.381094744, 1095.118000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340239.395010482, 1096.118000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340239.395032832, 1096.118000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340239.395041492, 1096.118000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340239.602183617, 1096.322000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340239.602209389, 1096.322000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340240.614257549, 1097.322000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340240.614283670, 1097.322000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340240.614294216, 1097.322000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340240.819916921, 1097.525000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340240.819940738, 1097.525000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340241.831710863, 1098.525000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340241.831731955, 1098.525000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340241.831741384, 1098.525000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340242.035824973, 1098.727000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340242.035850745, 1098.727000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340243.047280256, 1099.727000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340243.047307984, 1099.727000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340243.047320975, 1099.727000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340243.253119826, 1099.929000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340243.253146506, 1099.929000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340244.263036559, 1100.929000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340244.263057651, 1100.929000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340244.263069455, 1100.929000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340244.468855107, 1101.132000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340244.468913286, 1101.132000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340245.480532505, 1102.132000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340245.480579789, 1102.132000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340245.480600183, 1102.132000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340245.686914124, 1102.335000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340245.686941084, 1102.335000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340246.700247913,[ WARN] [1774340246.909813510, 1103.539000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340248.129145145, 1104.744000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340249.347265233, 1105.948000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340250.563520887, 1107.153000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340251.782933777, 1108.357000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340253.000737158, 1109.560000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340254.221730740, 1110.764000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+ 1103.335000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340246.700273545, 1103.335000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340246.700283184, 1103.335000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340246.910783621, 1103.540000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340246.910807507, 1103.540000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340247.922472629, 1104.540000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340247.922497143, 1104.540000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340247.922510553, 1104.540000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340248.129796425, 1104.744000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340248.129824991, 1104.745000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340249.142308604, 1105.745000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340249.142373976, 1105.745000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340249.142406383, 1105.745000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340249.347922381, 1105.949000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340249.347953321, 1105.949000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340250.357811355, 1106.949000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340250.357870512, 1106.949000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340250.357902500, 1106.949000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340250.565492329, 1107.155000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340250.565564826, 1107.155000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340251.577114033, 1108.155000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340251.577160338, 1108.155000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340251.577181710, 1108.155000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340251.783600912, 1108.358000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340251.783626684, 1108.358000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340252.798058993, 1109.359000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340252.798118499, 1109.359000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340252.798151185, 1109.359000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340253.003053831, 1109.562000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340253.003140156, 1109.562000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340254.018307704, 1110.562000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340254.018353591, 1110.562000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340254.018374334, 1110.562000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340254.222447673, 1110.764000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340254.222487762, 1110.765000000]: [M[ WARN] [1774340255.444502381, 1111.968000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340256.663952255, 1113.172000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340257.881945784, 1114.375000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340259.100231752, 1115.580000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340260.321329935, 1116.783000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340261.539447323, 1117.986000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340262.755933270, 1119.188000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+ulti Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340255.240065581, 1111.765000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340255.240129975, 1111.765000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340255.240152255, 1111.765000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340255.446446724, 1111.970000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340255.446525855, 1111.970000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340256.459128317, 1112.971000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340256.459149689, 1112.971000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340256.459158908, 1112.971000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340256.664532366, 1113.172000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340256.664558068, 1113.172000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340257.675906516, 1114.172000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340257.675945698, 1114.172000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340257.675966581, 1114.172000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340257.882659294, 1114.376000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340257.882685974, 1114.376000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340258.893294659, 1115.376000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340258.893350532, 1115.376000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340258.893372044, 1115.376000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340259.102452462, 1115.582000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340259.102535504, 1115.582000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340260.117448376, 1116.582000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340260.117482250, 1116.582000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340260.117496637, 1116.582000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340260.322320091, 1116.784000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340260.322386931, 1116.784000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340261.336065345, 1117.784000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340261.336093492, 1117.784000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340261.336104597, 1117.784000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340261.540066057, 1117.986000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340261.540092178, 1117.986000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340262.551256203, 1118.986000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340262.551316687, 1118.987000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340262.551347208, 1118.987000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340262.756514778, 1119.188000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw[ WARN] [1774340263.970530338, 1120.390000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340265.190848208, 1121.595000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340266.412627052, 1122.800000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340267.630444581, 1124.006000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340268.849944065, 1125.210000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340270.063108291, 1126.414000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340271.282466433, 1127.619000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340262.756539572, 1119.188000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340263.767722881, 1120.189000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340263.767780641, 1120.189000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340263.767817378, 1120.189000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340263.972040890, 1120.392000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340263.972136364, 1120.392000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340264.986094381, 1121.392000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340264.986116451, 1121.392000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340264.986125810, 1121.392000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340265.192780469, 1121.597000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340265.192846260, 1121.597000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340266.206147556, 1122.597000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340266.206171373, 1122.597000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340266.206180382, 1122.597000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340266.414356979, 1122.802000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340266.414386033, 1122.802000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340267.425502875, 1123.802000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340267.425530463, 1123.802000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340267.425542546, 1123.802000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340267.630987467, 1124.006000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340267.631014566, 1124.006000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340268.643064300, 1125.006000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340268.643112072, 1125.006000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340268.643133095, 1125.006000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340268.850983041, 1125.212000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340268.851009721, 1125.212000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340269.860023832, 1126.212000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340269.860071395, 1126.212000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340269.860091998, 1126.212000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340270.063821313, 1126.415000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340270.063846107, 1126.415000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340271.075330552, 1127.415000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340271.075363936, 1127.415000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340271.075379092, 1127.415000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [17[ WARN] [1774340272.500007562, 1128.823000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340273.718993810, 1130.028000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340274.936841565, 1131.233000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340276.157069141, 1132.436000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340277.372926476, 1133.640000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340278.587885575, 1134.843000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+74340271.284333391, 1127.621000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340271.284432078, 1127.621000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340272.294963950, 1128.621000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340272.294985950, 1128.621000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340272.294996915, 1128.621000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340272.500924663, 1128.824000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340272.500979420, 1128.824000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340273.512521151, 1129.824000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340273.512544618, 1129.824000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340273.512557957, 1129.824000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340273.720923976, 1130.029000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340273.720961132, 1130.030000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340274.730124246, 1131.030000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340274.730171390, 1131.030000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340274.730191924, 1131.030000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340274.938562343, 1131.235000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340274.938594052, 1131.235000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340275.953973709, 1132.235000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340275.953996058, 1132.235000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340275.954004649, 1132.235000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340276.157737463, 1132.437000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340276.157762886, 1132.437000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340277.167116266, 1133.437000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340277.167150210, 1133.437000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340277.167163899, 1133.437000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340277.374752785, 1133.642000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340277.374780862, 1133.642000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340278.386163312, 1134.642000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340278.386208989, 1134.642000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340278.386232107, 1134.642000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340278.588529313, 1134.843000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340278.588562139, 1134.843000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340279.598637495, 1135.843000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340279.598658168, 1135.843000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340279.[ WARN] [1774340279.802285734, 1136.044000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340281.018425747, 1137.246000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340282.233195321, 1138.448000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340283.451168296, 1139.653000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340284.672167134, 1140.858000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340285.888197319, 1142.061000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340287.103777519, 1143.263000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+598669483, 1135.843000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340279.802945675, 1136.045000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340279.802978990, 1136.045000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340280.815126928, 1137.045000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340280.815168344, 1137.045000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340280.815196491, 1137.045000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340281.019045598, 1137.247000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340281.019066970, 1137.247000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340282.030829315, 1138.247000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340282.030869754, 1138.247000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340282.030893221, 1138.247000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340282.233789819, 1138.449000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340282.233814893, 1138.449000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340283.244833004, 1139.449000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340283.244881754, 1139.449000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340283.244902567, 1139.449000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340283.453096017, 1139.655000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340283.453185625, 1139.655000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340284.467818089, 1140.656000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340284.467840160, 1140.656000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340284.467849309, 1140.656000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340284.674572088, 1140.860000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340284.674650312, 1140.860000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340285.685803024, 1141.860000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340285.685849818, 1141.860000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340285.685871190, 1141.860000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340285.890074544, 1142.062000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340285.890157587, 1142.062000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340286.899634647, 1143.062000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340286.899657904, 1143.062000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340286.899667053, 1143.062000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340287.104424330, 1143.264000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340287.104451918, 1143.264000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340288.116125809, 1144.264000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340288.116194603[ WARN] [1774340288.320261210, 1144.465000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340289.541465349, 1145.670000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340290.756942557, 1146.873000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340291.977298408, 1148.079000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340293.192829203, 1149.282000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340294.406998009, 1150.485000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340295.624074643, 1151.687000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+, 1144.264000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340288.116242725, 1144.264000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340288.320900966, 1144.466000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340288.320922757, 1144.466000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340289.335391331, 1145.466000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340289.335430442, 1145.466000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340289.335456214, 1145.466000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340289.542817639, 1145.671000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340289.542853887, 1145.671000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340290.553433641, 1146.671000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340290.553466117, 1146.671000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340290.553476943, 1146.671000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340290.757590416, 1146.874000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340290.757618632, 1146.874000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340291.769355892, 1147.875000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340291.769380826, 1147.875000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340291.769390184, 1147.875000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340291.978557178, 1148.080000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340291.978583858, 1148.080000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340292.990163700, 1149.080000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340292.990204558, 1149.080000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340292.990220621, 1149.080000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340293.193520573, 1149.283000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340293.193547323, 1149.283000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340294.204424487, 1150.283000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340294.204472539, 1150.283000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340294.204496914, 1150.283000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340294.407677855, 1150.485000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340294.407702649, 1150.485000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340295.419569628, 1151.485000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340295.419591139, 1151.485000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340295.419601546, 1151.485000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340295.624814903, 1151.688000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340295.624836415, 1151.688000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340296.634647868, 1152.688000000]:[ WARN] [1774340296.840430023, 1152.891000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340298.059273479, 1154.097000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340299.281217669, 1155.303000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340300.497675953, 1156.506000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340301.715630619, 1157.710000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340302.934477251, 1158.918000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340304.153675131, 1160.122000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+ [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340296.634674617, 1152.688000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340296.634683138, 1152.688000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340296.842581799, 1152.893000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340296.842649476, 1152.893000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340297.854125002, 1153.893000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340297.854193797, 1153.893000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340297.854223410, 1153.893000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340298.061124513, 1154.099000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340298.061192749, 1154.099000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340299.073547180, 1155.099000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340299.073617441, 1155.099000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340299.073674223, 1155.099000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340299.283283329, 1155.305000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340299.283378664, 1155.305000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340300.295074627, 1156.305000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340300.295101795, 1156.305000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340300.295116253, 1156.305000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340300.498322763, 1156.507000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340300.498349373, 1156.507000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340301.510632718, 1157.507000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340301.510664985, 1157.507000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340301.510679163, 1157.507000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340301.717480536, 1157.712000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340301.717543045, 1157.712000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340302.727857049, 1158.713000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340302.727882751, 1158.713000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340302.727896231, 1158.713000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340302.935638731, 1158.919000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340302.935668275, 1158.919000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340303.947151588, 1159.920000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340303.947210745, 1159.920000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340303.947232606, 1159.920000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340304.155762023, 1160.124000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340304.155853027, 1160.124000000]: [Multi Floor Nav] I[ WARN] [1774340305.370290594, 1161.325000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340306.585183541, 1162.527000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340307.805320058, 1163.733000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340309.025734556, 1164.940000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340310.247124412, 1166.146000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340311.464650174, 1167.349000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340312.678769448, 1168.555000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+nitializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340305.167244156, 1161.124000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340305.167270906, 1161.124000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340305.167280335, 1161.124000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340305.370933983, 1161.326000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340305.370959335, 1161.326000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340306.383128306, 1162.326000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340306.383153519, 1162.326000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340306.383162669, 1162.327000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340306.586440915, 1162.528000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340306.586477582, 1162.529000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340307.598293716, 1163.529000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340307.598315088, 1163.529000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340307.598328707, 1163.529000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340307.807145669, 1163.735000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340307.807224172, 1163.735000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340308.821147669, 1164.736000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340308.821174559, 1164.736000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340308.821185105, 1164.736000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340309.028147891, 1164.942000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340309.028186235, 1164.942000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340310.041484300, 1165.942000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340310.041518173, 1165.942000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340310.041532002, 1165.942000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340310.247809357, 1166.146000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340310.247842742, 1166.146000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340311.259784124, 1167.146000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340311.259862138, 1167.146000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340311.259915568, 1167.146000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340311.466944568, 1167.351000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340311.467013573, 1167.352000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340312.474301220, 1168.352000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340312.474323500, 1168.352000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340312.474332719, 1168.352000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340312.679380430, 1168.556000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sig[ WARN] [1774340313.895723915, 1169.758000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340315.113397767, 1170.964000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340316.329812928, 1172.168000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340317.545845360, 1173.371000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340318.763035717, 1174.574000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340319.982368919, 1175.776000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340321.197462064, 1176.979000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+ma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340312.679413326, 1168.556000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340313.691076889, 1169.556000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340313.691130877, 1169.556000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340313.691162795, 1169.556000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340313.896598971, 1169.759000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340313.896621321, 1169.759000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340314.905677672, 1170.759000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340314.905745559, 1170.759000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340314.905781667, 1170.759000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340315.115237767, 1170.966000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340315.115303628, 1170.966000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340316.125613379, 1171.966000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340316.125696561, 1171.966000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340316.125726593, 1171.966000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340316.330419789, 1172.169000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340316.330445561, 1172.169000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340317.343818119, 1173.169000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340317.343856882, 1173.169000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340317.343868685, 1173.169000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340317.546406055, 1173.372000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340317.546460392, 1173.372000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340318.559566159, 1174.372000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340318.559617214, 1174.372000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340318.559637608, 1174.372000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340318.763686789, 1174.574000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340318.763716332, 1174.574000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340319.776502786, 1175.574000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340319.776567600, 1175.574000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340319.776602731, 1175.574000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340319.982948751, 1175.776000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340319.982977456, 1175.776000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340320.992120237, 1176.776000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340320.992189800, 1176.776000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340320.992218435, 1176.776000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340321.19812864[ WARN] [1774340322.414676822, 1178.182000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340323.630773410, 1179.384000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340324.847814206, 1180.586000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340326.063561039, 1181.791000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340327.283834998, 1182.997000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340328.505411108, 1184.205000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+1, 1176.980000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340321.198159162, 1176.980000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340322.210836745, 1177.980000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340322.210916505, 1177.980000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340322.210950589, 1177.980000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340322.415240311, 1178.182000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340322.415263219, 1178.182000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340323.426904487, 1179.182000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340323.426948139, 1179.182000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340323.426957148, 1179.182000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340323.631362601, 1179.384000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340323.631385090, 1179.384000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340324.643164932, 1180.384000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340324.643224019, 1180.384000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340324.643252445, 1180.384000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340324.848485182, 1180.587000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340324.848511443, 1180.587000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340325.857797357, 1181.587000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340325.857820824, 1181.587000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340325.857833117, 1181.587000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340326.065197517, 1181.792000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340326.065223289, 1181.793000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340327.077061742, 1182.793000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340327.077117407, 1182.793000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340327.077137382, 1182.793000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340327.286080433, 1182.999000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340327.286177025, 1182.999000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340328.298208320, 1184.000000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340328.298240308, 1184.000000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340328.298252321, 1184.000000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340328.507411046, 1184.206000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340328.507511829, 1184.206000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340329.519194058, 1185.206000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340329.519241761, 1185.206000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340329.519269348, 1185.2[ WARN] [1774340329.725117054, 1185.411000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340330.941995227, 1186.616000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340332.160475036, 1187.822000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340333.379711106, 1189.027000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340334.597691837, 1190.233000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340335.817494415, 1191.438000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340337.034514548, 1192.645000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+06000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340329.726382320, 1185.412000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340329.726407673, 1185.412000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340330.736561337, 1186.412000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340330.736625731, 1186.412000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340330.736655345, 1186.412000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340330.943003123, 1186.617000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340330.943033156, 1186.617000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340331.954084092, 1187.618000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340331.954141293, 1187.618000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340331.954173211, 1187.618000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340332.162635123, 1187.824000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340332.162711391, 1187.824000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340333.174528017, 1188.824000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340333.174595066, 1188.825000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340333.174640743, 1188.825000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340333.380353028, 1189.028000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340333.380376845, 1189.028000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340334.391897066, 1190.029000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340334.391946095, 1190.029000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340334.391967537, 1190.029000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340334.598336203, 1190.233000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340334.598369099, 1190.233000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340335.608776876, 1191.233000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340335.608799296, 1191.233000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340335.608807956, 1191.233000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340335.818532553, 1191.440000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340335.818561887, 1191.440000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340336.827801346, 1192.440000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340336.827822998, 1192.440000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340336.827833055, 1192.440000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340337.035089212, 1192.645000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340337.035121199, 1192.645000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340338.044207082, 1193.645000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340338.044228453, 1193.645000000][ WARN] [1774340338.249395205, 1193.848000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340339.467984994, 1195.051000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340340.696745597, 1196.257000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340341.914013283, 1197.465000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340343.132665534, 1198.669000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340344.350118878, 1199.871000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340345.566596320, 1201.074000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340338.044243330, 1193.645000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340338.250000320, 1193.849000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340338.250032587, 1193.849000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340339.262464139, 1194.849000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340339.262487257, 1194.849000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340339.262497315, 1194.849000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340339.468685653, 1195.052000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340339.468718130, 1195.052000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340340.487878730, 1196.053000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340340.487901219, 1196.053000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340340.487910717, 1196.053000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340340.698552910, 1196.260000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340340.698584409, 1196.260000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340341.708459531, 1197.261000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340341.708508630, 1197.261000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340341.708530700, 1197.261000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340341.915757738, 1197.466000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340341.915827860, 1197.467000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340342.928159766, 1198.467000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340342.928205094, 1198.467000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340342.928225139, 1198.467000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340343.133310389, 1198.669000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340343.133345939, 1198.669000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340344.145141392, 1199.669000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340344.145188536, 1199.669000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340344.145209139, 1199.669000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340344.350874084, 1199.872000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340344.350901043, 1199.872000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340345.360841627, 1200.873000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340345.360897291, 1200.873000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340345.360930187, 1200.873000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340345.567260661, 1201.075000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340345.567287481, 1201.075000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340346.576707046, 1202.076000000]: [Multi Floor Nav[ WARN] [1774340346.781095133, 1202.276000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340347.994970400, 1203.479000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340349.211093485, 1204.683000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340350.426072838, 1205.884000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340351.642435149, 1207.090000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340352.859283500, 1208.293000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340354.077683410, 1209.497000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340346.576735472, 1202.076000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340346.576744342, 1202.076000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340346.781623142, 1202.277000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340346.781645212, 1202.277000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340347.790942629, 1203.277000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340347.791008910, 1203.277000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340347.791051793, 1203.277000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340347.995799639, 1203.480000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340347.995825830, 1203.480000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340349.005877133, 1204.480000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340349.005927699, 1204.480000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340349.005949560, 1204.480000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340349.211729471, 1204.683000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340349.211763554, 1204.683000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340350.222309557, 1205.683000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340350.222332116, 1205.683000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340350.222341056, 1205.683000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340350.426628435, 1205.885000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340350.426653299, 1205.885000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340351.435848346, 1206.885000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340351.435875095, 1206.885000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340351.435885153, 1206.885000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340351.643138741, 1207.091000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340351.643170101, 1207.091000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340352.655013999, 1208.091000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340352.655079791, 1208.091000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340352.655120160, 1208.091000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340352.859826106, 1208.293000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340352.859868920, 1208.294000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340353.872657933, 1209.294000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340353.872706613, 1209.294000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340353.872726239, 1209.294000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340354.078339650, 1209.498000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340354.078366399, 1209.498000000]: [Multi Floor Nav] Initializing Pose [ WARN] [1774340355.294351235, 1210.702000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340356.513703812, 1211.906000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340357.728573906, 1213.109000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340358.941263108, 1214.311000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340360.160416935, 1215.517000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340361.376876668, 1216.720000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340362.596820917, 1217.922000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340355.087880925, 1210.498000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340355.087928069, 1210.498000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340355.087948952, 1210.498000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340355.295085628, 1210.703000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340355.295109445, 1210.703000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340356.308853846, 1211.703000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340356.308900221, 1211.703000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340356.308921593, 1211.703000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340356.515614352, 1211.908000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340356.515695719, 1211.908000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340357.525422857, 1212.909000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340357.525469652, 1212.909000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340357.525492560, 1212.909000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340357.729239645, 1213.110000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340357.729268699, 1213.110000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340358.738969444, 1214.110000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340358.739032302, 1214.110000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340358.739055769, 1214.110000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340358.941958110, 1214.312000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340358.941984371, 1214.312000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340359.954144694, 1215.312000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340359.954209089, 1215.312000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340359.954242543, 1215.312000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340360.161367491, 1215.518000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340360.161392355, 1215.518000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340361.173247403, 1216.518000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340361.173306699, 1216.518000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340361.173327093, 1216.518000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340361.377740409, 1216.721000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340361.377769045, 1216.721000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340362.392730343, 1217.721000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340362.392751854, 1217.721000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340362.392761283, 1217.721000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340362.597379238, 1217.923000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.0[ WARN] [1774340363.817507670, 1219.124000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340365.036591056, 1220.329000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340366.255750719, 1221.534000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340367.475287398, 1222.738000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340368.695915094, 1223.941000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340369.919958304, 1225.147000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340371.141218717, 1226.351000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+0, yaw=0.00)
+[ INFO] [1774340362.597406896, 1217.923000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340363.613734528, 1218.923000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340363.613758624, 1218.923000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340363.613770636, 1218.923000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340363.818046714, 1219.125000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340363.818069902, 1219.125000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340364.830999215, 1220.125000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340364.831021076, 1220.125000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340364.831029737, 1220.125000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340365.038516403, 1220.331000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340365.038607199, 1220.331000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340366.050944255, 1221.331000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340366.050995729, 1221.331000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340366.051019475, 1221.332000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340366.257710149, 1221.536000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340366.257792633, 1221.536000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340367.271279023, 1222.537000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340367.271326795, 1222.537000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340367.271348586, 1222.537000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340367.475950972, 1222.739000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340367.475978070, 1222.739000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340368.491870749, 1223.739000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340368.491943734, 1223.739000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340368.491973697, 1223.739000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340368.696525238, 1223.942000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340368.696545772, 1223.942000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340369.711873640, 1224.943000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340369.711895571, 1224.943000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340369.711905628, 1224.943000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340369.922132150, 1225.149000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340369.922197383, 1225.149000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340370.935432847, 1226.149000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340370.935479013, 1226.149000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340370.935498569, 1226.149000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340371.141927828, 1226.352000000[ WARN] [1774340372.364551505, 1227.555000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340373.584693406, 1228.759000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340374.801534211, 1229.961000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340376.021694146, 1231.166000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340377.240225782, 1232.371000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340378.460565368, 1233.577000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340371.141982235, 1226.352000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340372.158089628, 1227.352000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340372.158139705, 1227.352000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340372.158160309, 1227.352000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340372.365239802, 1227.556000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340372.365270323, 1227.556000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340373.377637449, 1228.556000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340373.377740047, 1228.557000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340373.377779159, 1228.557000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340373.585409571, 1228.759000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340373.585435203, 1228.759000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340374.596675217, 1229.759000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340374.596721383, 1229.759000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340374.596741916, 1229.759000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340374.802865408, 1229.962000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340374.802929314, 1229.962000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340375.815620591, 1230.962000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340375.815643080, 1230.962000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340375.815651601, 1230.962000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340376.023466329, 1231.168000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340376.023539384, 1231.168000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340377.035268238, 1232.168000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340377.035290098, 1232.168000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340377.035299737, 1232.168000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340377.242667615, 1232.373000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340377.242735851, 1232.373000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340378.256260011, 1233.375000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340378.256337117, 1233.375000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340378.256370502, 1233.375000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340378.461313031, 1233.578000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340378.461340480, 1233.578000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340379.477531022, 1234.578000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340379.477577118, 1234.578000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340379.477598629, 1234.578000000]: [Multi[ WARN] [1774340379.683747828, 1234.781000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340380.900585666, 1235.984000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340382.120974791, 1237.186000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340383.341139032, 1238.390000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340384.563124701, 1239.596000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340385.780481358, 1240.798000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340386.999453897, 1242.001000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+ Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340379.684594947, 1234.782000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340379.684625958, 1234.782000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340380.696161086, 1235.782000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340380.696221081, 1235.783000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340380.696243570, 1235.783000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340380.901144476, 1235.984000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340380.901173041, 1235.984000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340381.917107343, 1236.984000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340381.917158119, 1236.984000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340381.917177605, 1236.984000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340382.121470952, 1237.186000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340382.121494978, 1237.186000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340383.133171899, 1238.186000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340383.133218344, 1238.186000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340383.133239856, 1238.186000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340383.342251972, 1238.392000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340383.342277045, 1238.392000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340384.355677055, 1239.392000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340384.355721475, 1239.392000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340384.355746828, 1239.392000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340384.564840311, 1239.597000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340384.564928522, 1239.597000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340385.577257225, 1240.597000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340385.577279226, 1240.597000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340385.577288165, 1240.597000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340385.781452866, 1240.799000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340385.781478708, 1240.799000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340386.795359107, 1241.799000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340386.795386695, 1241.799000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340386.795398708, 1241.799000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340387.002099250, 1242.003000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340387.002169023, 1242.003000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340388.016676055, 1243.003000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340388.016733256, 1243.003000000]: [Multi Floor Na[ WARN] [1774340388.223465299, 1243.207000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340389.441083328, 1244.413000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340390.663154521, 1245.618000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340391.880550744, 1246.820000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340393.100363664, 1248.023000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340394.322225630, 1249.225000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340395.537257707, 1250.429000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+v] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340388.016770971, 1243.003000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340388.225458673, 1243.209000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340388.225556313, 1243.209000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340389.235947883, 1244.210000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340389.235995655, 1244.210000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340389.236016049, 1244.210000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340389.443230216, 1244.415000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340389.443298871, 1244.415000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340390.455510961, 1245.415000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340390.455558733, 1245.415000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340390.455579616, 1245.415000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340390.663806640, 1245.619000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340390.663834228, 1245.619000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340391.678275695, 1246.619000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340391.678344350, 1246.619000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340391.678383811, 1246.619000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340391.881413787, 1246.821000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340391.881442423, 1246.821000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340392.896183381, 1247.821000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340392.896231921, 1247.821000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340392.896253922, 1247.821000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340393.100975414, 1248.023000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340393.101011662, 1248.023000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340394.115546591, 1249.023000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340394.115595341, 1249.023000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340394.115625862, 1249.023000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340394.322790865, 1249.225000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340394.322812446, 1249.225000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340395.330733089, 1250.225000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340395.330756975, 1250.225000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340395.330766893, 1250.225000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340395.539259742, 1250.431000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340395.539328257, 1250.431000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340396.553251587, 1251.431000000]: [Multi Floor Nav] Current Robot P[ WARN] [1774340396.757832909, 1251.635000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340397.971959073, 1252.838000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340399.190653781, 1254.042000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340400.411521714, 1255.247000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340401.631929812, 1256.450000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340402.848997839, 1257.652000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340404.070477822, 1258.857000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+ose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340396.553300407, 1251.431000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340396.553321639, 1251.431000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340396.758617589, 1251.636000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340396.758647692, 1251.636000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340397.766568485, 1252.636000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340397.766591743, 1252.636000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340397.766605223, 1252.636000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340397.974003013, 1252.840000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340397.974069224, 1252.840000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340398.987534748, 1253.840000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340398.987579098, 1253.840000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340398.987599632, 1253.840000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340399.191731660, 1254.043000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340399.191808138, 1254.043000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340400.205048984, 1255.044000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340400.205097525, 1255.044000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340400.205119036, 1255.044000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340400.413451322, 1255.249000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340400.413531082, 1255.249000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340401.427894723, 1256.249000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340401.427942844, 1256.249000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340401.427964286, 1256.249000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340401.632664554, 1256.451000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340401.632687114, 1256.451000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340402.645127507, 1257.451000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340402.645201820, 1257.451000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340402.645236811, 1257.451000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340402.850896576, 1257.654000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340402.850969981, 1257.654000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340403.867308289, 1258.655000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340403.867377992, 1258.655000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340403.867410399, 1258.655000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340404.071155085, 1258.857000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340404.071188539, 1258.857000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5[ WARN] [1774340405.286920774, 1260.060000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340406.508899517, 1261.266000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340407.727688560, 1262.469000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340408.944685243, 1263.671000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340410.161210147, 1264.876000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340411.375585027, 1266.078000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340412.592914460, 1267.281000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+.00 at level: 0
+[ INFO] [1774340405.080724894, 1259.857000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340405.080746336, 1259.857000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340405.080760095, 1259.857000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340405.289606217, 1260.063000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340405.289701622, 1260.063000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340406.303212439, 1261.064000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340406.303237372, 1261.064000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340406.303245335, 1261.064000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340406.510531107, 1261.268000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340406.510553456, 1261.268000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340407.523411531, 1262.268000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340407.523459024, 1262.268000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340407.523479488, 1262.268000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340407.729413320, 1262.470000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340407.729501112, 1262.470000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340408.741108942, 1263.470000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340408.741154131, 1263.470000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340408.741174245, 1263.470000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340408.945327864, 1263.672000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340408.945356988, 1263.672000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340409.954408379, 1264.672000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340409.954429821, 1264.672000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340409.954439669, 1264.672000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340410.162945104, 1264.877000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340410.163008311, 1264.877000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340411.171727398, 1265.877000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340411.171774891, 1265.877000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340411.171803596, 1265.877000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340411.376244829, 1266.079000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340411.376271858, 1266.079000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340412.387824041, 1267.079000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340412.387872512, 1267.079000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340412.387893604, 1267.079000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340412.593850559, 1267.282000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ IN[ WARN] [1774340413.809986251, 1268.483000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340415.027862564, 1269.685000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340416.247665350, 1270.888000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340417.469779020, 1272.093000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340418.683455795, 1273.296000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340419.894278464, 1274.499000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340421.109465945, 1275.701000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+FO] [1774340412.593876750, 1267.282000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340413.606800086, 1268.283000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340413.606821598, 1268.283000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340413.606830188, 1268.283000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340413.810596465, 1268.484000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340413.810626986, 1268.484000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340414.824531964, 1269.484000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340414.824557456, 1269.484000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340414.824567584, 1269.484000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340415.028508328, 1269.686000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340415.028535497, 1269.686000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340416.042432308, 1270.686000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340416.042472468, 1270.686000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340416.042488113, 1270.686000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340416.248410290, 1270.889000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340416.248437528, 1270.889000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340417.263023412, 1271.890000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340417.263080194, 1271.890000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340417.263103731, 1271.890000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340417.471651218, 1272.095000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340417.471681250, 1272.095000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340418.481373137, 1273.095000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340418.481397931, 1273.095000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340418.481407919, 1273.095000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340418.684020123, 1273.297000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340418.684056161, 1273.297000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340419.691231350, 1274.297000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340419.691253350, 1274.297000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340419.691262849, 1274.297000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340419.894950907, 1274.500000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340419.894977517, 1274.500000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340420.905052152, 1275.500000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340420.905098178, 1275.500000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340420.905140573, 1275.500000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340421.110356786, 1275.702000000]: [Multi Floor N[ WARN] [1774340422.325451384, 1276.904000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340423.545022054, 1278.105000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340424.762829137, 1279.309000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340425.976168892, 1280.512000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340427.190744936, 1281.713000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340428.408586053, 1282.916000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+av] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340421.110382628, 1275.702000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340422.122335333, 1276.702000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340422.122381778, 1276.702000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340422.122403010, 1276.702000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340422.325989101, 1276.904000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340422.326018645, 1276.904000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340423.341733281, 1277.905000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340423.341755072, 1277.905000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340423.341764291, 1277.905000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340423.546661885, 1278.107000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340423.546735080, 1278.107000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340424.558797309, 1279.108000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340424.558818820, 1279.108000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340424.558828808, 1279.108000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340424.763503955, 1279.310000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340424.763530006, 1279.310000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340425.771798536, 1280.310000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340425.771872360, 1280.310000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340425.771914335, 1280.310000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340425.976709892, 1280.512000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340425.976735245, 1280.512000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340426.988132305, 1281.512000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340426.988179937, 1281.512000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340426.988201449, 1281.512000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340427.191383436, 1281.714000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340427.191409697, 1281.714000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340428.205292247, 1282.714000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340428.205339041, 1282.714000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340428.205361181, 1282.714000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340428.409184743, 1282.916000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340428.409224343, 1282.916000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340429.420762706, 1283.916000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340429.420829335, 1283.916000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340429.420859926, 1283.916000000]: [Multi Floor Nav] Setti[ WARN] [1774340429.627125112, 1284.120000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340430.843486419, 1285.323000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340432.060125147, 1286.526000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+[ WARN] [1774340433.277782605, 1287.728000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.40, offset_y=0.40, offset_theta=0.20
+ng initial pose failed. Will Retry
+[ INFO] [1774340429.628397642, 1284.121000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340429.628424741, 1284.121000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340430.639313574, 1285.121000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340430.639336482, 1285.121000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340430.639350241, 1285.121000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340430.844182539, 1285.324000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340430.844208311, 1285.324000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340431.856264427, 1286.324000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340431.856286916, 1286.324000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340431.856296415, 1286.324000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340432.060724745, 1286.527000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340432.060750028, 1286.527000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340433.073592785, 1287.527000000]: [Multi Floor Nav] Current Robot Pose, x: 4.40, y: -4.60, yaw: 0.20
+[ INFO] [1774340433.073629871, 1287.527000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.20
+[ INFO] [1774340433.073668494, 1287.527000000]: [Multi Floor Nav] Setting initial pose failed. Will Retry
+[ INFO] [1774340433.278603324, 1287.729000000]: [Multi Floor Nav] Initializing Robot at x: 4.4, y: -4.6, yaw: 0.2 (region sigma: x=0.00, y=0.00, yaw=0.00)
+[ INFO] [1774340433.278630982, 1287.729000000]: [Multi Floor Nav] Initializing Pose to x: 4.00, y: -5.00 at level: 0
+[ INFO] [1774340199.152314018, 1056.375000000]: global_costmap: Using plugin "static_layer"
+[ INFO] [1774340199.157995557, 1056.380000000]: Requesting the map...
+[ INFO] [1774340229.735111670, 1086.586000000]: Resizing costmap to 992 X 992 at 0.020000 m/pix
+[ INFO] [1774340229.834478772, 1086.685000000]: Received a 992 X 992 map at 0.020000 m/pix
+[ INFO] [1774340229.838818220, 1086.688000000]: global_costmap: Using plugin "obstacles_layer"
+[ INFO] [1774340229.846696025, 1086.697000000]:     Subscribed to Topics: scan
+[ INFO] [1774340229.856576561, 1086.706000000]: global_costmap: Using plugin "inflater_layer"
+[ INFO] [1774340229.882501365, 1086.732000000]: local_costmap: Using plugin "obstacles_layer"
+[ INFO] [1774340229.885292966, 1086.735000000]:     Subscribed to Topics: scan
+[ INFO] [1774340229.895148149, 1086.745000000]: local_costmap: Using plugin "inflater_layer"
+[ INFO] [1774340229.912922554, 1086.761000000]: Created local_planner base_local_planner/TrajectoryPlannerROS
+[ INFO] [1774340229.917418310, 1086.762000000]: Sim period is set to 0.05
+[ INFO] [1774340229.973660796, 1086.820000000]: Recovery behavior will clear layer 'obstacles'
+[ INFO] [1774340229.977386959, 1086.824000000]: Recovery behavior will clear layer 'obstacles'
+[ INFO] [1774340230.066174821, 1086.913000000]: odom received!
+
+auto-starting new master
+[1mprocess[master]: started with pid [214628][0m
+[1mROS_MASTER_URI=http://localhost:11311[0m
+]2;/home/eethanhe/catkin_ws/src/robot-multi-floor-navigation/multi_floor_nav/launch/nav.launch http://localhost:11311
+[1msetting /run_id to c52e2230-2759-11f1-af8b-b9b8cdd47afb[0m
+[1mprocess[rosout-1]: started with pid [214653][0m
+started core service [/rosout]
+[1mprocess[gazebo-2]: started with pid [214660][0m
+[1mprocess[robot_state_publisher-3]: started with pid [214663][0m
+[1mprocess[controller_spawner-4]: started with pid [214666][0m
+[1mprocess[ekf_localization-5]: started with pid [214667][0m
+[1mprocess[twist_mux-6]: started with pid [214668][0m
+[1mprocess[twist_marker_server-7]: started with pid [214673][0m
+[1mprocess[urdf_spawner-8]: started with pid [214676][0m
+[1mprocess[map_server0-9]: started with pid [214685][0m
+[1mprocess[map_server1-10]: started with pid [214692][0m
+[1mprocess[amcl-11]: started with pid [214694][0m
+[1mprocess[move_base-12]: started with pid [214696][0m
+[1mprocess[rviz-13]: started with pid [214702][0m
+[1mprocess[change_map_node-14]: started with pid [214712][0m
+[1mprocess[multi_floor_navigation_node-15]: started with pid [214721][0m
+[1m[urdf_spawner-8] process has finished cleanly
+log file: /home/eethanhe/.ros/log/c52e2230-2759-11f1-af8b-b9b8cdd47afb/urdf_spawner-8*.log[0m
+[multi_floor_navigation_node-15] killing on exit
+[change_map_node-14] killing on exit
+[rviz-13] killing on exit
+[move_base-12] killing on exit
+[amcl-11] killing on exit
+[map_server1-10] killing on exit
+[map_server0-9] killing on exit
+[twist_marker_server-7] killing on exit
+[twist_mux-6] killing on exit
+[ekf_localization-5] killing on exit
+[controller_spawner-4] killing on exit
+[robot_state_publisher-3] killing on exit
+[gazebo-2] killing on exit
+[rosout-1] killing on exit
+[master] killing on exit
+shutting down processing monitor...
+... shutting down processing monitor complete
+[1mdone[0m

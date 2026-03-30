@@ -13,11 +13,20 @@
 | [02_region_init_impl.md](02_region_init_impl.md) | 第 2 步：模块 A 最简版（区域初始化增强）实现说明与使用方式 |
 | [03_ap_amcl_floor_window_impl.md](03_ap_amcl_floor_window_impl.md) | 模块 B：切层窗口参数切换（AP-AMCL）实现说明与对比实验方式 |
 | [04_reloc_confidence_criterion_impl.md](04_reloc_confidence_criterion_impl.md) | 模块 C：重定位完成判据优化（C_t 置信度 + 连续 K 帧）实现说明 |
+| [3_3_3_reloc_criterion_experiment_plan_v3.md](3_3_3_reloc_criterion_experiment_plan_v3.md) | **论文 §3.3.3**：基于协方差迹与多帧时序检验的重定位判据——方法说明与实验计划（完整版 v3） |
 | [paper_baseline_vs_ap_amcl.md](paper_baseline_vs_ap_amcl.md) | **论文用**：Baseline vs AP-AMCL 实验设置与结果（模块 B） |
 | [paper_baseline_vs_reloc_criterion.md](paper_baseline_vs_reloc_criterion.md) | **论文用**：Baseline 判据 vs 模块 C（重定位置信度判据）实验设置与结果 |
 | [region_init_3run_summary.md](region_init_3run_summary.md) | use_region_init:=true 三轮运行小结（重定位收敛约 1 s、稳定性与任务结果） |
 | [paper_baseline_vs_region_init.md](paper_baseline_vs_region_init.md) | **论文用**：改进前/后关键参数、逐次运行数据、汇总表与作图制表建议 |
 | [baseline_vs_region_init_data.csv](baseline_vs_region_init_data.csv) | 上表原始数据（CSV，可导入 Excel/Python 作图） |
+
+## SP-AMCL 改进实验专项目录
+
+模块A、模块C及联合改进相关的所有实验文档已集中整理至子目录：
+
+**[→ sp_amcl_experiments/](sp_amcl_experiments/README.md)**（含推荐阅读顺序、核心结论速查、参数文件位置）
+
+---
 
 ## 归类约定（后续新增 AMCL 文档请遵循）
 

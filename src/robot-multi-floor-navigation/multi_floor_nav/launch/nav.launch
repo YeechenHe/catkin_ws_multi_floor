@@ -20,10 +20,15 @@
     <arg name="use_ap_amcl" default="false" />
     <!-- 为 true 时启用模块 C：重定位完成判据优化（C_t > tau 连续 K 帧才通过） -->
     <arg name="use_covariance_reloc" default="false" />
+    <!-- 可选：覆盖 reloc_confidence_K（0 表示不覆盖，使用 YAML 中的默认值） -->
+    <arg name="reloc_confidence_K_override" default="0" />
     <!-- 初值扰动（补充实验用）：对发布的 initialpose 加偏移，模拟出口估计不准；默认 0 表示不扰动 -->
     <arg name="init_pose_offset_x" default="0.0" />
     <arg name="init_pose_offset_y" default="0.0" />
     <arg name="init_pose_offset_theta" default="0.0" />
+    <!-- 初始位姿协方差：让 AMCL 粒子有初始展开，nomotion update 才能使粒子分布有意义地演化 -->
+    <arg name="init_sigma_xy" default="0.0" />
+    <arg name="init_sigma_yaw" default="0.0" />
     <!-- 为 true 时使用 move_base 标准全局规划器 navfn（默认，减少 NO PATH）；false 使用 ImprovedAStarPlanner -->
     <arg name="use_navfn" default="true" />
 
@@ -103,6 +108,19 @@
     <!-- 模块 C 重定位置信度判据（仅当 use_covariance_reloc:=true 时加载） -->
     <group if="$(arg use_covariance_reloc)">
         <rosparam file="$(find multi_floor_nav)/configs/reloc_confidence_criterion.yaml" ns="multi_floor_navigation_node"/>
+    </group>
+
+    <!-- 初始位姿协方差：仅在不使用 module A 时从 launch arg 设置，避免覆盖 spa_amcl yaml -->
+    <group unless="$(arg use_region_init)">
+        <param name="multi_floor_navigation_node/region_init_sigma_x" value="$(arg init_sigma_xy)"/>
+        <param name="multi_floor_navigation_node/region_init_sigma_y" value="$(arg init_sigma_xy)"/>
+        <param name="multi_floor_navigation_node/region_init_sigma_yaw" value="$(arg init_sigma_yaw)"/>
+    </group>
+
+    <!-- 可选覆盖 K 值：reloc_confidence_K_override > 0 时覆盖 YAML 中的默认值 -->
+    <group if="$(eval arg('reloc_confidence_K_override') > 0)">
+        <param name="multi_floor_navigation_node/reloc_confidence_K"
+               value="$(arg reloc_confidence_K_override)"/>
     </group>
 
     <!-- Run Multi Floor Navigation Node（初值扰动 / AP-AMCL / 模块 C 通过 args 或 rosparam 传入） -->

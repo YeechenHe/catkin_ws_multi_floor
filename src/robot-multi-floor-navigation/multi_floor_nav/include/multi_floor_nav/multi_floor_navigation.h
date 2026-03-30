@@ -12,6 +12,7 @@
 #include "std_msgs/Int32.h"
 #include "geometry_msgs/Pose2D.h"
 #include "std_msgs/Empty.h"
+#include <std_srvs/Empty.h>
 
 #include <tf2_geometry_msgs/tf2_geometry_msgs.h>
 #include <tf/tf.h>
@@ -60,8 +61,40 @@ class MultiFloorNav{
         double reloc_confidence_tau_;
         int reloc_confidence_K_;
         int reloc_confidence_consecutive_count_;
-        ros::Time reloc_check_start_time_;  // 进入 CHECK_INITPOSE 的时刻，用于超时后重试
+        ros::Time reloc_check_start_time_;
         double reloc_check_timeout_sec_;
+        double reloc_check_timeout_L0_;   // L0 层 timeout（较短，允许更快 retry）
+        double reloc_check_timeout_L1_;   // L1 层 timeout（跨层重定位需要更长收敛时间）
+
+        // AMCL nomotion update: force AMCL to process laser scans while robot is stationary
+        ros::ServiceClient nomotion_update_client_;
+        double reloc_min_check_delay_sec_;
+
+        // 修复缺陷一：per-floor 区域初始化 sigma（模块 A）
+        // L0/L1 分别配置，允许按楼层激光环境独立调参
+        double region_init_sigma_x_L0_, region_init_sigma_y_L0_, region_init_sigma_yaw_L0_;
+        double region_init_sigma_x_L1_, region_init_sigma_y_L1_, region_init_sigma_yaw_L1_;
+
+        // 修复缺陷二：per-floor nomotion 等待时间
+        double reloc_min_check_delay_L0_;   // L0 层专用等待（单点 Baseline 同样受此约束）
+        double reloc_min_check_delay_L1_;   // L1 层专用等待（SP-AMCL 粒子散布较慢）
+
+        // 修复缺陷五：retry 退避策略
+        // 每次 retry 将 sigma 乘以 backoff_factor，最多扩大 max_backoff_scale 倍
+        int    reloc_retry_count_;          // 当前楼层已重试次数（INIT_POSE 进入时重置）
+        double region_init_backoff_factor_; // 退避乘数（默认 1.3）
+        double region_init_max_backoff_;    // sigma 最大倍数上限（默认 2.0）
+
+        // 自适应 sigma：根据偏移量动态缩放，小偏移用小 sigma，大偏移用大 sigma
+        double region_init_sigma_adaptive_alpha_; // sigma = alpha * offset_planar
+        double region_init_sigma_min_scale_;      // 最小 sigma（m）
+        double region_init_sigma_min_yaw_;        // 最小 yaw sigma（rad）
+
+        // 通过后误差监控（用于采集 e_pass 和 after_pass 稳定性指标）
+        bool reloc_post_monitoring_;
+        ros::Time reloc_pass_time_;
+        double reloc_post_monitor_duration_;
+        geometry_msgs::Pose2D reloc_pass_desired_pose_;
 
         void amclPoseCallback(const geometry_msgs::PoseWithCovarianceStamped::ConstPtr& msg);
         void odomCallback(const nav_msgs::Odometry::ConstPtr& msg);

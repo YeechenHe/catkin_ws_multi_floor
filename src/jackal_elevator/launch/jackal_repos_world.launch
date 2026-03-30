@@ -3,8 +3,8 @@
   <arg name="gui" default="true" />
   <arg name="headless" default="false" />
   <arg name="world_name" default="$(find jackal_gazebo)/worlds/jackal_race.world" />
-  <arg name="x_pos" default="4.0"/>
-  <arg name="y_pos" default="-5.0"/>
+  <arg name="x_pos" default="5.0"/>
+  <arg name="y_pos" default="-0.5"/>
   <arg name="z_pos" default="0.5"/>
 
   <!-- Short-term hack to support the original front_laser:=true argument for spawning

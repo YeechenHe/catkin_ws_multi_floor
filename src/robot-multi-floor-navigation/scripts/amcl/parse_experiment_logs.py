@@ -244,10 +244,14 @@ def main():
     for fn in sorted(os.listdir(log_dir)):
         if not fn.endswith(".log"):
             continue
-        m = re.match(r"(baseline|spamcl|apamcl|relocc)_pert_([\d.]+)_([\d.]+)_([\d.]+)_run(\d+)\.log", fn)
+        # Accept both "spamcl" and "sp_amcl" log prefixes (historical naming inconsistency).
+        # Also accept combined method "sp_amcl_c" for convenience.
+        m = re.match(r"(baseline|spamcl|sp_amcl|apamcl|relocc|sp_amcl_c)_pert_([\d.]+)_([\d.]+)_([\d.]+)_run(\d+)\.log", fn)
         if not m:
             continue
         method, ox, oy, ot, run_id = m.group(1), m.group(2), m.group(3), m.group(4), m.group(5)
+        if method == "sp_amcl":
+            method = "spamcl"
         pert_name = f"{ox}_{oy}_{ot}"
         if (ox, oy, ot) == ("0", "0", "0"):
             pert_name = "0"

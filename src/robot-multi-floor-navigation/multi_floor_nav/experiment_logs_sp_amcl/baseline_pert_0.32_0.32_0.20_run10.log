@@ -1,10 +1,10 @@
 xacro: in-order processing became default in ROS Melodic. You can drop the option.
-... logging to /home/eethanhe/.ros/log/bbfbd418-2d09-11f1-8422-679edff71d44/roslaunch-eethanhe-Lenovo-Legion-R9000P2021H-52018.log
+... logging to /home/eethanhe/.ros/log/1261891c-2d17-11f1-8422-679edff71d44/roslaunch-eethanhe-Lenovo-Legion-R9000P2021H-130402.log
 Checking log directory for disk usage. This may take a while.
 Press Ctrl-C to interrupt
 Done checking log file disk usage. Usage is <1GB.
 ]2;/home/eethanhe/catkin_ws/src/robot-multi-floor-navigation/multi_floor_nav/launch/nav.launch
-[1mstarted roslaunch server http://eethanhe-Lenovo-Legion-R9000P2021H:35069/[0m
+[1mstarted roslaunch server http://eethanhe-Lenovo-Legion-R9000P2021H:34757/[0m
 
 SUMMARY
 ========
@@ -193,9 +193,9 @@ PARAMETERS
  * /move_base/planner_patience: 5.0
  * /move_base/recovery_behavior_enabled: True
  * /move_base/shutdown_costmaps: False
- * /multi_floor_navigation_node/init_pose_offset_theta: 0.05
- * /multi_floor_navigation_node/init_pose_offset_x: 0.1
- * /multi_floor_navigation_node/init_pose_offset_y: 0.1
+ * /multi_floor_navigation_node/init_pose_offset_theta: 0.2
+ * /multi_floor_navigation_node/init_pose_offset_x: 0.32
+ * /multi_floor_navigation_node/init_pose_offset_y: 0.32
  * /multi_floor_navigation_node/region_init_sigma_x: 0
  * /multi_floor_navigation_node/region_init_sigma_y: 0
  * /multi_floor_navigation_node/region_init_sigma_yaw: 0
@@ -224,115 +224,116 @@ NODES
     twist_marker_server (interactive_marker_twist_server/marker_server)
     twist_mux (twist_mux/twist_mux)
     urdf_spawner (gazebo_ros/spawn_model)
-[ INFO] [1774965526.975666002]: Finished loading Gazebo ROS API Plugin.
-[ INFO] [1774965526.977896286]: waitForService: Service [/gazebo/set_physics_properties] has not been advertised, waiting...
+[ INFO] [1774971255.385198973]: Finished loading Gazebo ROS API Plugin.
+[ INFO] [1774971255.391195769]: waitForService: Service [/gazebo/set_physics_properties] has not been advertised, waiting...
 [1;33mWarning [Model.cc:216][0m Non-unique name[door] detected 2 times in XML children of model with name[elevator].
 [1;33mWarning [Model.cc:309][0m Joint with name [door] in model with name [elevator] has a name collision, changing joint name to [door_joint].
-[ INFO] [1774965527.984220328]: waitForService: Service [/gazebo/set_physics_properties] is now available.
-[ INFO] [1774965528.114445925, 1054.802000000]: Physics dynamic reconfigure ready.
+[ INFO] [1774971256.149570846]: waitForService: Service [/gazebo/set_physics_properties] is now available.
+[ INFO] [1774971256.164247087]: Physics dynamic reconfigure ready.
 [1;33mWarning [parser_urdf.cc:1161][0m multiple inconsistent <gravity> exists due to fixed joint reduction overwriting previous value [true] with [false].
 [1;33mWarning [parser_urdf.cc:1161][0m multiple inconsistent <gravity> exists due to fixed joint reduction overwriting previous value [false] with [true].
-[ERROR] [1774965528.766499084, 1054.993000000]: No p gain specified for pid.  Namespace: /gazebo_ros_control/pid_gains/front_left_wheel
-[ERROR] [1774965528.767006126, 1054.993000000]: No p gain specified for pid.  Namespace: /gazebo_ros_control/pid_gains/front_right_wheel
-[ERROR] [1774965528.767460088, 1054.993000000]: No p gain specified for pid.  Namespace: /gazebo_ros_control/pid_gains/rear_left_wheel
-[ERROR] [1774965528.767899245, 1054.993000000]: No p gain specified for pid.  Namespace: /gazebo_ros_control/pid_gains/rear_right_wheel
-[ WARN] [1774965528.809560230, 1054.994000000]: Failed to meet update rate! Took 1054.9939999999999145
-[ WARN] [1774965528.810010072, 1054.995000000]: Timed out waiting for transform from base_link to map to become available before running costmap, tf error: canTransform: target_frame map does not exist. canTransform: source_frame base_link does not exist.. canTransform returned after 1054.99 timeout was 0.1.
-[ WARN] [1774965528.810854373, 1054.996000000]: Failed to meet update rate! Took 1054.9760000000001128
-[ WARN] [1774965529.086902394]: Interactive marker 'robot_twist_marker' contains unnormalized quaternions. This warning will only be output once but may be true for others; enable DEBUG messages for ros.rviz.quaternions to see more details.
-[ WARN] [1774965530.105955952, 1056.280000000]: global_costmap: Pre-Hydro parameter "static_map" unused since "plugins" is provided
-[ WARN] [1774965530.106587379, 1056.281000000]: global_costmap: Pre-Hydro parameter "map_type" unused since "plugins" is provided
-[ WARN] [1774965561.485991711, 1087.197000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.10, offset_y=0.10, offset_theta=0.05
-[ WARN] [1774965561.514328748, 1087.226000000]: local_costmap: Pre-Hydro parameter "static_map" unused since "plugins" is provided
-[ WARN] [1774965561.514564809, 1087.226000000]: local_costmap: Pre-Hydro parameter "map_type" unused since "plugins" is provided
-[ WARN] [1774965561.551823257, 1087.263000000]: Parameter pdist_scale is deprecated. Please use the name path_distance_bias instead.
-[ WARN] [1774965561.552552251, 1087.264000000]: Parameter gdist_scale is deprecated. Please use the name goal_distance_bias instead.
-[ WARN] [1774965632.389515475, 1157.407000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.10, offset_y=0.10, offset_theta=0.05
-[ INFO] [1774965526.699355308]: [Multi Floor Nav] Module A sigma: L0=(0.000,0.000,0.000) L1=(0.000,0.000,0.000)
-[ INFO] [1774965526.699984639]: [Multi Floor Nav] Module A delay: L0=6.0s  L1=6.0s  backoff: factor=1.30 max=2.00
-[ INFO] [1774965561.328022538, 1087.041000000]: [Multi Floor Nav] Successfully loaded map for level: 0
-[ INFO] [1774965561.486051703, 1087.198000000]: [Multi Floor Nav] Initializing Robot at x: 5.1, y: -0.4, yaw: 0.1 (level=0, sigma: x=0.000, y=0.000, yaw=0.000, retry=0)
-[ INFO] [1774965561.486084878, 1087.198000000]: [Multi Floor Nav] Initializing Pose to x: 5.00, y: -0.50 at level: 0
-[ INFO] [1774965562.505605033, 1088.200000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (1.0/6.0s, L0)...
-[ INFO] [1774965563.522122744, 1089.201000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (2.0/6.0s, L0)...
-[ INFO] [1774965564.733851235, 1090.401000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (3.2/6.0s, L0)...
-[ INFO] [1774965565.751355776, 1091.401000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (4.2/6.0s, L0)...
-[ INFO] [1774965566.971270381, 1092.601000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (5.4/6.0s, L0)...
-[ INFO] [1774965567.582084516, 1093.201000000]: [Multi Floor Nav] Current Robot Pose, x: 5.10, y: -0.40, yaw: 0.07
-[ INFO] [1774965567.582135010, 1093.201000000]: [Multi Floor Nav] Linear Error: 0.14, Angular Error: 0.07
-[ INFO] [1774965567.582155543, 1093.201000000]: [Multi Floor Nav] Robot at correct pose
-[ INFO] [1774965567.586200349, 1093.205000000]: [Multi Floor Nav] RELOC_PASS: linear_error=0.1419, angular_error=0.0691, linear_error_init=0.0007, angular_error_init=0.0191, tr_sigma=0.0000, C_t=1.0000
-[ INFO] [1774965568.598647660, 1094.206000000]: [Multi Floor Nav] POST_PASS: dt=1.001s, linear_error=0.1419, angular_error=0.0695
-[ INFO] [1774965568.598670847, 1094.206000000]: [Multi Floor Nav] Will send goal to x: 3, y: -0, at level: 0
-[ INFO] [1774965568.598684955, 1094.206000000]: [Multi Floor Nav] Sending Robot to x: 3.0, y: -0.5, yaw: 3.1
-[ INFO] [1774965568.801306429, 1094.407000000]: [Multi Floor Nav] POST_PASS: dt=1.202s, linear_error=0.1419, angular_error=0.0695
-[ INFO] [1774965569.003262674, 1094.606000000]: [Multi Floor Nav] POST_PASS: dt=1.401s, linear_error=0.1419, angular_error=0.0695
-[ INFO] [1774965569.205886242, 1094.807000000]: [Multi Floor Nav] POST_PASS: dt=1.602s, linear_error=0.1602, angular_error=0.3423
-[ INFO] [1774965569.407258549, 1095.006000000]: [Multi Floor Nav] POST_PASS: dt=1.801s, linear_error=0.1697, angular_error=0.7370
-[ INFO] [1774965595.080805088, 1120.406000000]: [Multi Floor Nav] Requesting Lift to Level 0
-[ INFO] [1774965595.283577454, 1120.606000000]: [Multi Floor Nav] Entering Lift at Level 0
-[ INFO] [1774965612.629207698, 1137.806000000]: [Multi Floor Nav] Requesting Lift to Level 1
-[ INFO] [1774965619.682570151, 1144.806000000]: [Multi Floor Nav] Exiting Lift at Level 1
-[ INFO] [1774965632.222701577, 1157.242000000]: [Multi Floor Nav] Successfully loaded map for level: 1
-[ INFO] [1774965632.389542713, 1157.407000000]: [Multi Floor Nav] Initializing Robot at x: 3.1, y: -0.4, yaw: 3.2 (level=1, sigma: x=0.000, y=0.000, yaw=0.000, retry=0)
-[ INFO] [1774965632.389571278, 1157.407000000]: [Multi Floor Nav] Initializing Pose to x: 3.00, y: -0.50 at level: 1
-[ INFO] [1774965633.403039829, 1158.410000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (1.0/6.0s, L1)...
-[ INFO] [1774965634.611211481, 1159.609000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (2.2/6.0s, L1)...
-[ INFO] [1774965635.617949994, 1160.610000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (3.2/6.0s, L1)...
-[ INFO] [1774965636.624491272, 1161.611000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (4.2/6.0s, L1)...
-[ INFO] [1774965637.833594433, 1162.810000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (5.4/6.0s, L1)...
-[ INFO] [1774965638.437609078, 1163.409000000]: [Multi Floor Nav] Current Robot Pose, x: 3.10, y: -0.40, yaw: -3.07
-[ INFO] [1774965638.437650982, 1163.409000000]: [Multi Floor Nav] Linear Error: 0.14, Angular Error: 0.07
-[ INFO] [1774965638.437678010, 1163.409000000]: [Multi Floor Nav] Robot at correct pose
-[ INFO] [1774965638.439516348, 1163.412000000]: [Multi Floor Nav] RELOC_PASS: linear_error=0.1408, angular_error=0.0682, linear_error_init=0.0009, angular_error_init=0.0182, tr_sigma=0.0000, C_t=1.0000
-[ INFO] [1774965639.446495929, 1164.412000000]: [Multi Floor Nav] POST_PASS: dt=1.000s, linear_error=0.1408, angular_error=0.0693
-[ INFO] [1774965639.446535877, 1164.412000000]: [Multi Floor Nav] Will send goal to x: 4, y: 5, at level: 1
-[ INFO] [1774965639.446547331, 1164.412000000]: [Multi Floor Nav] Sending Robot to x: 4.0, y: 5.0, yaw: 0.0
-[ INFO] [1774965639.648763647, 1164.612000000]: [Multi Floor Nav] POST_PASS: dt=1.200s, linear_error=0.1408, angular_error=0.0693
-[ INFO] [1774965639.851433716, 1164.812000000]: [Multi Floor Nav] POST_PASS: dt=1.400s, linear_error=0.1408, angular_error=0.0693
-[ INFO] [1774965640.053073710, 1165.012000000]: [Multi Floor Nav] POST_PASS: dt=1.600s, linear_error=0.1058, angular_error=0.1354
-[ INFO] [1774965640.254708813, 1165.212000000]: [Multi Floor Nav] POST_PASS: dt=1.800s, linear_error=0.1697, angular_error=0.3519
-[ INFO] [1774965640.455977535, 1165.412000000]: [Multi Floor Nav] POST_PASS: dt=2.000s, linear_error=0.2842, angular_error=0.6665
-[ INFO] [1774965707.990711689, 1232.412000000]: [Multi Floor Nav] Robot arrived at Goal
-[ INFO] [1774965530.107886131, 1056.282000000]: global_costmap: Using plugin "static_layer"
-[ INFO] [1774965530.112535965, 1056.287000000]: Requesting the map...
-[ INFO] [1774965561.376774199, 1087.089000000]: Resizing costmap to 992 X 992 at 0.020000 m/pix
-[ INFO] [1774965561.476341934, 1087.188000000]: Received a 992 X 992 map at 0.020000 m/pix
-[ INFO] [1774965561.478418219, 1087.190000000]: global_costmap: Using plugin "obstacles_layer"
-[ INFO] [1774965561.481377217, 1087.193000000]:     Subscribed to Topics: scan
-[ INFO] [1774965561.492268056, 1087.204000000]: global_costmap: Using plugin "inflater_layer"
-[ INFO] [1774965561.515002289, 1087.227000000]: local_costmap: Using plugin "obstacles_layer"
-[ INFO] [1774965561.517639811, 1087.229000000]:     Subscribed to Topics: scan
-[ INFO] [1774965561.526437814, 1087.238000000]: local_costmap: Using plugin "inflater_layer"
-[ INFO] [1774965561.545174453, 1087.257000000]: Created local_planner base_local_planner/TrajectoryPlannerROS
-[ INFO] [1774965561.549670986, 1087.261000000]: Sim period is set to 0.05
-[ INFO] [1774965561.597263437, 1087.309000000]: Recovery behavior will clear layer 'obstacles'
-[ INFO] [1774965561.605628639, 1087.317000000]: Recovery behavior will clear layer 'obstacles'
-[ INFO] [1774965561.747953565, 1087.457000000]: odom received!
+[ERROR] [1774971256.738683374, 1054.901000000]: No p gain specified for pid.  Namespace: /gazebo_ros_control/pid_gains/front_left_wheel
+[ERROR] [1774971256.739105141, 1054.901000000]: No p gain specified for pid.  Namespace: /gazebo_ros_control/pid_gains/front_right_wheel
+[ERROR] [1774971256.739484655, 1054.901000000]: No p gain specified for pid.  Namespace: /gazebo_ros_control/pid_gains/rear_left_wheel
+[ERROR] [1774971256.739864868, 1054.901000000]: No p gain specified for pid.  Namespace: /gazebo_ros_control/pid_gains/rear_right_wheel
+[ WARN] [1774971256.791466691, 1054.902000000]: Failed to meet update rate! Took 1054.9020000000000437
+[ WARN] [1774971256.792193522, 1054.903000000]: Timed out waiting for transform from base_link to map to become available before running costmap, tf error: canTransform: target_frame map does not exist.. canTransform returned after 1054.9 timeout was 0.1.
+[ WARN] [1774971256.792660127, 1054.903000000]: Failed to meet update rate! Took 1054.8830000000000382
+[ WARN] [1774971257.989744319, 1056.088000000]: global_costmap: Pre-Hydro parameter "static_map" unused since "plugins" is provided
+[ WARN] [1774971257.990432529, 1056.089000000]: global_costmap: Pre-Hydro parameter "map_type" unused since "plugins" is provided
+[ WARN] [1774971258.781709460, 1056.870000000]: Interactive marker 'robot_twist_marker' contains unnormalized quaternions. This warning will only be output once but may be true for others; enable DEBUG messages for ros.rviz.quaternions to see more details.
+[ WARN] [1774971289.972692331, 1087.687000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.32, offset_y=0.32, offset_theta=0.20
+[ WARN] [1774971290.123200925, 1087.837000000]: local_costmap: Pre-Hydro parameter "static_map" unused since "plugins" is provided
+[ WARN] [1774971290.123409679, 1087.838000000]: local_costmap: Pre-Hydro parameter "map_type" unused since "plugins" is provided
+[ WARN] [1774971290.157302361, 1087.871000000]: Parameter pdist_scale is deprecated. Please use the name path_distance_bias instead.
+[ WARN] [1774971290.157841950, 1087.872000000]: Parameter gdist_scale is deprecated. Please use the name goal_distance_bias instead.
+[ WARN] [1774971291.007255208, 1088.711000000]: The origin for the sensor at (0.20, 0.19) is out of map bounds. So, the costmap cannot raytrace for it.
+[ WARN] [1774971355.451178105, 1152.497000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.32, offset_y=0.32, offset_theta=0.20
+[ INFO] [1774971255.062503743]: [Multi Floor Nav] Module A sigma: L0=(0.000,0.000,0.000) L1=(0.000,0.000,0.000)
+[ INFO] [1774971255.063180987]: [Multi Floor Nav] Module A delay: L0=6.0s  L1=6.0s  backoff: factor=1.30 max=2.00
+[ INFO] [1774971289.953717189, 1087.668000000]: [Multi Floor Nav] Successfully loaded map for level: 0
+[ INFO] [1774971289.972747505, 1087.687000000]: [Multi Floor Nav] Initializing Robot at x: 5.3, y: -0.2, yaw: 0.2 (level=0, sigma: x=0.000, y=0.000, yaw=0.000, retry=0)
+[ INFO] [1774971289.972777537, 1087.687000000]: [Multi Floor Nav] Initializing Pose to x: 5.00, y: -0.50 at level: 0
+[ INFO] [1774971290.987080204, 1088.691000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (1.0/6.0s, L0)...
+[ INFO] [1774971292.198655848, 1089.891000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (2.2/6.0s, L0)...
+[ INFO] [1774971293.203994470, 1090.891000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (3.2/6.0s, L0)...
+[ INFO] [1774971294.215506377, 1091.891000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (4.2/6.0s, L0)...
+[ INFO] [1774971295.428269102, 1093.091000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (5.4/6.0s, L0)...
+[ INFO] [1774971296.034294453, 1093.691000000]: [Multi Floor Nav] Current Robot Pose, x: 5.32, y: -0.18, yaw: 0.18
+[ INFO] [1774971296.034341036, 1093.691000000]: [Multi Floor Nav] Linear Error: 0.45, Angular Error: 0.18
+[ INFO] [1774971296.034362338, 1093.691000000]: [Multi Floor Nav] Robot at correct pose
+[ INFO] [1774971296.037686682, 1093.695000000]: [Multi Floor Nav] RELOC_PASS: linear_error=0.4531, angular_error=0.1819, linear_error_init=0.0007, angular_error_init=0.0181, tr_sigma=0.0000, C_t=1.0000
+[ INFO] [1774971297.048299531, 1094.695000000]: [Multi Floor Nav] POST_PASS: dt=1.000s, linear_error=0.4531, angular_error=0.1814
+[ INFO] [1774971297.048360432, 1094.695000000]: [Multi Floor Nav] Will send goal to x: 3, y: -0, at level: 0
+[ INFO] [1774971297.048403104, 1094.695000000]: [Multi Floor Nav] Sending Robot to x: 3.0, y: -0.5, yaw: 3.1
+[ INFO] [1774971297.249872594, 1094.895000000]: [Multi Floor Nav] POST_PASS: dt=1.200s, linear_error=0.4531, angular_error=0.1814
+[ INFO] [1774971297.451677948, 1095.095000000]: [Multi Floor Nav] POST_PASS: dt=1.400s, linear_error=0.4531, angular_error=0.1814
+[ INFO] [1774971297.653137730, 1095.296000000]: [Multi Floor Nav] POST_PASS: dt=1.600s, linear_error=0.4749, angular_error=0.2416
+[ INFO] [1774971297.854710794, 1095.495000000]: [Multi Floor Nav] POST_PASS: dt=1.800s, linear_error=0.4984, angular_error=0.6656
+[ INFO] [1774971298.060670059, 1095.695000000]: [Multi Floor Nav] POST_PASS: dt=2.000s, linear_error=0.5063, angular_error=1.0971
+[ INFO] [1774971318.075323193, 1115.495000000]: [Multi Floor Nav] Requesting Lift to Level 0
+[ INFO] [1774971318.278417526, 1115.696000000]: [Multi Floor Nav] Entering Lift at Level 0
+[ INFO] [1774971335.610814652, 1132.895000000]: [Multi Floor Nav] Requesting Lift to Level 1
+[ INFO] [1774971342.678548499, 1139.895000000]: [Multi Floor Nav] Exiting Lift at Level 1
+[ INFO] [1774971355.421778131, 1152.468000000]: [Multi Floor Nav] Successfully loaded map for level: 1
+[ INFO] [1774971355.451204296, 1152.497000000]: [Multi Floor Nav] Initializing Robot at x: 3.3, y: -0.2, yaw: 3.3 (level=1, sigma: x=0.000, y=0.000, yaw=0.000, retry=0)
+[ INFO] [1774971355.451226226, 1152.497000000]: [Multi Floor Nav] Initializing Pose to x: 3.00, y: -0.50 at level: 1
+[ INFO] [1774971356.473006184, 1153.499000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (1.0/6.0s, L1)...
+[ INFO] [1774971357.696790055, 1154.700000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (2.2/6.0s, L1)...
+[ INFO] [1774971358.709816748, 1155.700000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (3.2/6.0s, L1)...
+[ INFO] [1774971359.725992694, 1156.700000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (4.2/6.0s, L1)...
+[ INFO] [1774971360.742416924, 1157.701000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (5.2/6.0s, L1)...
+[ INFO] [1774971361.552405992, 1158.500000000]: [Multi Floor Nav] Current Robot Pose, x: 3.32, y: -0.18, yaw: -2.96
+[ INFO] [1774971361.552430157, 1158.500000000]: [Multi Floor Nav] Linear Error: 0.45, Angular Error: 0.18
+[ INFO] [1774971361.552439376, 1158.500000000]: [Multi Floor Nav] Robot at correct pose
+[ INFO] [1774971361.553870481, 1158.502000000]: [Multi Floor Nav] RELOC_PASS: linear_error=0.4521, angular_error=0.1811, linear_error_init=0.0006, angular_error_init=0.0189, tr_sigma=0.0000, C_t=1.0000
+[ INFO] [1774971362.576250930, 1159.503000000]: [Multi Floor Nav] POST_PASS: dt=1.001s, linear_error=0.4520, angular_error=0.1801
+[ INFO] [1774971362.576272301, 1159.503000000]: [Multi Floor Nav] Will send goal to x: 4, y: 5, at level: 1
+[ INFO] [1774971362.576284453, 1159.503000000]: [Multi Floor Nav] Sending Robot to x: 4.0, y: 5.0, yaw: 0.0
+[ INFO] [1774971362.780158768, 1159.703000000]: [Multi Floor Nav] POST_PASS: dt=1.201s, linear_error=0.4520, angular_error=0.1801
+[ INFO] [1774971362.982883576, 1159.903000000]: [Multi Floor Nav] POST_PASS: dt=1.401s, linear_error=0.4520, angular_error=0.1801
+[ INFO] [1774971363.185438183, 1160.103000000]: [Multi Floor Nav] POST_PASS: dt=1.601s, linear_error=0.3691, angular_error=0.0650
+[ INFO] [1774971363.388125836, 1160.303000000]: [Multi Floor Nav] POST_PASS: dt=1.801s, linear_error=0.3501, angular_error=0.4093
+[ INFO] [1774971382.526887255, 1179.104000000]: [Multi Floor Nav] Robot arrived at Goal
+[ INFO] [1774971257.991017514, 1056.090000000]: global_costmap: Using plugin "static_layer"
+[ INFO] [1774971257.995331570, 1056.094000000]: Requesting the map...
+[ INFO] [1774971289.982217197, 1087.696000000]: Resizing costmap to 992 X 992 at 0.020000 m/pix
+[ INFO] [1774971290.081031429, 1087.795000000]: Received a 992 X 992 map at 0.020000 m/pix
+[ INFO] [1774971290.087978687, 1087.802000000]: global_costmap: Using plugin "obstacles_layer"
+[ INFO] [1774971290.091300377, 1087.805000000]:     Subscribed to Topics: scan
+[ INFO] [1774971290.099630689, 1087.814000000]: global_costmap: Using plugin "inflater_layer"
+[ INFO] [1774971290.123816989, 1087.838000000]: local_costmap: Using plugin "obstacles_layer"
+[ INFO] [1774971290.126136956, 1087.840000000]:     Subscribed to Topics: scan
+[ INFO] [1774971290.133482794, 1087.848000000]: local_costmap: Using plugin "inflater_layer"
+[ INFO] [1774971290.151535131, 1087.866000000]: Created local_planner base_local_planner/TrajectoryPlannerROS
+[ INFO] [1774971290.155276284, 1087.869000000]: Sim period is set to 0.05
+[ INFO] [1774971290.211647944, 1087.926000000]: Recovery behavior will clear layer 'obstacles'
+[ INFO] [1774971290.214689503, 1087.929000000]: Recovery behavior will clear layer 'obstacles'
+[ INFO] [1774971290.390984936, 1088.104000000]: odom received!
 
 auto-starting new master
-[1mprocess[master]: started with pid [52114][0m
+[1mprocess[master]: started with pid [130479][0m
 [1mROS_MASTER_URI=http://localhost:11311[0m
 ]2;/home/eethanhe/catkin_ws/src/robot-multi-floor-navigation/multi_floor_nav/launch/nav.launch http://localhost:11311
-[1msetting /run_id to bbfbd418-2d09-11f1-8422-679edff71d44[0m
-[1mprocess[rosout-1]: started with pid [52139][0m
+[1msetting /run_id to 1261891c-2d17-11f1-8422-679edff71d44[0m
+[1mprocess[rosout-1]: started with pid [130504][0m
 started core service [/rosout]
-[1mprocess[gazebo-2]: started with pid [52146][0m
-[1mprocess[robot_state_publisher-3]: started with pid [52149][0m
-[1mprocess[controller_spawner-4]: started with pid [52152][0m
-[1mprocess[ekf_localization-5]: started with pid [52153][0m
-[1mprocess[twist_mux-6]: started with pid [52154][0m
-[1mprocess[twist_marker_server-7]: started with pid [52159][0m
-[1mprocess[urdf_spawner-8]: started with pid [52162][0m
-[1mprocess[map_server0-9]: started with pid [52168][0m
-[1mprocess[map_server1-10]: started with pid [52178][0m
-[1mprocess[amcl-11]: started with pid [52181][0m
-[1mprocess[move_base-12]: started with pid [52183][0m
-[1mprocess[rviz-13]: started with pid [52191][0m
-[1mprocess[change_map_node-14]: started with pid [52198][0m
-[1mprocess[multi_floor_navigation_node-15]: started with pid [52208][0m
+[1mprocess[gazebo-2]: started with pid [130511][0m
+[1mprocess[robot_state_publisher-3]: started with pid [130514][0m
+[1mprocess[controller_spawner-4]: started with pid [130517][0m
+[1mprocess[ekf_localization-5]: started with pid [130518][0m
+[1mprocess[twist_mux-6]: started with pid [130519][0m
+[1mprocess[twist_marker_server-7]: started with pid [130524][0m
+[1mprocess[urdf_spawner-8]: started with pid [130530][0m
+[1mprocess[map_server0-9]: started with pid [130537][0m
+[1mprocess[map_server1-10]: started with pid [130544][0m
+[1mprocess[amcl-11]: started with pid [130545][0m
+[1mprocess[move_base-12]: started with pid [130548][0m
+[1mprocess[rviz-13]: started with pid [130554][0m
+[1mprocess[change_map_node-14]: started with pid [130560][0m
+[1mprocess[multi_floor_navigation_node-15]: started with pid [130572][0m
 [1m[urdf_spawner-8] process has finished cleanly
-log file: /home/eethanhe/.ros/log/bbfbd418-2d09-11f1-8422-679edff71d44/urdf_spawner-8*.log[0m
+log file: /home/eethanhe/.ros/log/1261891c-2d17-11f1-8422-679edff71d44/urdf_spawner-8*.log[0m
 [multi_floor_navigation_node-15] killing on exit
 [change_map_node-14] killing on exit
 [rviz-13] killing on exit

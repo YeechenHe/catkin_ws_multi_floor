@@ -13,6 +13,7 @@
 #include <cmath>
 #include <string>
 #include <utility>
+#include <cstdint>
 
 namespace improved_astar {
 
@@ -45,6 +46,15 @@ public:
                   std::vector<geometry_msgs::PoseStamped>& plan) override;
 
 private:
+    struct PathMetrics {
+        double path_length_m = 0.0;
+        double min_clearance_m = 0.0;
+        double mean_clearance_m = 0.0;
+        double sum_abs_turn_rad = 0.0;
+        int32_t turn_point_count = 0;
+        int32_t danger_point_count = 0;
+    };
+
     int64_t coordToIndex(int32_t x, int32_t y) const;
 
     std::vector<std::pair<int32_t, int32_t>> goalBiasedNeighbors(
@@ -72,6 +82,34 @@ private:
 
     bool isFree(int32_t x, int32_t y) const;
 
+    std::vector<std::pair<double, double>> deduplicatePath(
+        const std::vector<std::pair<double, double>>& path) const;
+
+    std::vector<std::pair<double, double>> shortcutPath(
+        const std::vector<std::pair<double, double>>& path) const;
+
+    std::vector<std::pair<double, double>> smoothPathBSpline(
+        const std::vector<std::pair<double, double>>& path) const;
+
+    std::vector<std::pair<double, double>> smoothPathWithFallback(
+        const std::vector<std::pair<double, double>>& path) const;
+
+    bool isSegmentSafeWorld(double start_x, double start_y,
+                            double end_x, double end_y) const;
+
+    bool isPointSafeWorld(double world_x, double world_y) const;
+
+    double pointClearanceMeters(double world_x, double world_y) const;
+
+    PathMetrics computePathMetrics(
+        const std::vector<std::pair<double, double>>& path) const;
+
+    void logPathComparison(const PathMetrics& raw_metrics,
+                           const PathMetrics& smooth_metrics,
+                           size_t raw_waypoints,
+                           size_t smooth_waypoints,
+                           int32_t expanded_count) const;
+
     costmap_2d::Costmap2DROS* costmap_ros_ = nullptr;
     costmap_2d::Costmap2D* costmap_ = nullptr;
     bool initialized_ = false;
@@ -94,6 +132,14 @@ private:
     double alpha_narrow_ = 1.00;
 
     double neutral_cost_ = 50.0;
+
+    bool smoothing_enabled_ = true;
+    double smoothing_max_jump_m_ = 2.0;
+    int32_t smoothing_bspline_upsample_ = 3;
+    double smoothing_min_point_spacing_m_ = 0.03;
+    double smoothing_safety_clearance_m_ = 0.12;
+    double smoothing_danger_clearance_m_ = 0.20;
+    double smoothing_turn_angle_threshold_rad_ = 0.35;
 
     // Cells with cost >= lethal_cost_threshold_ are treated as impassable.
     // Default 253 (INSCRIBED_INFLATED_OBSTACLE) allows the full inflation zone.

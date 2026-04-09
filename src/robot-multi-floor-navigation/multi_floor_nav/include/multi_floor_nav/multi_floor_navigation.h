@@ -41,9 +41,14 @@ class MultiFloorNav{
         int desired_map_level;
         bool received_amcl_pose, goal_sent, goal_active, to_start;
         bool received_scan_;
+        bool manual_lift_control_;
+        bool use_reference_lift_behavior_;
+        bool manual_enter_lift_done_;
+        bool manual_exit_lift_done_;
         double loop_rate, max_linear_error, max_linear_error_L1_, max_angular_error;
         ros::Publisher initial_pose_pub, goal_pub, cmd_vel_pub, elevator_pub;
         ros::Subscriber amcl_pose_sub, odom_sub, move_base_status_sub, start_sub, scan_sub;
+        ros::Subscriber manual_enter_lift_done_sub_, manual_exit_lift_done_sub_;
         ros::ServiceClient change_map_client;
         geometry_msgs::PoseWithCovarianceStamped curr_pose;
         nav_msgs::Odometry curr_odom, first_odom;
@@ -120,6 +125,8 @@ class MultiFloorNav{
         void movebaseStatusCallback(const actionlib_msgs::GoalStatusArray::ConstPtr& msg);
         void startCallback(const std_msgs::Empty::ConstPtr& msg);
         void scanCallback(const sensor_msgs::LaserScan::ConstPtr& msg);
+        void manualEnterLiftDoneCallback(const std_msgs::Empty::ConstPtr& msg);
+        void manualExitLiftDoneCallback(const std_msgs::Empty::ConstPtr& msg);
         double getFrontObstacleDistance() const;
 
         tf2::Quaternion convertYawtoQuartenion(double yaw);

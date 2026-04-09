@@ -18,6 +18,10 @@ MultiFloorNav::MultiFloorNav(){
     goal_sent = false;
     to_start = false;
     received_scan_ = false;
+    manual_lift_control_ = false;
+    use_reference_lift_behavior_ = false;
+    manual_enter_lift_done_ = false;
+    manual_exit_lift_done_ = false;
     loop_rate = 1.0;
     max_angular_error = 0.0;
     max_linear_error = 0.0;
@@ -72,6 +76,8 @@ void MultiFloorNav::initialize(ros::NodeHandle& n){
     ros::param::param<double>("~max_linear_error", max_linear_error, 0.5);
     ros::param::param<double>("~max_linear_error_L1", max_linear_error_L1_, -1.0);
     ros::param::param<std::string>("~scan_topic", scan_topic_, "front/scan");
+    ros::param::param<bool>("~manual_lift_control", manual_lift_control_, false);
+    ros::param::param<bool>("~use_reference_lift_behavior", use_reference_lift_behavior_, false);
     ros::param::param<double>("~lift_enter_linear_speed", lift_enter_linear_speed_, 0.12);
     ros::param::param<double>("~lift_enter_target_distance", lift_enter_target_distance_, 3.0);
     ros::param::param<double>("~lift_front_safety_stop_distance", lift_front_safety_stop_distance_, 0.35);
@@ -100,6 +106,8 @@ void MultiFloorNav::initialize(ros::NodeHandle& n){
     move_base_status_sub = n.subscribe("move_base/status", 1, &MultiFloorNav::movebaseStatusCallback, this);
     start_sub = n.subscribe("start",1, &MultiFloorNav::startCallback, this);
     scan_sub = n.subscribe(scan_topic_, 1, &MultiFloorNav::scanCallback, this);
+    manual_enter_lift_done_sub_ = n.subscribe("manual_enter_lift_done", 1, &MultiFloorNav::manualEnterLiftDoneCallback, this);
+    manual_exit_lift_done_sub_ = n.subscribe("manual_exit_lift_done", 1, &MultiFloorNav::manualExitLiftDoneCallback, this);
 
     change_map_client = n.serviceClient<multi_floor_nav::IntTrigger>("change_map");
 
@@ -166,6 +174,12 @@ void MultiFloorNav::initialize(ros::NodeHandle& n){
         ROS_INFO("[Multi Floor Nav] Module C timeout: L0=%.1fs  L1=%.1fs",
                  reloc_check_timeout_L0_, reloc_check_timeout_L1_);
     }
+    if (manual_lift_control_) {
+        ROS_WARN("[Multi Floor Nav] Manual lift control enabled. Use /manual_enter_lift_done and /manual_exit_lift_done to continue state machine.");
+    }
+    if (use_reference_lift_behavior_) {
+        ROS_INFO("[Multi Floor Nav] Reference lift behavior enabled for planning comparison: fixed entry speed/distance, no front safety stop branch.");
+    }
 }
 
 void MultiFloorNav::amclPoseCallback(const geometry_msgs::PoseWithCovarianceStamped::ConstPtr& msg){
@@ -188,6 +202,16 @@ void MultiFloorNav::startCallback(const std_msgs::Empty::ConstPtr& msg){
 void MultiFloorNav::scanCallback(const sensor_msgs::LaserScan::ConstPtr& msg){
     latest_scan_ = *msg;
     received_scan_ = true;
+}
+
+void MultiFloorNav::manualEnterLiftDoneCallback(const std_msgs::Empty::ConstPtr& msg){
+    (void)msg;
+    manual_enter_lift_done_ = true;
+}
+
+void MultiFloorNav::manualExitLiftDoneCallback(const std_msgs::Empty::ConstPtr& msg){
+    (void)msg;
+    manual_exit_lift_done_ = true;
 }
 
 double MultiFloorNav::getFrontObstacleDistance() const{
@@ -524,7 +548,7 @@ void MultiFloorNav::execute(){
                     }
                     else{
                         desired_init_pose.x = 3.0;
-                        desired_init_pose.y = -0.5;
+                        desired_init_pose.y = -0.50;
                         desired_init_pose.theta = M_PI;
                         // 模块 B：进入 L1 切层窗口，临时提高 AMCL 粒子数/恢复速度
                         if (use_floor_window_params_)
@@ -697,7 +721,7 @@ void MultiFloorNav::execute(){
             if(!goal_sent){
                 if(desired_map_level ==0 ){
                     desired_goal_pose.x = 3.0;
-                    desired_goal_pose.y = -0.52;
+                    desired_goal_pose.y = -0.65;
                     desired_goal_pose.theta = M_PI;                    
                 }
                 else{
@@ -705,7 +729,7 @@ void MultiFloorNav::execute(){
                     desired_goal_pose.y = 5.0;
                     desired_goal_pose.theta = 0.0;    
                 }
-                ROS_INFO_THROTTLE(30, "[Multi Floor Nav] Will send goal to x: %.f, y: %.f, at level: %d", 
+                ROS_INFO_THROTTLE(30, "[Multi Floor Nav] Will send goal to x: %.2f, y: %.2f, at level: %d", 
                                 desired_goal_pose.x, desired_goal_pose.y, desired_map_level); 
                 send_simple_goal(desired_goal_pose);
                 goal_sent = true;
@@ -728,48 +752,109 @@ void MultiFloorNav::execute(){
         case MultiFloorNav::State::SEND_LIFT_0:
             ROS_INFO_ONCE("[Multi Floor Nav] Requesting Lift to Level 0");
             request_lift("0");
+            manual_enter_lift_done_ = false;
             nav_state = MultiFloorNav::State::ENTER_LIFT_LEVEL_0;
             break;
 
         case MultiFloorNav::State::ENTER_LIFT_LEVEL_0:
+        {
             ROS_INFO_ONCE("[Multi Floor Nav] Entering Lift at Level 0");
-            {
-                double front_obstacle_distance = getFrontObstacleDistance();
-                if (std::isfinite(front_obstacle_distance) &&
-                    front_obstacle_distance < std::max(lift_front_safety_stop_distance_, kLiftEntryMinHardStopDistance)) {
-                    send_cmd_vel();
-                    ROS_WARN_THROTTLE(0.5,
-                                      "[Multi Floor Nav] Lift entry safety stop: front obstacle %.3f m < %.3f m",
-                                      front_obstacle_distance,
-                                      std::max(lift_front_safety_stop_distance_, kLiftEntryMinHardStopDistance));
-                    break;
+            if (manual_lift_control_) {
+                ROS_WARN_THROTTLE(1.0,
+                                  "[Multi Floor Nav] Manual lift entry active. Drive robot manually, then publish /manual_enter_lift_done.");
+                if (manual_enter_lift_done_) {
+                    manual_enter_lift_done_ = false;
+                    nav_state = MultiFloorNav::State::SEND_LIFT_1;
+                    first_odom = curr_odom;
+                    ros::Duration(5).sleep();
                 }
+                break;
+            }
 
+            if (use_reference_lift_behavior_) {
                 send_cmd_vel(lift_enter_linear_speed_);
                 ROS_INFO_THROTTLE(0.5,
-                                  "[Multi Floor Nav] Lift entry simple drive: front=%.3f m, cmd_v=%.3f, target_dist=%.3f",
-                                  front_obstacle_distance,
+                                  "[Multi Floor Nav] Reference lift entry: cmd_v=%.2f, target_dist=%.2f",
                                   lift_enter_linear_speed_,
                                   lift_enter_target_distance_);
+                if (reached_distance(lift_enter_target_distance_)) {
+                    send_cmd_vel();
+                    nav_state = MultiFloorNav::State::SEND_LIFT_1;
+                    first_odom = curr_odom;
+                    ros::Duration(5).sleep();
+                }
+                break;
             }
+
+            const double current_yaw = tf::getYaw(curr_pose.pose.pose.orientation);
+            const double target_yaw = desired_goal_pose.theta;
+            const double heading_error = angles::normalize_angle(target_yaw - current_yaw);
+            const double abs_heading_error = fabs(heading_error);
+            if (abs_heading_error > lift_enter_max_heading_error_rad_) {
+                double angular_cmd = lift_enter_align_kp_ * heading_error;
+                if (angular_cmd > lift_enter_align_max_w_) {
+                    angular_cmd = lift_enter_align_max_w_;
+                } else if (angular_cmd < -lift_enter_align_max_w_) {
+                    angular_cmd = -lift_enter_align_max_w_;
+                }
+                send_cmd_vel(0.0, angular_cmd);
+                ROS_WARN_THROTTLE(0.5,
+                                  "[Multi Floor Nav] Lift entry heading align: yaw=%.3f, target=%.3f, err=%.3f, cmd_w=%.3f",
+                                  current_yaw,
+                                  target_yaw,
+                                  heading_error,
+                                  angular_cmd);
+                break;
+            }
+
+            double front_obstacle_distance = getFrontObstacleDistance();
+            if (std::isfinite(front_obstacle_distance) &&
+                front_obstacle_distance < std::max(lift_front_safety_stop_distance_, kLiftEntryMinHardStopDistance)) {
+                send_cmd_vel();
+                ROS_WARN_THROTTLE(0.5,
+                                  "[Multi Floor Nav] Lift entry safety stop: front obstacle %.3f m < %.3f m",
+                                  front_obstacle_distance,
+                                  std::max(lift_front_safety_stop_distance_, kLiftEntryMinHardStopDistance));
+                break;
+            }
+
+            send_cmd_vel(lift_enter_linear_speed_);
+            ROS_INFO_THROTTLE(0.5,
+                              "[Multi Floor Nav] Lift entry simple drive: front=%.3f m, cmd_v=%.3f, target_dist=%.3f",
+                              front_obstacle_distance,
+                              lift_enter_linear_speed_,
+                              lift_enter_target_distance_);
 
             if(reached_distance(lift_enter_target_distance_)){
                 send_cmd_vel();
                 nav_state= MultiFloorNav::State::SEND_LIFT_1;
                 first_odom = curr_odom;
                 ros::Duration(5).sleep(); // wait 5 sec for the lift to close
-            }      
+            }
             break;
+        }
         case MultiFloorNav::State::SEND_LIFT_1:
             ROS_INFO("[Multi Floor Nav] Requesting Lift to Level 1");
             request_lift("1");
             ros::Duration(7).sleep(); // wait 7 secs for the lift to travel to level 1 and open
+            manual_exit_lift_done_ = false;
             nav_state= MultiFloorNav::State::EXIT_LIFT_LEVEL_1;
             break;
 
         case MultiFloorNav::State::EXIT_LIFT_LEVEL_1:
             // request_lift("1");
             ROS_INFO_ONCE("[Multi Floor Nav] Exiting Lift at Level 1");
+            if (manual_lift_control_) {
+                ROS_WARN_THROTTLE(1.0,
+                                  "[Multi Floor Nav] Manual lift exit active. Drive robot manually, then publish /manual_exit_lift_done.");
+                if (manual_exit_lift_done_) {
+                    manual_exit_lift_done_ = false;
+                    nav_state= MultiFloorNav::State::LOAD_MAP;
+                    first_odom = curr_odom;
+                    desired_map_level = 1;
+                }
+                break;
+            }
             send_cmd_vel(-0.25); 
             if(reached_distance(3.0)){
                 send_cmd_vel();

@@ -4,6 +4,7 @@
 #include <tf/tf.h>
 #include <algorithm>
 #include <limits>
+#include <sstream>
 
 PLUGINLIB_EXPORT_CLASS(improved_astar::ImprovedAStarPlanner, nav_core::BaseGlobalPlanner)
 
@@ -15,6 +16,7 @@ constexpr double kOctileDiag = 0.41421356;  // sqrt(2) - 1
 constexpr double kEps = 1e-9;
 constexpr double kBetaGoal = 0.45;
 constexpr double kBetaTurn = 0.95;
+constexpr double kPi = 3.14159265358979323846;
 }  // namespace
 
 ImprovedAStarPlanner::ImprovedAStarPlanner() {}
@@ -50,9 +52,22 @@ void ImprovedAStarPlanner::initialize(
     private_nh.param("alpha_narrow", alpha_narrow_, 1.00);
     private_nh.param("neutral_cost", neutral_cost_, 50.0);
     private_nh.param("lethal_cost_threshold", lethal_cost_threshold_, 253);
+    private_nh.param("smoothing_enabled", smoothing_enabled_, true);
+    private_nh.param("smoothing_max_jump_m", smoothing_max_jump_m_, 2.0);
+    private_nh.param("smoothing_bspline_upsample", smoothing_bspline_upsample_, 3);
+    private_nh.param("smoothing_min_point_spacing_m", smoothing_min_point_spacing_m_, 0.03);
+    private_nh.param("smoothing_safety_clearance_m", smoothing_safety_clearance_m_, 0.12);
+    private_nh.param("smoothing_danger_clearance_m", smoothing_danger_clearance_m_, 0.20);
+    private_nh.param("smoothing_turn_angle_threshold_rad", smoothing_turn_angle_threshold_rad_, 0.35);
 
     density_radius_ = std::max(1, density_radius_);
     neutral_cost_ = std::max(1e-6, neutral_cost_);
+    smoothing_bspline_upsample_ = std::max(1, smoothing_bspline_upsample_);
+    smoothing_max_jump_m_ = std::max(0.0, smoothing_max_jump_m_);
+    smoothing_min_point_spacing_m_ = std::max(0.0, smoothing_min_point_spacing_m_);
+    smoothing_safety_clearance_m_ = std::max(0.0, smoothing_safety_clearance_m_);
+    smoothing_danger_clearance_m_ = std::max(smoothing_safety_clearance_m_, smoothing_danger_clearance_m_);
+    smoothing_turn_angle_threshold_rad_ = std::max(0.0, std::min(kPi, smoothing_turn_angle_threshold_rad_));
     threshold_open_ = std::max(0.0, std::min(1.0, threshold_open_));
     threshold_narrow_ = std::max(threshold_open_, std::min(1.0, threshold_narrow_));
 
@@ -64,6 +79,11 @@ void ImprovedAStarPlanner::initialize(
              w_obs_open_, w_obs_normal_, w_obs_narrow_,
              w_dir_open_, w_dir_normal_, w_dir_narrow_,
              alpha_open_, alpha_normal_, alpha_narrow_);
+    ROS_INFO("[ImprovedAStar] smoothing enabled=%s, max_jump=%.2f m, upsample=%d, "
+             "safe_clearance=%.2f m, danger_clearance=%.2f m",
+             smoothing_enabled_ ? "true" : "false",
+             smoothing_max_jump_m_, smoothing_bspline_upsample_,
+             smoothing_safety_clearance_m_, smoothing_danger_clearance_m_);
 
     initialized_ = true;
 }
@@ -239,8 +259,20 @@ bool ImprovedAStarPlanner::makePlan(
 
             std::reverse(waypoints.begin(), waypoints.end());
 
-            plan.reserve(waypoints.size());
-            for (const auto& wp : waypoints) {
+            std::vector<std::pair<double, double>> raw_waypoints = deduplicatePath(waypoints);
+            std::vector<std::pair<double, double>> final_waypoints = raw_waypoints;
+            if (smoothing_enabled_) {
+                final_waypoints = smoothPathWithFallback(raw_waypoints);
+                if (final_waypoints.size() < 2) {
+                    final_waypoints = raw_waypoints;
+                }
+            }
+
+            PathMetrics raw_metrics = computePathMetrics(raw_waypoints);
+            PathMetrics smooth_metrics = computePathMetrics(final_waypoints);
+
+            plan.reserve(final_waypoints.size());
+            for (const auto& wp : final_waypoints) {
                 geometry_msgs::PoseStamped pose;
                 pose.header = goal.header;
                 pose.pose.position.x = wp.first;
@@ -250,6 +282,8 @@ bool ImprovedAStarPlanner::makePlan(
                 plan.emplace_back(pose);
             }
 
+            logPathComparison(raw_metrics, smooth_metrics,
+                              raw_waypoints.size(), final_waypoints.size(), expanded_count);
             ROS_INFO("[ImprovedAStar] Plan found: %zu waypoints, %d nodes expanded.",
                      plan.size(), expanded_count);
             return true;
@@ -475,6 +509,314 @@ double ImprovedAStarPlanner::stepCost(
         return kSqrt2;
     }
     return 1.0;
+}
+
+std::vector<std::pair<double, double>> ImprovedAStarPlanner::deduplicatePath(
+    const std::vector<std::pair<double, double>>& path) const {
+    std::vector<std::pair<double, double>> deduped;
+    deduped.reserve(path.size());
+    for (const auto& point : path) {
+        if (!deduped.empty()) {
+            double dx = point.first - deduped.back().first;
+            double dy = point.second - deduped.back().second;
+            if (std::hypot(dx, dy) <= kEps) {
+                continue;
+            }
+        }
+        deduped.emplace_back(point);
+    }
+    return deduped;
+}
+
+bool ImprovedAStarPlanner::isPointSafeWorld(double world_x, double world_y) const {
+    uint32_t map_x = 0;
+    uint32_t map_y = 0;
+    if (!costmap_->worldToMap(world_x, world_y, map_x, map_y)) {
+        return false;
+    }
+    uint8_t cost = costmap_->getCost(map_x, map_y);
+    if (static_cast<int32_t>(cost) >= lethal_cost_threshold_) {
+        return false;
+    }
+    return pointClearanceMeters(world_x, world_y) + kEps >= smoothing_safety_clearance_m_;
+}
+
+double ImprovedAStarPlanner::pointClearanceMeters(double world_x, double world_y) const {
+    uint32_t map_x = 0;
+    uint32_t map_y = 0;
+    if (!costmap_->worldToMap(world_x, world_y, map_x, map_y)) {
+        return 0.0;
+    }
+
+    int32_t size_x = static_cast<int32_t>(costmap_->getSizeInCellsX());
+    int32_t size_y = static_cast<int32_t>(costmap_->getSizeInCellsY());
+    int32_t cell_x = static_cast<int32_t>(map_x);
+    int32_t cell_y = static_cast<int32_t>(map_y);
+
+    uint8_t center_cost = costmap_->getCost(map_x, map_y);
+    if (center_cost >= costmap_2d::LETHAL_OBSTACLE) {
+        return 0.0;
+    }
+
+    int32_t max_radius_cells = static_cast<int32_t>(
+        std::ceil(std::max(smoothing_danger_clearance_m_, smoothing_safety_clearance_m_) /
+                  std::max(costmap_->getResolution(), kEps))) + 2;
+    double min_distance = std::numeric_limits<double>::infinity();
+
+    for (int32_t dy = -max_radius_cells; dy <= max_radius_cells; ++dy) {
+        int32_t ny = cell_y + dy;
+        if (ny < 0 || ny >= size_y) {
+            continue;
+        }
+        for (int32_t dx = -max_radius_cells; dx <= max_radius_cells; ++dx) {
+            int32_t nx = cell_x + dx;
+            if (nx < 0 || nx >= size_x) {
+                continue;
+            }
+            uint8_t cost = costmap_->getCost(static_cast<uint32_t>(nx), static_cast<uint32_t>(ny));
+            if (cost < costmap_2d::LETHAL_OBSTACLE) {
+                continue;
+            }
+            double obs_x = 0.0;
+            double obs_y = 0.0;
+            costmap_->mapToWorld(static_cast<uint32_t>(nx), static_cast<uint32_t>(ny), obs_x, obs_y);
+            double distance = std::hypot(world_x - obs_x, world_y - obs_y);
+            min_distance = std::min(min_distance, distance);
+        }
+    }
+
+    if (!std::isfinite(min_distance)) {
+        return static_cast<double>(max_radius_cells) * costmap_->getResolution();
+    }
+    return min_distance;
+}
+
+bool ImprovedAStarPlanner::isSegmentSafeWorld(double start_x, double start_y,
+                                              double end_x, double end_y) const {
+    double segment_length = std::hypot(end_x - start_x, end_y - start_y);
+    double sample_step = std::max(0.5 * costmap_->getResolution(), 0.01);
+    int32_t sample_count = std::max(1, static_cast<int32_t>(std::ceil(segment_length / sample_step)));
+    for (int32_t index = 0; index <= sample_count; ++index) {
+        double t = static_cast<double>(index) / static_cast<double>(sample_count);
+        double sample_x = start_x + t * (end_x - start_x);
+        double sample_y = start_y + t * (end_y - start_y);
+        if (!isPointSafeWorld(sample_x, sample_y)) {
+            return false;
+        }
+    }
+    return true;
+}
+
+std::vector<std::pair<double, double>> ImprovedAStarPlanner::shortcutPath(
+    const std::vector<std::pair<double, double>>& path) const {
+    if (path.size() <= 2 || smoothing_max_jump_m_ <= kEps) {
+        return path;
+    }
+
+    std::vector<std::pair<double, double>> shortcut;
+    shortcut.reserve(path.size());
+    size_t anchor_index = 0;
+    shortcut.emplace_back(path.front());
+
+    while (anchor_index + 1 < path.size()) {
+        size_t best_index = anchor_index + 1;
+        for (size_t candidate = path.size() - 1; candidate > anchor_index + 1; --candidate) {
+            double dx = path[candidate].first - path[anchor_index].first;
+            double dy = path[candidate].second - path[anchor_index].second;
+            double jump_distance = std::hypot(dx, dy);
+            if (jump_distance > smoothing_max_jump_m_) {
+                continue;
+            }
+            if (isSegmentSafeWorld(path[anchor_index].first, path[anchor_index].second,
+                                   path[candidate].first, path[candidate].second)) {
+                best_index = candidate;
+                break;
+            }
+        }
+        shortcut.emplace_back(path[best_index]);
+        anchor_index = best_index;
+    }
+
+    return deduplicatePath(shortcut);
+}
+
+std::vector<std::pair<double, double>> ImprovedAStarPlanner::smoothPathBSpline(
+    const std::vector<std::pair<double, double>>& path) const {
+    if (path.size() < 4) {
+        return path;
+    }
+
+    std::vector<std::pair<double, double>> smoothed;
+    smoothed.reserve(path.size() * static_cast<size_t>(smoothing_bspline_upsample_ + 1));
+    smoothed.emplace_back(path.front());
+
+    for (size_t index = 0; index + 3 < path.size(); ++index) {
+        const auto& p0 = path[index];
+        const auto& p1 = path[index + 1];
+        const auto& p2 = path[index + 2];
+        const auto& p3 = path[index + 3];
+
+        for (int32_t step = 1; step <= smoothing_bspline_upsample_; ++step) {
+            double t = static_cast<double>(step) /
+                       static_cast<double>(smoothing_bspline_upsample_ + 1);
+            double t2 = t * t;
+            double t3 = t2 * t;
+
+            double basis0 = (-t3 + 3.0 * t2 - 3.0 * t + 1.0) / 6.0;
+            double basis1 = (3.0 * t3 - 6.0 * t2 + 4.0) / 6.0;
+            double basis2 = (-3.0 * t3 + 3.0 * t2 + 3.0 * t + 1.0) / 6.0;
+            double basis3 = t3 / 6.0;
+
+            double smooth_x = basis0 * p0.first + basis1 * p1.first +
+                              basis2 * p2.first + basis3 * p3.first;
+            double smooth_y = basis0 * p0.second + basis1 * p1.second +
+                              basis2 * p2.second + basis3 * p3.second;
+            smoothed.emplace_back(smooth_x, smooth_y);
+        }
+        smoothed.emplace_back(p2);
+    }
+
+    smoothed.emplace_back(path.back());
+    return deduplicatePath(smoothed);
+}
+
+std::vector<std::pair<double, double>> ImprovedAStarPlanner::smoothPathWithFallback(
+    const std::vector<std::pair<double, double>>& path) const {
+    std::vector<std::pair<double, double>> deduped = deduplicatePath(path);
+    if (deduped.size() <= 2) {
+        return deduped;
+    }
+
+    std::vector<std::pair<double, double>> shortcut = shortcutPath(deduped);
+    std::vector<std::pair<double, double>> candidate = smoothPathBSpline(shortcut);
+    if (candidate.size() < 2) {
+        return shortcut;
+    }
+
+    std::vector<std::pair<double, double>> final_path;
+    final_path.reserve(candidate.size());
+    final_path.emplace_back(candidate.front());
+
+    for (size_t index = 1; index < candidate.size(); ++index) {
+        const auto& point = candidate[index];
+        const auto& prev = final_path.back();
+        bool keep_candidate = isPointSafeWorld(point.first, point.second) &&
+                              isSegmentSafeWorld(prev.first, prev.second,
+                                                 point.first, point.second);
+        if (!keep_candidate) {
+            if (index < shortcut.size()) {
+                const auto& fallback = shortcut[index];
+                if (isPointSafeWorld(fallback.first, fallback.second) &&
+                    isSegmentSafeWorld(prev.first, prev.second,
+                                       fallback.first, fallback.second)) {
+                    final_path.emplace_back(fallback);
+                }
+            }
+            continue;
+        }
+
+        double dx = point.first - prev.first;
+        double dy = point.second - prev.second;
+        if (std::hypot(dx, dy) < smoothing_min_point_spacing_m_) {
+            continue;
+        }
+        final_path.emplace_back(point);
+    }
+
+    if (final_path.back() != shortcut.back()) {
+        if (isSegmentSafeWorld(final_path.back().first, final_path.back().second,
+                               shortcut.back().first, shortcut.back().second)) {
+            final_path.emplace_back(shortcut.back());
+        }
+    }
+
+    if (final_path.size() < 2) {
+        return shortcut;
+    }
+    return deduplicatePath(final_path);
+}
+
+ImprovedAStarPlanner::PathMetrics ImprovedAStarPlanner::computePathMetrics(
+    const std::vector<std::pair<double, double>>& path) const {
+    PathMetrics metrics;
+    if (path.empty()) {
+        return metrics;
+    }
+
+    metrics.min_clearance_m = std::numeric_limits<double>::infinity();
+    double clearance_sum = 0.0;
+    int32_t valid_clearance_count = 0;
+
+    for (size_t index = 0; index < path.size(); ++index) {
+        double clearance = pointClearanceMeters(path[index].first, path[index].second);
+        metrics.min_clearance_m = std::min(metrics.min_clearance_m, clearance);
+        clearance_sum += clearance;
+        valid_clearance_count++;
+        if (clearance + kEps < smoothing_danger_clearance_m_) {
+            metrics.danger_point_count++;
+        }
+
+        if (index > 0) {
+            double dx = path[index].first - path[index - 1].first;
+            double dy = path[index].second - path[index - 1].second;
+            metrics.path_length_m += std::hypot(dx, dy);
+        }
+
+        if (index > 0 && index + 1 < path.size()) {
+            double prev_dx = path[index].first - path[index - 1].first;
+            double prev_dy = path[index].second - path[index - 1].second;
+            double next_dx = path[index + 1].first - path[index].first;
+            double next_dy = path[index + 1].second - path[index].second;
+            double prev_norm = std::hypot(prev_dx, prev_dy);
+            double next_norm = std::hypot(next_dx, next_dy);
+            if (prev_norm <= kEps || next_norm <= kEps) {
+                continue;
+            }
+            double cos_theta = (prev_dx * next_dx + prev_dy * next_dy) / (prev_norm * next_norm);
+            cos_theta = std::max(-1.0, std::min(1.0, cos_theta));
+            double angle = std::acos(cos_theta);
+            metrics.sum_abs_turn_rad += std::abs(angle);
+            if (angle + kEps >= smoothing_turn_angle_threshold_rad_) {
+                metrics.turn_point_count++;
+            }
+        }
+    }
+
+    if (valid_clearance_count > 0) {
+        metrics.mean_clearance_m = clearance_sum / static_cast<double>(valid_clearance_count);
+    }
+    if (!std::isfinite(metrics.min_clearance_m)) {
+        metrics.min_clearance_m = 0.0;
+    }
+    return metrics;
+}
+
+void ImprovedAStarPlanner::logPathComparison(const PathMetrics& raw_metrics,
+                                             const PathMetrics& smooth_metrics,
+                                             size_t raw_waypoints,
+                                             size_t smooth_waypoints,
+                                             int32_t expanded_count) const {
+    ROS_INFO("[ImprovedAStar][RawMetrics] expanded=%d waypoints=%zu path_length_m=%.3f "
+             "min_clearance_m=%.3f mean_clearance_m=%.3f sum_abs_turn_rad=%.3f "
+             "turn_point_count=%d danger_point_count=%d",
+             expanded_count, raw_waypoints,
+             raw_metrics.path_length_m,
+             raw_metrics.min_clearance_m,
+             raw_metrics.mean_clearance_m,
+             raw_metrics.sum_abs_turn_rad,
+             raw_metrics.turn_point_count,
+             raw_metrics.danger_point_count);
+
+    ROS_INFO("[ImprovedAStar][SmoothMetrics] expanded=%d waypoints=%zu path_length_m=%.3f "
+             "min_clearance_m=%.3f mean_clearance_m=%.3f sum_abs_turn_rad=%.3f "
+             "turn_point_count=%d danger_point_count=%d",
+             expanded_count, smooth_waypoints,
+             smooth_metrics.path_length_m,
+             smooth_metrics.min_clearance_m,
+             smooth_metrics.mean_clearance_m,
+             smooth_metrics.sum_abs_turn_rad,
+             smooth_metrics.turn_point_count,
+             smooth_metrics.danger_point_count);
 }
 
 bool ImprovedAStarPlanner::isFree(int32_t x, int32_t y) const {

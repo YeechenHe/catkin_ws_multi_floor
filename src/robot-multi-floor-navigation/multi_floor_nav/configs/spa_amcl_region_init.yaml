@@ -14,14 +14,19 @@ region_init_sigma_y:   0.15   # (m)
 region_init_sigma_yaw: 0.1    # (rad) ≈ 5.7°
 
 # 修复缺陷一：per-floor sigma（覆盖全局值）
-# L0 层：F0 地图激光特征较密集，σ 设置与全局一致
-region_init_sigma_x_L0:   0.15
-region_init_sigma_y_L0:   0.15
-region_init_sigma_yaw_L0: 0.1
+# L0 层：起始位姿已知时使用单点初始化，避免 yaw 漂移导致起步卡住
+region_init_sigma_x_L0:   0.0
+region_init_sigma_y_L0:   0.0
+region_init_sigma_yaw_L0: 0.0
 # L1 层：F1 电梯出口走廊相对规整，可适当放宽 σ 以覆盖更广的出口区域
 region_init_sigma_x_L1:   0.20
 region_init_sigma_y_L1:   0.20
 region_init_sigma_yaw_L1: 0.12
+
+# 重定位通过门限（L0 更严格，L1 保持略宽松，但不能过松以免窄区贴墙）
+max_linear_error:    0.20
+max_linear_error_L1: 0.45
+max_angular_error:   0.15
 
 # 修复缺陷二：per-floor nomotion 等待时间
 # SP-AMCL 粒子散布后收敛需要更多帧；L1 层（切层后首次）给更长时间

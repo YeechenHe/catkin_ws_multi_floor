@@ -2,11 +2,14 @@
 # nomotion update 使 AMCL 在静止时也能处理激光扫描、更新粒子分布，
 # 使 tr(Σ) 和 C_t 具有实际物理意义。min_check_delay 保证 AMCL 至少
 # 处理若干帧观测后再开始判定。
+#
+# 正式单独实验推荐（统一严格判据，突出筛选作用）：
+#   λ=20.0  — 提高对 tr(Σ) 的敏感度
+#   τ=0.85   — 要求更高置信度才放行
+#   K=3      — 连续多帧稳定，避免单帧偶然满足
+#   reloc_min_check_delay_sec=6.0 — 至少静止观测若干秒后再判
 use_covariance_reloc: true
-# 经验标定：当前 tr(Σ) 常见在 0.008~0.05，lambda=1 几乎总是 C_t≈1，无法形成区分度。
-# 提升到 lambda=20 + tau=0.75 后：
-#   tr=0.01 -> C_t≈0.82（可通过）
-#   tr=0.03 -> C_t≈0.55（会被拦截）
+# tr(Σ) 常见在 0.008~0.05；λ=20、τ=0.85 时 C_t=exp(-λ·tr)，判据为 C_t≥τ（见代码）
 reloc_confidence_lambda: 20.0
 reloc_confidence_tau: 0.85
 reloc_confidence_K: 3

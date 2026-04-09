@@ -2,6 +2,15 @@
 # 解析初值扰动实验日志（v3）：提取成功率、收敛时间、通过时误差、通过后稳定性、误通过率
 # 用法: python3 parse_experiment_logs.py <log_dir>
 # 输出: CSV 到 stdout 及 summary 文本
+#
+# 误通过 / FAR（启发式，可论文中并列报告）：
+#   false_accept（FA_task）：两段均宣告到位（reloc_ok>=2）但最终任务失败（与 POST_PASS 窗无关）。
+#   fa_post_spike：reloc_ok>=2 且任一层 max_linear_after > e_pass_linear + FA_POST_SPIKE_DELTA_M
+#                 （通过后短窗内线误差相对通过时刻「明显」增大；可能与起步运动耦合，解释需谨慎）。
+#   fa_any：上述二者之一。
+FA_POST_SPIKE_DELTA_M = 0.15
+# 无平面扰动时 e_pass 可极小，POST_PASS 窗内起步易使 max_linear ≫ e_pass，误标 spike；仅当通过时刻线误差已具尺度时才判
+FA_POST_SPIKE_MIN_EPASS_M = 0.05
 
 import os
 import re
@@ -182,6 +191,24 @@ def parse_log(path):
     # localization instability.
     false_accept = 1 if (reloc_ok >= 2 and not task_ok) else 0
 
+    fa_post_spike = 0
+    if reloc_ok >= 2:
+        if (
+            e_pass_linear_L0 is not None
+            and e_pass_linear_L0 >= FA_POST_SPIKE_MIN_EPASS_M
+            and after_L0.get("max_linear") is not None
+            and after_L0["max_linear"] > e_pass_linear_L0 + FA_POST_SPIKE_DELTA_M
+        ):
+            fa_post_spike = 1
+        if (
+            e_pass_linear_L1 is not None
+            and e_pass_linear_L1 >= FA_POST_SPIKE_MIN_EPASS_M
+            and after_L1.get("max_linear") is not None
+            and after_L1["max_linear"] > e_pass_linear_L1 + FA_POST_SPIKE_DELTA_M
+        ):
+            fa_post_spike = 1
+    fa_any = 1 if (false_accept or fa_post_spike) else 0
+
     # Hard Localization Failure (HLF): algorithm declares RELOC_PASS but true-value
     # pose error already exceeds safety thresholds at that moment.
     # Thresholds: linear > 0.45 m OR yaw > 0.15 rad.
@@ -223,6 +250,8 @@ def parse_log(path):
         "mean_yaw_after_L1": after_L1.get("mean_yaw"),
         "max_yaw_after_L1": after_L1.get("max_yaw"),
         "false_accept": false_accept,
+        "fa_post_spike": fa_post_spike,
+        "fa_any": fa_any,
         "hlf_L0": hlf_L0,
         "hlf_L1": hlf_L1,
         "hlf_any": hlf_any,
@@ -276,7 +305,7 @@ def main():
         "e_pass_linear_init_L0", "e_pass_yaw_init_L0", "e_pass_linear_init_L1", "e_pass_yaw_init_L1",
         "mean_linear_after_L0", "max_linear_after_L0", "std_linear_after_L0",
         "mean_linear_after_L1", "max_linear_after_L1", "std_linear_after_L1",
-        "false_accept",
+        "false_accept", "fa_post_spike", "fa_any",
         "hlf_L0", "hlf_L1", "hlf_any",
         "pert_offset_xy_m", "corr_lin_L0", "corr_lin_L1",
     ]
@@ -296,6 +325,8 @@ def main():
             fmt(r.get("mean_linear_after_L0")), fmt(r.get("max_linear_after_L0")), fmt(r.get("std_linear_after_L0")),
             fmt(r.get("mean_linear_after_L1")), fmt(r.get("max_linear_after_L1")), fmt(r.get("std_linear_after_L1")),
             str(r.get("false_accept", 0)),
+            str(r.get("fa_post_spike", 0)),
+            str(r.get("fa_any", 0)),
             fmt(r.get("hlf_L0")), fmt(r.get("hlf_L1")), fmt(r.get("hlf_any")),
             fmt(r.get("pert_offset_xy_m")), fmt(r.get("corr_lin_L0")), fmt(r.get("corr_lin_L1")),
         ]
@@ -309,9 +340,14 @@ def main():
         reloc_full = sum(1 for r in list_r if r["reloc_ok"] >= 2)
         total_retries = sum(r["retries"] for r in list_r)
         fa = sum(r.get("false_accept", 0) for r in list_r)
+        fps = sum(r.get("fa_post_spike", 0) for r in list_r)
+        fany = sum(r.get("fa_any", 0) for r in list_r)
         fa_rate = f"{fa}/{n}" if n > 0 else "N/A"
+        fps_rate = f"{fps}/{n}" if n > 0 else "N/A"
+        fany_rate = f"{fany}/{n}" if n > 0 else "N/A"
         print(f"  {method} pert={pert}: n={n} task_ok={task_success}/{n} reloc_2ok={reloc_full}/{n} "
-              f"false_accept={fa_rate} total_retries={total_retries}")
+              f"FA_task={fa_rate} FA_post_spike(Δ>{FA_POST_SPIKE_DELTA_M}m)={fps_rate} FA_any={fany_rate} "
+              f"total_retries={total_retries}")
 
     # Convergence time
     print("\n# Convergence time (s) mean±std")

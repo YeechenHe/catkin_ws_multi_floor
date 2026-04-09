@@ -1,0 +1,2 @@
+elapsed_sec,linear_error,angular_error,tr_sigma,C_t,pose_ok,pass_now
+12.0020,0.4324,0.0665,0.0005,0.9995,1,1

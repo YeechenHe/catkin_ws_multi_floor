@@ -59,6 +59,9 @@
   <build_depend>amcl</build_depend>
   <build_depend>dynamic_reconfigure</build_depend>
   <build_depend>message_generation</build_depend>
+  <build_depend>nav_core</build_depend>
+  <build_depend>costmap_2d</build_depend>
+  <build_depend>pluginlib</build_depend>
   <build_export_depend>geometry_msgs</build_export_depend>
   <build_export_depend>nav_msgs</build_export_depend>
   <build_export_depend>roscpp</build_export_depend>
@@ -75,11 +78,12 @@
   <exec_depend>amcl</exec_depend>
   <exec_depend>dynamic_reconfigure</exec_depend>
   <exec_depend>message_runtime</exec_depend>
+  <exec_depend>nav_core</exec_depend>
+  <exec_depend>costmap_2d</exec_depend>
+  <exec_depend>pluginlib</exec_depend>
 
 
-  <!-- The export tag contains other, unspecified, tags -->
   <export>
-    <!-- Other tools can request additional information be placed here -->
-
+    <nav_core plugin="${prefix}/improved_astar_plugin.xml" />
   </export>
 </package>

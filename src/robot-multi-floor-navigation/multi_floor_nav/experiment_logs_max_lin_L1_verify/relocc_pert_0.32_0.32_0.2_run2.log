@@ -1,0 +1,540 @@
+xacro: in-order processing became default in ROS Melodic. You can drop the option.
+... logging to /home/eethanhe/.ros/log/18f165f0-3031-11f1-a0c4-b3a95fcbe21c/roslaunch-eethanhe-Lenovo-Legion-R9000P2021H-124513.log
+Checking log directory for disk usage. This may take a while.
+Press Ctrl-C to interrupt
+Done checking log file disk usage. Usage is <1GB.
+]2;/home/eethanhe/catkin_ws/src/robot-multi-floor-navigation/multi_floor_nav/launch/nav.launch
+[1mstarted roslaunch server http://eethanhe-Lenovo-Legion-R9000P2021H:38021/[0m
+
+SUMMARY
+========
+
+PARAMETERS
+ * /amcl/auto_update_noise: 0.0
+ * /amcl/base_frame_id: base_link
+ * /amcl/expected_laser_freq: 5.0
+ * /amcl/first_map_only: False
+ * /amcl/global_frame_id: map
+ * /amcl/gui_publish_rate: 10.0
+ * /amcl/initial_pose_a: 0.0
+ * /amcl/initial_pose_x: 0.0
+ * /amcl/initial_pose_y: 0.0
+ * /amcl/kld_err: 0.05
+ * /amcl/kld_z: 0.99
+ * /amcl/laser_lambda_short: 0.1
+ * /amcl/laser_likelihood_max_dist: 2.0
+ * /amcl/laser_max_beams: 720
+ * /amcl/laser_max_range: 30.0
+ * /amcl/laser_min_range: 0.1
+ * /amcl/laser_model_type: likelihood_field
+ * /amcl/laser_sigma_hit: 0.2
+ * /amcl/laser_z_hit: 0.5
+ * /amcl/laser_z_max: 0.05
+ * /amcl/laser_z_rand: 0.5
+ * /amcl/laser_z_short: 0.05
+ * /amcl/max_particles: 2000
+ * /amcl/min_particles: 500
+ * /amcl/odom_alpha1: 0.2
+ * /amcl/odom_alpha2: 0.2
+ * /amcl/odom_alpha3: 0.2
+ * /amcl/odom_alpha4: 0.2
+ * /amcl/odom_alpha5: 0.1
+ * /amcl/odom_frame_id: odom
+ * /amcl/odom_model_type: diff
+ * /amcl/odom_update_interval: 0.1
+ * /amcl/recovery_alpha_fast: 0.1
+ * /amcl/recovery_alpha_slow: 0.001
+ * /amcl/resample_interval: 1
+ * /amcl/transform_tolerance: 1.0
+ * /amcl/update_min_a: 0.3927
+ * /amcl/update_min_d: 0.1
+ * /amcl/use_map_topic: False
+ * /ekf_localization/base_link_frame: base_link
+ * /ekf_localization/frequency: 50
+ * /ekf_localization/imu0: /imu/data
+ * /ekf_localization/imu0_config: [False, False, Fa...
+ * /ekf_localization/imu0_differential: False
+ * /ekf_localization/odom0: /jackal_velocity_...
+ * /ekf_localization/odom0_config: [False, False, Fa...
+ * /ekf_localization/odom0_differential: False
+ * /ekf_localization/odom_frame: odom
+ * /ekf_localization/predict_to_current_time: True
+ * /ekf_localization/world_frame: odom
+ * /gazebo/enable_ros_network: True
+ * /jackal_joint_publisher/publish_rate: 50
+ * /jackal_joint_publisher/type: joint_state_contr...
+ * /jackal_velocity_controller/angular/z/has_acceleration_limits: True
+ * /jackal_velocity_controller/angular/z/has_velocity_limits: True
+ * /jackal_velocity_controller/angular/z/max_acceleration: 25.0
+ * /jackal_velocity_controller/angular/z/max_velocity: 4.0
+ * /jackal_velocity_controller/cmd_vel_timeout: 0.25
+ * /jackal_velocity_controller/enable_odom_tf: False
+ * /jackal_velocity_controller/k_l: 0.1
+ * /jackal_velocity_controller/k_r: 0.1
+ * /jackal_velocity_controller/left_wheel: ['front_left_whee...
+ * /jackal_velocity_controller/linear/x/has_acceleration_limits: True
+ * /jackal_velocity_controller/linear/x/has_velocity_limits: True
+ * /jackal_velocity_controller/linear/x/max_acceleration: 20.0
+ * /jackal_velocity_controller/linear/x/max_velocity: 2.0
+ * /jackal_velocity_controller/pose_covariance_diagonal: [0.001, 0.001, 10...
+ * /jackal_velocity_controller/publish_cmd: True
+ * /jackal_velocity_controller/publish_rate: 50
+ * /jackal_velocity_controller/right_wheel: ['front_right_whe...
+ * /jackal_velocity_controller/twist_covariance_diagonal: [0.001, 0.001, 0....
+ * /jackal_velocity_controller/type: diff_drive_contro...
+ * /jackal_velocity_controller/wheel_radius_multiplier: 1.0
+ * /jackal_velocity_controller/wheel_separation_multiplier: 1.5
+ * /move_base/NavfnROS/allow_unknown: True
+ * /move_base/TrajectoryPlannerROS/acc_lim_theta: 20.0
+ * /move_base/TrajectoryPlannerROS/acc_lim_x: 10.0
+ * /move_base/TrajectoryPlannerROS/angular_sim_granularity: 0.02
+ * /move_base/TrajectoryPlannerROS/controller_frequency: 20.0
+ * /move_base/TrajectoryPlannerROS/dwa: True
+ * /move_base/TrajectoryPlannerROS/escape_reset_dist: 0.1
+ * /move_base/TrajectoryPlannerROS/escape_reset_theta: 0.1
+ * /move_base/TrajectoryPlannerROS/escape_vel: -0.5
+ * /move_base/TrajectoryPlannerROS/gdist_scale: 1.0
+ * /move_base/TrajectoryPlannerROS/heading_lookahead: 0.325
+ * /move_base/TrajectoryPlannerROS/heading_scoring: False
+ * /move_base/TrajectoryPlannerROS/heading_scoring_timestep: 0.8
+ * /move_base/TrajectoryPlannerROS/holonomic_robot: False
+ * /move_base/TrajectoryPlannerROS/latch_xy_goal_tolerance: False
+ * /move_base/TrajectoryPlannerROS/max_vel_theta: 1.57
+ * /move_base/TrajectoryPlannerROS/max_vel_x: 0.5
+ * /move_base/TrajectoryPlannerROS/meter_scoring: True
+ * /move_base/TrajectoryPlannerROS/min_in_place_vel_theta: 0.314
+ * /move_base/TrajectoryPlannerROS/min_vel_theta: -1.57
+ * /move_base/TrajectoryPlannerROS/min_vel_x: 0.1
+ * /move_base/TrajectoryPlannerROS/occdist_scale: 0.1
+ * /move_base/TrajectoryPlannerROS/oscillation_reset_dist: 0.05
+ * /move_base/TrajectoryPlannerROS/pdist_scale: 0.75
+ * /move_base/TrajectoryPlannerROS/publish_cost_grid_pc: True
+ * /move_base/TrajectoryPlannerROS/sim_granularity: 0.02
+ * /move_base/TrajectoryPlannerROS/sim_time: 2.0
+ * /move_base/TrajectoryPlannerROS/simple_attractor: False
+ * /move_base/TrajectoryPlannerROS/vtheta_samples: 20
+ * /move_base/TrajectoryPlannerROS/vx_samples: 6
+ * /move_base/TrajectoryPlannerROS/xy_goal_tolerance: 0.25
+ * /move_base/TrajectoryPlannerROS/yaw_goal_tolerance: 0.157
+ * /move_base/base_global_planner: navfn/NavfnROS
+ * /move_base/base_local_planner: base_local_planne...
+ * /move_base/clearing_rotation_allowed: True
+ * /move_base/controller_frequency: 20.0
+ * /move_base/controller_patience: 15.0
+ * /move_base/global_costmap/footprint: [[-0.21, -0.165],...
+ * /move_base/global_costmap/footprint_padding: 0.1
+ * /move_base/global_costmap/global_frame: map
+ * /move_base/global_costmap/height: 40.0
+ * /move_base/global_costmap/inflater_layer/inflation_radius: 0.3
+ * /move_base/global_costmap/map_type: costmap
+ * /move_base/global_costmap/meter_scoring: True
+ * /move_base/global_costmap/obstacle_range: 2.5
+ * /move_base/global_costmap/obstacles_layer/observation_sources: scan
+ * /move_base/global_costmap/obstacles_layer/scan/clearing: True
+ * /move_base/global_costmap/obstacles_layer/scan/data_type: LaserScan
+ * /move_base/global_costmap/obstacles_layer/scan/marking: True
+ * /move_base/global_costmap/obstacles_layer/scan/max_obstacle_height: 2.0
+ * /move_base/global_costmap/obstacles_layer/scan/min_obstacle_height: -2.0
+ * /move_base/global_costmap/obstacles_layer/scan/obstacle_range: 2.5
+ * /move_base/global_costmap/obstacles_layer/scan/raytrace_range: 3.0
+ * /move_base/global_costmap/obstacles_layer/scan/sensor_frame: front_laser
+ * /move_base/global_costmap/obstacles_layer/scan/topic: front/scan
+ * /move_base/global_costmap/origin_x: -20.0
+ * /move_base/global_costmap/origin_y: -20.0
+ * /move_base/global_costmap/origin_z: 0.0
+ * /move_base/global_costmap/plugins: [{'name': 'static...
+ * /move_base/global_costmap/publish_frequency: 5.0
+ * /move_base/global_costmap/publish_voxel_map: False
+ * /move_base/global_costmap/raytrace_range: 3.0
+ * /move_base/global_costmap/resolution: 0.05
+ * /move_base/global_costmap/robot_base_frame: base_link
+ * /move_base/global_costmap/rolling_window: False
+ * /move_base/global_costmap/static_map: True
+ * /move_base/global_costmap/transform_tolerance: 0.5
+ * /move_base/global_costmap/update_frequency: 20.0
+ * /move_base/global_costmap/width: 40.0
+ * /move_base/global_costmap/z_resolution: 1
+ * /move_base/global_costmap/z_voxels: 2
+ * /move_base/local_costmap/footprint: [[-0.21, -0.165],...
+ * /move_base/local_costmap/footprint_padding: 0.1
+ * /move_base/local_costmap/global_frame: map
+ * /move_base/local_costmap/height: 10.0
+ * /move_base/local_costmap/inflater_layer/inflation_radius: 0.3
+ * /move_base/local_costmap/map_type: costmap
+ * /move_base/local_costmap/meter_scoring: True
+ * /move_base/local_costmap/obstacle_range: 2.5
+ * /move_base/local_costmap/obstacles_layer/observation_sources: scan
+ * /move_base/local_costmap/obstacles_layer/scan/clearing: True
+ * /move_base/local_costmap/obstacles_layer/scan/data_type: LaserScan
+ * /move_base/local_costmap/obstacles_layer/scan/marking: True
+ * /move_base/local_costmap/obstacles_layer/scan/max_obstacle_height: 2.0
+ * /move_base/local_costmap/obstacles_layer/scan/min_obstacle_height: -2.0
+ * /move_base/local_costmap/obstacles_layer/scan/obstacle_range: 2.5
+ * /move_base/local_costmap/obstacles_layer/scan/raytrace_range: 3.0
+ * /move_base/local_costmap/obstacles_layer/scan/sensor_frame: front_laser
+ * /move_base/local_costmap/obstacles_layer/scan/topic: front/scan
+ * /move_base/local_costmap/origin_z: 0.0
+ * /move_base/local_costmap/plugins: [{'name': 'obstac...
+ * /move_base/local_costmap/publish_frequency: 5.0
+ * /move_base/local_costmap/publish_voxel_map: False
+ * /move_base/local_costmap/raytrace_range: 3.0
+ * /move_base/local_costmap/resolution: 0.05
+ * /move_base/local_costmap/robot_base_frame: base_link
+ * /move_base/local_costmap/rolling_window: True
+ * /move_base/local_costmap/static_map: False
+ * /move_base/local_costmap/transform_tolerance: 0.5
+ * /move_base/local_costmap/update_frequency: 20.0
+ * /move_base/local_costmap/width: 10.0
+ * /move_base/local_costmap/z_resolution: 1
+ * /move_base/local_costmap/z_voxels: 2
+ * /move_base/oscillation_distance: 0.5
+ * /move_base/oscillation_timeout: 0.0
+ * /move_base/planner_frequency: 20.0
+ * /move_base/planner_patience: 5.0
+ * /move_base/recovery_behavior_enabled: True
+ * /move_base/shutdown_costmaps: False
+ * /multi_floor_navigation_node/init_pose_offset_theta: 0.2
+ * /multi_floor_navigation_node/init_pose_offset_x: 0.32
+ * /multi_floor_navigation_node/init_pose_offset_y: 0.32
+ * /multi_floor_navigation_node/max_linear_error_L1: -1
+ * /multi_floor_navigation_node/region_init_sigma_x: 0.15
+ * /multi_floor_navigation_node/region_init_sigma_y: 0.15
+ * /multi_floor_navigation_node/region_init_sigma_yaw: 0.1
+ * /multi_floor_navigation_node/reloc_check_timeout_L0: 25.0
+ * /multi_floor_navigation_node/reloc_check_timeout_L1: 45.0
+ * /multi_floor_navigation_node/reloc_check_timeout_sec: 45.0
+ * /multi_floor_navigation_node/reloc_confidence_K: 3
+ * /multi_floor_navigation_node/reloc_confidence_lambda: 20.0
+ * /multi_floor_navigation_node/reloc_confidence_tau: 0.85
+ * /multi_floor_navigation_node/reloc_min_check_delay_sec: 6.0
+ * /multi_floor_navigation_node/use_covariance_reloc: True
+ * /robot_description: <?xml version="1....
+ * /rosdistro: noetic
+ * /rosversion: 1.17.0
+ * /twist_marker_server/link_name: base_link
+ * /twist_mux/locks: [{'name': 'e_stop...
+ * /twist_mux/topics: [{'name': 'joy', ...
+ * /use_gui: True
+ * /use_sim_time: True
+
+NODES
+  /
+    amcl (amcl/amcl)
+    change_map_node (multi_floor_nav/change_map_node)
+    controller_spawner (controller_manager/spawner)
+    ekf_localization (robot_localization/ekf_localization_node)
+    gazebo (gazebo_ros/gzserver)
+    map_server0 (map_server/map_server)
+    map_server1 (map_server/map_server)
+    move_base (move_base/move_base)
+    multi_floor_navigation_node (multi_floor_nav/multi_floor_navigation_node)
+    robot_state_publisher (robot_state_publisher/robot_state_publisher)
+    rviz (rviz/rviz)
+    twist_marker_server (interactive_marker_twist_server/marker_server)
+    twist_mux (twist_mux/twist_mux)
+    urdf_spawner (gazebo_ros/spawn_model)
+[ INFO] [1775312286.850070928]: Finished loading Gazebo ROS API Plugin.
+[ INFO] [1775312286.857401219]: waitForService: Service [/gazebo/set_physics_properties] has not been advertised, waiting...
+[1;33mWarning [Model.cc:216][0m Non-unique name[door] detected 2 times in XML children of model with name[elevator].
+[1;33mWarning [Model.cc:309][0m Joint with name [door] in model with name [elevator] has a name collision, changing joint name to [door_joint].
+[ INFO] [1775312288.659367568]: waitForService: Service [/gazebo/set_physics_properties] is now available.
+[ INFO] [1775312288.678597991, 1054.799000000]: Physics dynamic reconfigure ready.
+[1;33mWarning [parser_urdf.cc:1161][0m multiple inconsistent <gravity> exists due to fixed joint reduction overwriting previous value [true] with [false].
+[1;33mWarning [parser_urdf.cc:1161][0m multiple inconsistent <gravity> exists due to fixed joint reduction overwriting previous value [false] with [true].
+[ERROR] [1775312289.447808442, 1055.094000000]: No p gain specified for pid.  Namespace: /gazebo_ros_control/pid_gains/front_left_wheel
+[ERROR] [1775312289.448236764, 1055.094000000]: No p gain specified for pid.  Namespace: /gazebo_ros_control/pid_gains/front_right_wheel
+[ERROR] [1775312289.448622554, 1055.094000000]: No p gain specified for pid.  Namespace: /gazebo_ros_control/pid_gains/rear_left_wheel
+[ERROR] [1775312289.449019379, 1055.094000000]: No p gain specified for pid.  Namespace: /gazebo_ros_control/pid_gains/rear_right_wheel
+[ WARN] [1775312289.489188976, 1055.095000000]: Failed to meet update rate! Took 1055.0950000000000273
+[ WARN] [1775312289.489837081, 1055.096000000]: Failed to meet update rate! Took 1055.0760000000000218
+[ WARN] [1775312289.803951561, 1055.409000000]: Interactive marker 'robot_twist_marker' contains unnormalized quaternions. This warning will only be output once but may be true for others; enable DEBUG messages for ros.rviz.quaternions to see more details.
+[ WARN] [1775312290.175492354, 1055.777000000]: Timed out waiting for transform from base_link to map to become available before running costmap, tf error: Lookup would require extrapolation 0.658000000s into the past.  Requested time 1055.756000000 but the earliest data is at time 1056.414000000, when looking up transform from frame [base_link] to frame [map]. canTransform returned after 1055.78 timeout was 0.1.
+[ WARN] [1775312290.826835028, 1056.419000000]: global_costmap: Pre-Hydro parameter "static_map" unused since "plugins" is provided
+[ WARN] [1775312290.827074366, 1056.419000000]: global_costmap: Pre-Hydro parameter "map_type" unused since "plugins" is provided
+[ WARN] [1775312321.423521039, 1086.696000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.32, offset_y=0.32, offset_theta=0.20
+[ WARN] [1775312321.494989560, 1086.767000000]: local_costmap: Pre-Hydro parameter "static_map" unused since "plugins" is provided
+[ WARN] [1775312321.495233997, 1086.767000000]: local_costmap: Pre-Hydro parameter "map_type" unused since "plugins" is provided
+[ WARN] [1775312321.536841232, 1086.808000000]: Parameter pdist_scale is deprecated. Please use the name path_distance_bias instead.
+[ WARN] [1775312321.537614769, 1086.809000000]: Parameter gdist_scale is deprecated. Please use the name goal_distance_bias instead.
+[ WARN] [1775312322.478212120, 1087.742000000]: The origin for the sensor at (0.21, 0.19) is out of map bounds. So, the costmap cannot raytrace for it.
+[ INFO] [1775312286.539045267]: [Multi Floor Nav] Module C: covariance reloc criterion enabled (lambda=20.00, tau=0.85, K=3, post_monitor=2.0s, min_delay=6.0s)
+[ INFO] [1775312286.564570757]: [Multi Floor Nav] Module A sigma: L0=(0.150,0.150,0.100) L1=(0.150,0.150,0.100)
+[ INFO] [1775312286.564623276]: [Multi Floor Nav] Module A delay: L0=6.0s  L1=6.0s  backoff: factor=1.30 max=2.00
+[ INFO] [1775312286.564637593]: [Multi Floor Nav] Module C timeout: L0=25.0s  L1=45.0s
+[ INFO] [1775312321.285869273, 1086.560000000]: [Multi Floor Nav] Successfully loaded map for level: 0
+[ INFO] [1775312321.423576561, 1086.696000000]: [Multi Floor Nav] Adaptive sigma: offset_planar=0.453, adaptive_scale=0.226, adaptive_yaw=0.120 ??? sigma(0.150, 0.150, 0.100)
+[ INFO] [1775312321.423587595, 1086.696000000]: [Multi Floor Nav] Initializing Robot at x: 5.3, y: -0.2, yaw: 0.2 (level=0, sigma: x=0.150, y=0.150, yaw=0.100, retry=0)
+[ INFO] [1775312321.423616648, 1086.696000000]: [Multi Floor Nav] Initializing Pose to x: 5.00, y: -0.50 at level: 0
+[ INFO] [1775312322.434650786, 1087.699000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (1.0/6.0s, L0)...
+[ INFO] [1775312323.645959126, 1088.899000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (2.2/6.0s, L0)...
+[ INFO] [1775312324.654081515, 1089.899000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (3.2/6.0s, L0)...
+[ INFO] [1775312325.867128919, 1091.100000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (4.4/6.0s, L0)...
+[ INFO] [1775312327.078783603, 1092.299000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (5.6/6.0s, L0)...
+[ INFO] [1775312327.482182883, 1092.699000000]: [Multi Floor Nav] Current Robot Pose, x: 5.33, y: -0.02, yaw: 0.12
+[ INFO] [1775312327.482200901, 1092.699000000]: [Multi Floor Nav] Linear Error: 0.58, Angular Error: 0.12
+[ INFO] [1775312327.482211936, 1092.699000000]: [Multi Floor Nav] Module C: tr(??)=0.0245, C_t=0.6126 (tau=0.85), frame_ok=0
+[ INFO] [1775312327.685821988, 1092.899000000]: [Multi Floor Nav] Current Robot Pose, x: 5.33, y: -0.02, yaw: 0.12
+[ INFO] [1775312327.685841893, 1092.899000000]: [Multi Floor Nav] Linear Error: 0.58, Angular Error: 0.12
+[ INFO] [1775312327.685853416, 1092.899000000]: [Multi Floor Nav] Module C: tr(??)=0.0251, C_t=0.6057 (tau=0.85), frame_ok=0
+[ INFO] [1775312327.888442072, 1093.099000000]: [Multi Floor Nav] Current Robot Pose, x: 5.33, y: -0.02, yaw: 0.11
+[ INFO] [1775312327.888461557, 1093.099000000]: [Multi Floor Nav] Linear Error: 0.58, Angular Error: 0.11
+[ INFO] [1775312327.888475036, 1093.099000000]: [Multi Floor Nav] Module C: tr(??)=0.0266, C_t=0.5873 (tau=0.85), frame_ok=0
+[ INFO] [1775312328.091034015, 1093.299000000]: [Multi Floor Nav] Current Robot Pose, x: 5.33, y: -0.02, yaw: 0.11
+[ INFO] [1775312328.091054548, 1093.299000000]: [Multi Floor Nav] Linear Error: 0.58, Angular Error: 0.11
+[ INFO] [1775312328.091066421, 1093.299000000]: [Multi Floor Nav] Module C: tr(??)=0.0263, C_t=0.5907 (tau=0.85), frame_ok=0
+[ INFO] [1775312328.292573630, 1093.498000000]: [Multi Floor Nav] Current Robot Pose, x: 5.33, y: -0.02, yaw: 0.11
+[ INFO] [1775312328.292619654, 1093.498000000]: [Multi Floor Nav] Linear Error: 0.58, Angular Error: 0.11
+[ INFO] [1775312328.292649265, 1093.498000000]: [Multi Floor Nav] Module C: tr(??)=0.0267, C_t=0.5858 (tau=0.85), frame_ok=0
+[ INFO] [1775312328.496271830, 1093.699000000]: [Multi Floor Nav] Current Robot Pose, x: 5.33, y: -0.02, yaw: 0.11
+[ INFO] [1775312328.496351516, 1093.699000000]: [Multi Floor Nav] Linear Error: 0.58, Angular Error: 0.11
+[ INFO] [1775312328.496402150, 1093.699000000]: [Multi Floor Nav] Module C: tr(??)=0.0274, C_t=0.5778 (tau=0.85), frame_ok=0
+[ INFO] [1775312328.699567967, 1093.899000000]: [Multi Floor Nav] Current Robot Pose, x: 5.33, y: -0.02, yaw: 0.11
+[ INFO] [1775312328.699631800, 1093.899000000]: [Multi Floor Nav] Linear Error: 0.59, Angular Error: 0.11
+[ INFO] [1775312328.699673703, 1093.899000000]: [Multi Floor Nav] Module C: tr(??)=0.0277, C_t=0.5743 (tau=0.85), frame_ok=0
+[ INFO] [1775312328.901684871, 1094.099000000]: [Multi Floor Nav] Current Robot Pose, x: 5.33, y: -0.02, yaw: 0.11
+[ INFO] [1775312328.901750240, 1094.099000000]: [Multi Floor Nav] Linear Error: 0.59, Angular Error: 0.11
+[ INFO] [1775312328.901783134, 1094.099000000]: [Multi Floor Nav] Module C: tr(??)=0.0271, C_t=0.5819 (tau=0.85), frame_ok=0
+[ INFO] [1775312329.104429005, 1094.299000000]: [Multi Floor Nav] Current Robot Pose, x: 5.33, y: -0.02, yaw: 0.11
+[ INFO] [1775312329.104449468, 1094.299000000]: [Multi Floor Nav] Linear Error: 0.59, Angular Error: 0.11
+[ INFO] [1775312329.104461899, 1094.299000000]: [Multi Floor Nav] Module C: tr(??)=0.0280, C_t=0.5717 (tau=0.85), frame_ok=0
+[ INFO] [1775312329.304624507, 1094.498000000]: [Multi Floor Nav] Current Robot Pose, x: 5.34, y: -0.01, yaw: 0.10
+[ INFO] [1775312329.304645459, 1094.498000000]: [Multi Floor Nav] Linear Error: 0.59, Angular Error: 0.10
+[ INFO] [1775312329.304661592, 1094.498000000]: [Multi Floor Nav] Module C: tr(??)=0.0294, C_t=0.5555 (tau=0.85), frame_ok=0
+[ INFO] [1775312329.507932737, 1094.699000000]: [Multi Floor Nav] Current Robot Pose, x: 5.33, y: -0.02, yaw: 0.10
+[ INFO] [1775312329.507976735, 1094.699000000]: [Multi Floor Nav] Linear Error: 0.59, Angular Error: 0.10
+[ INFO] [1775312329.508005090, 1094.699000000]: [Multi Floor Nav] Module C: tr(??)=0.0282, C_t=0.5695 (tau=0.85), frame_ok=0
+[ INFO] [1775312329.708609011, 1094.898000000]: [Multi Floor Nav] Current Robot Pose, x: 5.34, y: -0.02, yaw: 0.10
+[ INFO] [1775312329.708635411, 1094.898000000]: [Multi Floor Nav] Linear Error: 0.59, Angular Error: 0.10
+[ INFO] [1775312329.708653778, 1094.898000000]: [Multi Floor Nav] Module C: tr(??)=0.0257, C_t=0.5978 (tau=0.85), frame_ok=0
+[ INFO] [1775312329.910049255, 1095.098000000]: [Multi Floor Nav] Current Robot Pose, x: 5.34, y: -0.02, yaw: 0.10
+[ INFO] [1775312329.910075794, 1095.098000000]: [Multi Floor Nav] Linear Error: 0.59, Angular Error: 0.10
+[ INFO] [1775312329.910088226, 1095.098000000]: [Multi Floor Nav] Module C: tr(??)=0.0261, C_t=0.5937 (tau=0.85), frame_ok=0
+[ INFO] [1775312330.109840535, 1095.298000000]: [Multi Floor Nav] Current Robot Pose, x: 5.34, y: -0.02, yaw: 0.10
+[ INFO] [1775312330.109868121, 1095.298000000]: [Multi Floor Nav] Linear Error: 0.59, Angular Error: 0.10
+[ INFO] [1775312330.109881530, 1095.298000000]: [Multi Floor Nav] Module C: tr(??)=0.0251, C_t=0.6056 (tau=0.85), frame_ok=0
+[ INFO] [1775312330.310780742, 1095.499000000]: [Multi Floor Nav] Current Robot Pose, x: 5.34, y: -0.02, yaw: 0.10
+[ INFO] [1775312330.310800716, 1095.499000000]: [Multi Floor Nav] Linear Error: 0.59, Angular Error: 0.10
+[ INFO] [1775312330.310813357, 1095.499000000]: [Multi Floor Nav] Module C: tr(??)=0.0239, C_t=0.6196 (tau=0.85), frame_ok=0
+[ INFO] [1775312330.513355812, 1095.700000000]: [Multi Floor Nav] Current Robot Pose, x: 5.34, y: -0.02, yaw: 0.10
+[ INFO] [1775312330.513376764, 1095.700000000]: [Multi Floor Nav] Linear Error: 0.59, Angular Error: 0.10
+[ INFO] [1775312330.513388706, 1095.700000000]: [Multi Floor Nav] Module C: tr(??)=0.0247, C_t=0.6099 (tau=0.85), frame_ok=0
+[ INFO] [1775312330.715647754, 1095.899000000]: [Multi Floor Nav] Current Robot Pose, x: 5.33, y: -0.01, yaw: 0.10
+[ INFO] [1775312330.715667169, 1095.899000000]: [Multi Floor Nav] Linear Error: 0.59, Angular Error: 0.10
+[ INFO] [1775312330.715678763, 1095.899000000]: [Multi Floor Nav] Module C: tr(??)=0.0251, C_t=0.6055 (tau=0.85), frame_ok=0
+[ INFO] [1775312330.917438741, 1096.099000000]: [Multi Floor Nav] Current Robot Pose, x: 5.33, y: -0.01, yaw: 0.10
+[ INFO] [1775312330.917505786, 1096.099000000]: [Multi Floor Nav] Linear Error: 0.59, Angular Error: 0.10
+[ INFO] [1775312330.917544826, 1096.099000000]: [Multi Floor Nav] Module C: tr(??)=0.0271, C_t=0.5819 (tau=0.85), frame_ok=0
+[ INFO] [1775312331.121367507, 1096.298000000]: [Multi Floor Nav] Current Robot Pose, x: 5.32, y: -0.02, yaw: 0.11
+[ INFO] [1775312331.121386015, 1096.298000000]: [Multi Floor Nav] Linear Error: 0.58, Angular Error: 0.11
+[ INFO] [1775312331.121400402, 1096.299000000]: [Multi Floor Nav] Module C: tr(??)=0.0271, C_t=0.5813 (tau=0.85), frame_ok=0
+[ INFO] [1775312331.324017246, 1096.499000000]: [Multi Floor Nav] Current Robot Pose, x: 5.31, y: -0.02, yaw: 0.11
+[ INFO] [1775312331.324037220, 1096.499000000]: [Multi Floor Nav] Linear Error: 0.58, Angular Error: 0.11
+[ INFO] [1775312331.324048255, 1096.499000000]: [Multi Floor Nav] Module C: tr(??)=0.0253, C_t=0.6027 (tau=0.85), frame_ok=0
+[ INFO] [1775312331.528375039, 1096.700000000]: [Multi Floor Nav] Current Robot Pose, x: 5.30, y: -0.02, yaw: 0.11
+[ INFO] [1775312331.528436078, 1096.700000000]: [Multi Floor Nav] Linear Error: 0.57, Angular Error: 0.11
+[ INFO] [1775312331.528472744, 1096.700000000]: [Multi Floor Nav] Module C: tr(??)=0.0266, C_t=0.5876 (tau=0.85), frame_ok=0
+[ INFO] [1775312331.729243183, 1096.898000000]: [Multi Floor Nav] Current Robot Pose, x: 5.29, y: -0.02, yaw: 0.11
+[ INFO] [1775312331.729280965, 1096.898000000]: [Multi Floor Nav] Linear Error: 0.56, Angular Error: 0.11
+[ INFO] [1775312331.729298984, 1096.898000000]: [Multi Floor Nav] Module C: tr(??)=0.0262, C_t=0.5926 (tau=0.85), frame_ok=0
+[ INFO] [1775312331.932525035, 1097.099000000]: [Multi Floor Nav] Current Robot Pose, x: 5.28, y: -0.02, yaw: 0.11
+[ INFO] [1775312331.932586493, 1097.099000000]: [Multi Floor Nav] Linear Error: 0.56, Angular Error: 0.11
+[ INFO] [1775312331.932615686, 1097.099000000]: [Multi Floor Nav] Module C: tr(??)=0.0264, C_t=0.5903 (tau=0.85), frame_ok=0
+[ INFO] [1775312332.136976209, 1097.300000000]: [Multi Floor Nav] Current Robot Pose, x: 5.27, y: -0.02, yaw: 0.11
+[ INFO] [1775312332.136997510, 1097.300000000]: [Multi Floor Nav] Linear Error: 0.55, Angular Error: 0.11
+[ INFO] [1775312332.137014341, 1097.300000000]: [Multi Floor Nav] Module C: tr(??)=0.0274, C_t=0.5785 (tau=0.85), frame_ok=0
+[ INFO] [1775312332.339544875, 1097.499000000]: [Multi Floor Nav] Current Robot Pose, x: 5.26, y: -0.02, yaw: 0.11
+[ INFO] [1775312332.339569389, 1097.499000000]: [Multi Floor Nav] Linear Error: 0.55, Angular Error: 0.11
+[ INFO] [1775312332.339583426, 1097.499000000]: [Multi Floor Nav] Module C: tr(??)=0.0273, C_t=0.5798 (tau=0.85), frame_ok=0
+[ INFO] [1775312332.542272076, 1097.698000000]: [Multi Floor Nav] Current Robot Pose, x: 5.26, y: -0.02, yaw: 0.11
+[ INFO] [1775312332.542302037, 1097.699000000]: [Multi Floor Nav] Linear Error: 0.55, Angular Error: 0.11
+[ INFO] [1775312332.542313630, 1097.699000000]: [Multi Floor Nav] Module C: tr(??)=0.0256, C_t=0.5989 (tau=0.85), frame_ok=0
+[ INFO] [1775312332.743880594, 1097.898000000]: [Multi Floor Nav] Current Robot Pose, x: 5.25, y: -0.02, yaw: 0.11
+[ INFO] [1775312332.743906924, 1097.898000000]: [Multi Floor Nav] Linear Error: 0.54, Angular Error: 0.11
+[ INFO] [1775312332.743936047, 1097.899000000]: [Multi Floor Nav] Module C: tr(??)=0.0252, C_t=0.6036 (tau=0.85), frame_ok=0
+[ INFO] [1775312332.945591357, 1098.098000000]: [Multi Floor Nav] Current Robot Pose, x: 5.25, y: -0.02, yaw: 0.11
+[ INFO] [1775312332.945621388, 1098.098000000]: [Multi Floor Nav] Linear Error: 0.54, Angular Error: 0.11
+[ INFO] [1775312332.945637451, 1098.098000000]: [Multi Floor Nav] Module C: tr(??)=0.0263, C_t=0.5912 (tau=0.85), frame_ok=0
+[ INFO] [1775312333.151529557, 1098.300000000]: [Multi Floor Nav] Current Robot Pose, x: 5.24, y: -0.02, yaw: 0.11
+[ INFO] [1775312333.151608824, 1098.300000000]: [Multi Floor Nav] Linear Error: 0.54, Angular Error: 0.11
+[ INFO] [1775312333.151656734, 1098.300000000]: [Multi Floor Nav] Module C: tr(??)=0.0269, C_t=0.5841 (tau=0.85), frame_ok=0
+[ INFO] [1775312333.354015754, 1098.499000000]: [Multi Floor Nav] Current Robot Pose, x: 5.22, y: -0.02, yaw: 0.11
+[ INFO] [1775312333.354036287, 1098.499000000]: [Multi Floor Nav] Linear Error: 0.53, Angular Error: 0.11
+[ INFO] [1775312333.354051511, 1098.499000000]: [Multi Floor Nav] Module C: tr(??)=0.0255, C_t=0.6010 (tau=0.85), frame_ok=0
+[ INFO] [1775312333.556031724, 1098.699000000]: [Multi Floor Nav] Current Robot Pose, x: 5.21, y: -0.02, yaw: 0.11
+[ INFO] [1775312333.556051139, 1098.699000000]: [Multi Floor Nav] Linear Error: 0.53, Angular Error: 0.11
+[ INFO] [1775312333.556063012, 1098.699000000]: [Multi Floor Nav] Module C: tr(??)=0.0249, C_t=0.6082 (tau=0.85), frame_ok=0
+[ INFO] [1775312333.761463943, 1098.899000000]: [Multi Floor Nav] Current Robot Pose, x: 5.21, y: -0.02, yaw: 0.11
+[ INFO] [1775312333.761492996, 1098.899000000]: [Multi Floor Nav] Linear Error: 0.53, Angular Error: 0.11
+[ INFO] [1775312333.761506475, 1098.899000000]: [Multi Floor Nav] Module C: tr(??)=0.0258, C_t=0.5974 (tau=0.85), frame_ok=0
+[ INFO] [1775312333.964330763, 1099.099000000]: [Multi Floor Nav] Current Robot Pose, x: 5.20, y: -0.02, yaw: 0.11
+[ INFO] [1775312333.964350807, 1099.099000000]: [Multi Floor Nav] Linear Error: 0.52, Angular Error: 0.11
+[ INFO] [1775312333.964361282, 1099.099000000]: [Multi Floor Nav] Module C: tr(??)=0.0248, C_t=0.6088 (tau=0.85), frame_ok=0
+[ INFO] [1775312334.166047132, 1099.298000000]: [Multi Floor Nav] Current Robot Pose, x: 5.19, y: -0.02, yaw: 0.11
+[ INFO] [1775312334.166093924, 1099.298000000]: [Multi Floor Nav] Linear Error: 0.52, Angular Error: 0.11
+[ INFO] [1775312334.166123256, 1099.298000000]: [Multi Floor Nav] Module C: tr(??)=0.0231, C_t=0.6295 (tau=0.85), frame_ok=0
+[ INFO] [1775312334.368716108, 1099.499000000]: [Multi Floor Nav] Current Robot Pose, x: 5.18, y: -0.02, yaw: 0.11
+[ INFO] [1775312334.368782385, 1099.499000000]: [Multi Floor Nav] Linear Error: 0.51, Angular Error: 0.11
+[ INFO] [1775312334.368829457, 1099.499000000]: [Multi Floor Nav] Module C: tr(??)=0.0211, C_t=0.6560 (tau=0.85), frame_ok=0
+[ INFO] [1775312334.570559098, 1099.699000000]: [Multi Floor Nav] Current Robot Pose, x: 5.16, y: -0.02, yaw: 0.11
+[ INFO] [1775312334.570579002, 1099.699000000]: [Multi Floor Nav] Linear Error: 0.51, Angular Error: 0.11
+[ INFO] [1775312334.570591782, 1099.699000000]: [Multi Floor Nav] Module C: tr(??)=0.0193, C_t=0.6797 (tau=0.85), frame_ok=0
+[ INFO] [1775312334.775842291, 1099.900000000]: [Multi Floor Nav] Current Robot Pose, x: 5.16, y: -0.02, yaw: 0.11
+[ INFO] [1775312334.775890340, 1099.900000000]: [Multi Floor Nav] Linear Error: 0.51, Angular Error: 0.11
+[ INFO] [1775312334.775923653, 1099.900000000]: [Multi Floor Nav] Module C: tr(??)=0.0189, C_t=0.6846 (tau=0.85), frame_ok=0
+[ INFO] [1775312334.979273910, 1100.100000000]: [Multi Floor Nav] Current Robot Pose, x: 5.15, y: -0.01, yaw: 0.10
+[ INFO] [1775312334.979321191, 1100.100000000]: [Multi Floor Nav] Linear Error: 0.51, Angular Error: 0.10
+[ INFO] [1775312334.979350803, 1100.100000000]: [Multi Floor Nav] Module C: tr(??)=0.0173, C_t=0.7074 (tau=0.85), frame_ok=0
+[ INFO] [1775312335.183843846, 1100.300000000]: [Multi Floor Nav] Current Robot Pose, x: 5.15, y: -0.01, yaw: 0.10
+[ INFO] [1775312335.183863959, 1100.300000000]: [Multi Floor Nav] Linear Error: 0.51, Angular Error: 0.10
+[ INFO] [1775312335.183875832, 1100.300000000]: [Multi Floor Nav] Module C: tr(??)=0.0176, C_t=0.7036 (tau=0.85), frame_ok=0
+[ INFO] [1775312335.386420156, 1100.500000000]: [Multi Floor Nav] Current Robot Pose, x: 5.14, y: -0.01, yaw: 0.10
+[ INFO] [1775312335.386440200, 1100.500000000]: [Multi Floor Nav] Linear Error: 0.51, Angular Error: 0.10
+[ INFO] [1775312335.386452561, 1100.500000000]: [Multi Floor Nav] Module C: tr(??)=0.0175, C_t=0.7054 (tau=0.85), frame_ok=0
+[ INFO] [1775312335.588304152, 1100.698000000]: [Multi Floor Nav] Current Robot Pose, x: 5.14, y: -0.01, yaw: 0.10
+[ INFO] [1775312335.588327478, 1100.698000000]: [Multi Floor Nav] Linear Error: 0.51, Angular Error: 0.10
+[ INFO] [1775312335.588344519, 1100.698000000]: [Multi Floor Nav] Module C: tr(??)=0.0155, C_t=0.7340 (tau=0.85), frame_ok=0
+[ INFO] [1775312335.791775380, 1100.899000000]: [Multi Floor Nav] Current Robot Pose, x: 5.14, y: -0.01, yaw: 0.10
+[ INFO] [1775312335.791794167, 1100.899000000]: [Multi Floor Nav] Linear Error: 0.51, Angular Error: 0.10
+[ INFO] [1775312335.791805621, 1100.899000000]: [Multi Floor Nav] Module C: tr(??)=0.0167, C_t=0.7155 (tau=0.85), frame_ok=0
+[ INFO] [1775312335.992371054, 1101.098000000]: [Multi Floor Nav] Current Robot Pose, x: 5.14, y: -0.01, yaw: 0.10
+[ INFO] [1775312335.992397174, 1101.098000000]: [Multi Floor Nav] Linear Error: 0.51, Angular Error: 0.10
+[ IN[ WARN] [1775312392.546647517, 1157.101000000]: [Multi Floor Nav] Initial pose perturbation applied: offset_x=0.32, offset_y=0.32, offset_theta=0.20
+FO] [1775312335.992415751, 1101.098000000]: [Multi Floor Nav] Module C: tr(??)=0.0167, C_t=0.7163 (tau=0.85), frame_ok=0
+[ INFO] [1775312336.196464769, 1101.298000000]: [Multi Floor Nav] Current Robot Pose, x: 5.13, y: -0.01, yaw: 0.10
+[ INFO] [1775312336.196485511, 1101.298000000]: [Multi Floor Nav] Linear Error: 0.51, Angular Error: 0.10
+[ INFO] [1775312336.196497453, 1101.298000000]: [Multi Floor Nav] Module C: tr(??)=0.0144, C_t=0.7500 (tau=0.85), frame_ok=0
+[ INFO] [1775312336.399565930, 1101.499000000]: [Multi Floor Nav] Current Robot Pose, x: 5.12, y: -0.01, yaw: 0.10
+[ INFO] [1775312336.399585346, 1101.499000000]: [Multi Floor Nav] Linear Error: 0.50, Angular Error: 0.10
+[ INFO] [1775312336.399597358, 1101.499000000]: [Multi Floor Nav] Module C: tr(??)=0.0120, C_t=0.7863 (tau=0.85), frame_ok=0
+[ INFO] [1775312336.601368993, 1101.698000000]: [Multi Floor Nav] Current Robot Pose, x: 5.11, y: -0.01, yaw: 0.10
+[ INFO] [1775312336.601389596, 1101.698000000]: [Multi Floor Nav] Linear Error: 0.50, Angular Error: 0.10
+[ INFO] [1775312336.601405240, 1101.699000000]: [Multi Floor Nav] Module C: tr(??)=0.0098, C_t=0.8217 (tau=0.85), frame_ok=0
+[ INFO] [1775312336.802815527, 1101.898000000]: [Multi Floor Nav] Current Robot Pose, x: 5.10, y: -0.01, yaw: 0.10
+[ INFO] [1775312336.802837806, 1101.898000000]: [Multi Floor Nav] Linear Error: 0.50, Angular Error: 0.10
+[ INFO] [1775312336.802853659, 1101.898000000]: [Multi Floor Nav] Module C: tr(??)=0.0071, C_t=0.8677 (tau=0.85), frame_ok=1
+[ INFO] [1775312337.004502378, 1102.098000000]: [Multi Floor Nav] Current Robot Pose, x: 5.10, y: -0.01, yaw: 0.10
+[ INFO] [1775312337.004529964, 1102.098000000]: [Multi Floor Nav] Linear Error: 0.50, Angular Error: 0.10
+[ INFO] [1775312337.004547564, 1102.098000000]: [Multi Floor Nav] Module C: tr(??)=0.0066, C_t=0.8771 (tau=0.85), frame_ok=1
+[ INFO] [1775312337.205963938, 1102.298000000]: [Multi Floor Nav] Current Robot Pose, x: 5.09, y: -0.01, yaw: 0.09
+[ INFO] [1775312337.205983004, 1102.298000000]: [Multi Floor Nav] Linear Error: 0.50, Angular Error: 0.09
+[ INFO] [1775312337.205994318, 1102.298000000]: [Multi Floor Nav] Module C: tr(??)=0.0049, C_t=0.9068 (tau=0.85), frame_ok=1
+[ INFO] [1775312337.206005841, 1102.298000000]: [Multi Floor Nav] Module C: reloc passed (consecutive 3 >= K=3)
+[ INFO] [1775312337.206016596, 1102.298000000]: [Multi Floor Nav] Robot at correct pose
+[ INFO] [1775312337.207324543, 1102.299000000]: [Multi Floor Nav] RELOC_PASS: linear_error=0.4960, angular_error=0.0947, linear_error_init=0.2846, angular_error_init=0.1053, tr_sigma=0.0049, C_t=0.9068
+[ INFO] [1775312338.221329784, 1103.299000000]: [Multi Floor Nav] POST_PASS: dt=1.000s, linear_error=0.4962, angular_error=0.0940
+[ INFO] [1775312338.221412753, 1103.299000000]: [Multi Floor Nav] Will send goal to x: 3, y: -0, at level: 0
+[ INFO] [1775312338.221462409, 1103.299000000]: [Multi Floor Nav] Sending Robot to x: 3.0, y: -0.5, yaw: 3.1
+[ INFO] [1775312338.423278133, 1103.499000000]: [Multi Floor Nav] POST_PASS: dt=1.200s, linear_error=0.4962, angular_error=0.0940
+[ INFO] [1775312338.624633548, 1103.699000000]: [Multi Floor Nav] POST_PASS: dt=1.400s, linear_error=0.4962, angular_error=0.0940
+[ INFO] [1775312338.830521381, 1103.901000000]: [Multi Floor Nav] POST_PASS: dt=1.602s, linear_error=0.5030, angular_error=0.3080
+[ INFO] [1775312339.028247609, 1104.099000000]: [Multi Floor Nav] POST_PASS: dt=1.800s, linear_error=0.4959, angular_error=0.7392
+[ INFO] [1775312339.229803682, 1104.299000000]: [Multi Floor Nav] POST_PASS: dt=2.000s, linear_error=0.4607, angular_error=1.1448
+[ INFO] [1775312355.183414397, 1120.099000000]: [Multi Floor Nav] Requesting Lift to Level 0
+[ INFO] [1775312355.385208717, 1120.299000000]: [Multi Floor Nav] Entering Lift at Level 0
+[ INFO] [1775312372.715396470, 1137.499000000]: [Multi Floor Nav] Requesting Lift to Level 1
+[ INFO] [1775312379.780523511, 1144.499000000]: [Multi Floor Nav] Exiting Lift at Level 1
+[ INFO] [1775312392.404148344, 1156.959000000]: [Multi Floor Nav] Successfully loaded map for level: 1
+[ INFO] [1775312392.546707579, 1157.101000000]: [Multi Floor Nav] Adaptive sigma: offset_planar=0.453, adaptive_scale=0.226, adaptive_yaw=0.120 ??? sigma(0.150, 0.150, 0.100)
+[ INFO] [1775312392.546743267, 1157.101000000]: [Multi Floor Nav] Initializing Robot at x: 3.3, y: -0.2, yaw: 3.3 (level=1, sigma: x=0.150, y=0.150, yaw=0.100, retry=0)
+[ INFO] [1775312392.546802002, 1157.101000000]: [Multi Floor Nav] Initializing Pose to x: 3.00, y: -0.50 at level: 1
+[ INFO] [1775312393.565498401, 1158.103000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (1.0/6.0s, L1)...
+[ INFO] [1775312394.586777367, 1159.104000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (2.0/6.0s, L1)...
+[ INFO] [1775312395.603723761, 1160.104000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (3.0/6.0s, L1)...
+[ INFO] [1775312396.619366443, 1161.104000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (4.0/6.0s, L1)...
+[ INFO] [1775312397.837847861, 1162.303000000]: [Multi Floor Nav] Waiting for AMCL nomotion updates (5.2/6.0s, L1)...
+[ INFO] [1775312398.656507348, 1163.103000000]: [Multi Floor Nav] Current Robot Pose, x: 3.32, y: -0.50, yaw: 3.09
+[ INFO] [1775312398.656532350, 1163.103000000]: [Multi Floor Nav] Linear Error: 0.32, Angular Error: 0.05
+[ INFO] [1775312398.656546737, 1163.103000000]: [Multi Floor Nav] Module C: tr(??)=0.0139, C_t=0.7579 (tau=0.85), frame_ok=0
+[ INFO] [1775312398.859176196, 1163.303000000]: [Multi Floor Nav] Current Robot Pose, x: 3.32, y: -0.51, yaw: 3.09
+[ INFO] [1775312398.859240099, 1163.303000000]: [Multi Floor Nav] Linear Error: 0.32, Angular Error: 0.05
+[ INFO] [1775312398.859286263, 1163.303000000]: [Multi Floor Nav] Module C: tr(??)=0.0124, C_t=0.7801 (tau=0.85), frame_ok=0
+[ INFO] [1775312399.063143849, 1163.504000000]: [Multi Floor Nav] Current Robot Pose, x: 3.32, y: -0.51, yaw: 3.09
+[ INFO] [1775312399.063162496, 1163.504000000]: [Multi Floor Nav] Linear Error: 0.32, Angular Error: 0.05
+[ INFO] [1775312399.063175347, 1163.504000000]: [Multi Floor Nav] Module C: tr(??)=0.0093, C_t=0.8308 (tau=0.85), frame_ok=0
+[ INFO] [1775312399.267574404, 1163.704000000]: [Multi Floor Nav] Current Robot Pose, x: 3.32, y: -0.51, yaw: 3.09
+[ INFO] [1775312399.267593121, 1163.704000000]: [Multi Floor Nav] Linear Error: 0.32, Angular Error: 0.05
+[ INFO] [1775312399.267605343, 1163.704000000]: [Multi Floor Nav] Module C: tr(??)=0.0086, C_t=0.8413 (tau=0.85), frame_ok=0
+[ INFO] [1775312399.471140627, 1163.904000000]: [Multi Floor Nav] Current Robot Pose, x: 3.32, y: -0.51, yaw: 3.09
+[ INFO] [1775312399.471160043, 1163.904000000]: [Multi Floor Nav] Linear Error: 0.32, Angular Error: 0.05
+[ INFO] [1775312399.471171636, 1163.904000000]: [Multi Floor Nav] Module C: tr(??)=0.0106, C_t=0.8091 (tau=0.85), frame_ok=0
+[ INFO] [1775312399.673706612, 1164.103000000]: [Multi Floor Nav] Current Robot Pose, x: 3.32, y: -0.52, yaw: 3.09
+[ INFO] [1775312399.673723793, 1164.103000000]: [Multi Floor Nav] Linear Error: 0.32, Angular Error: 0.05
+[ INFO] [1775312399.673734757, 1164.103000000]: [Multi Floor Nav] Module C: tr(??)=0.0064, C_t=0.8790 (tau=0.85), frame_ok=1
+[ INFO] [1775312399.877012475, 1164.303000000]: [Multi Floor Nav] Current Robot Pose, x: 3.32, y: -0.52, yaw: 3.09
+[ INFO] [1775312399.877039572, 1164.303000000]: [Multi Floor Nav] Linear Error: 0.32, Angular Error: 0.05
+[ INFO] [1775312399.877055845, 1164.304000000]: [Multi Floor Nav] Module C: tr(??)=0.0070, C_t=0.8699 (tau=0.85), frame_ok=1
+[ INFO] [1775312400.078907866, 1164.503000000]: [Multi Floor Nav] Current Robot Pose, x: 3.32, y: -0.52, yaw: 3.09
+[ INFO] [1775312400.078968347, 1164.503000000]: [Multi Floor Nav] Linear Error: 0.32, Angular Error: 0.05
+[ INFO] [1775312400.078996981, 1164.503000000]: [Multi Floor Nav] Module C: tr(??)=0.0070, C_t=0.8699 (tau=0.85), frame_ok=1
+[ INFO] [1775312400.079023171, 1164.503000000]: [Multi Floor Nav] Module C: reloc passed (consecutive 3 >= K=3)
+[ INFO] [1775312400.079041259, 1164.504000000]: [Multi Floor Nav] Robot at correct pose
+[ INFO] [1775312400.083306136, 1164.507000000]: [Multi Floor Nav] RELOC_PASS: linear_error=0.3207, angular_error=0.0516, linear_error_init=0.3380, angular_error_init=0.2516, tr_sigma=0.0070, C_t=0.8699
+[ INFO] [1775312401.099432527, 1165.507000000]: [Multi Floor Nav] POST_PASS: dt=1.000s, linear_error=0.3210, angular_error=0.0516
+[ INFO] [1775312401.099454946, 1165.507000000]: [Multi Floor Nav] Will send goal to x: 4, y: 5, at level: 1
+[ INFO] [1775312401.099465910, 1165.507000000]: [Multi Floor Nav] Sending Robot to x: 4.0, y: 5.0, yaw: 0.0
+[ INFO] [1775312401.303076989, 1165.707000000]: [Multi Floor Nav] POST_PASS: dt=1.200s, linear_error=0.3210, angular_error=0.0516
+[ INFO] [1775312401.506891301, 1165.907000000]: [Multi Floor Nav] POST_PASS: dt=1.400s, linear_error=0.3210, angular_error=0.0516
+[ INFO] [1775312401.709625128, 1166.108000000]: [Multi Floor Nav] POST_PASS: dt=1.600s, linear_error=0.2084, angular_error=0.1252
+[ INFO] [1775312401.913684087, 1166.308000000]: [Multi Floor Nav] POST_PASS: dt=1.801s, linear_error=0.0784, angular_error=0.5456
+[ INFO] [1775312402.116407374, 1166.507000000]: [Multi Floor Nav] POST_PASS: dt=2.000s, linear_error=0.1084, angular_error=0.9199
+[ INFO] [1775312427.602821410, 1191.508000000]: [Multi Floor Nav] Robot arrived at Goal
+[ INFO] [1775312290.827604723, 1056.420000000]: global_costmap: Using plugin "static_layer"
+[ INFO] [1775312290.837116364, 1056.429000000]: Requesting the map...
+[ INFO] [1775312321.356850808, 1086.630000000]: Resizing costmap to 992 X 992 at 0.020000 m/pix
+[ INFO] [1775312321.458954992, 1086.731000000]: Received a 992 X 992 map at 0.020000 m/pix
+[ INFO] [1775312321.461269388, 1086.733000000]: global_costmap: Using plugin "obstacles_layer"
+[ INFO] [1775312321.464401319, 1086.736000000]:     Subscribed to Topics: scan
+[ INFO] [1775312321.473511403, 1086.745000000]: global_costmap: Using plugin "inflater_layer"
+[ INFO] [1775312321.495667558, 1086.767000000]: local_costmap: Using plugin "obstacles_layer"
+[ INFO] [1775312321.498747390, 1086.770000000]:     Subscribed to Topics: scan
+[ INFO] [1775312321.507313217, 1086.779000000]: local_costmap: Using plugin "inflater_layer"
+[ INFO] [1775312321.525053800, 1086.797000000]: Created local_planner base_local_planner/TrajectoryPlannerROS
+[ INFO] [1775312321.532800066, 1086.804000000]: Sim period is set to 0.05
+[ INFO] [1775312321.582860898, 1086.854000000]: Recovery behavior will clear layer 'obstacles'
+[ INFO] [1775312321.586454815, 1086.858000000]: Recovery behavior will clear layer 'obstacles'
+[ INFO] [1775312321.750261788, 1087.017000000]: odom received!
+[WARN] [1775312540.556342, 1287.064000]: Controller Spawner error while taking down controllers: transport error completing service call: unable to receive data from sender, check sender's logs for details
+[31m[controller_spawner-4] escalating to SIGTERM[0m
+[31m[gazebo-2] escalating to SIGTERM[0m
+
+auto-starting new master
+[1mprocess[master]: started with pid [124590][0m
+[1mROS_MASTER_URI=http://localhost:11311[0m
+]2;/home/eethanhe/catkin_ws/src/robot-multi-floor-navigation/multi_floor_nav/launch/nav.launch http://localhost:11311
+[1msetting /run_id to 18f165f0-3031-11f1-a0c4-b3a95fcbe21c[0m
+[1mprocess[rosout-1]: started with pid [124617][0m
+started core service [/rosout]
+[1mprocess[gazebo-2]: started with pid [124635][0m
+[1mprocess[robot_state_publisher-3]: started with pid [124638][0m
+[1mprocess[controller_spawner-4]: started with pid [124641][0m
+[1mprocess[ekf_localization-5]: started with pid [124642][0m
+[1mprocess[twist_mux-6]: started with pid [124643][0m
+[1mprocess[twist_marker_server-7]: started with pid [124645][0m
+[1mprocess[urdf_spawner-8]: started with pid [124651][0m
+[1mprocess[map_server0-9]: started with pid [124659][0m
+[1mprocess[map_server1-10]: started with pid [124666][0m
+[1mprocess[amcl-11]: started with pid [124670][0m
+[1mprocess[move_base-12]: started with pid [124672][0m
+[1mprocess[rviz-13]: started with pid [124681][0m
+[1mprocess[change_map_node-14]: started with pid [124685][0m
+[1mprocess[multi_floor_navigation_node-15]: started with pid [124694][0m
+[1m[urdf_spawner-8] process has finished cleanly
+log file: /home/eethanhe/.ros/log/18f165f0-3031-11f1-a0c4-b3a95fcbe21c/urdf_spawner-8*.log[0m
+[multi_floor_navigation_node-15] killing on exit
+[change_map_node-14] killing on exit
+[rviz-13] killing on exit
+[move_base-12] killing on exit
+[amcl-11] killing on exit
+[map_server1-10] killing on exit
+[map_server0-9] killing on exit
+[twist_marker_server-7] killing on exit
+[twist_mux-6] killing on exit
+[ekf_localization-5] killing on exit
+[controller_spawner-4] killing on exit
+[robot_state_publisher-3] killing on exit
+[gazebo-2] killing on exit
+[rosout-1] killing on exit
+[master] killing on exit
+shutting down processing monitor...
+... shutting down processing monitor complete
+[1mdone[0m

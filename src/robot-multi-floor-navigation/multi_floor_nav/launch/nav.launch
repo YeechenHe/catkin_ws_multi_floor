@@ -14,23 +14,7 @@
     <arg name="config" default="navigation" />
     <arg name="front_laser" default="true" />
     <arg name="scan_topic" default="front/scan" />
-    <!-- 为 true 时启用 SPA-AMCL 模块 A：电梯出口区域初始化 -->
-    <arg name="use_region_init" default="false" />
-    <!-- 为 true 时启用 AP-AMCL 模块 B：切层窗口内临时提高 max_particles / recovery_alpha_fast（仅 L1 重定位阶段） -->
-    <arg name="use_ap_amcl" default="false" />
-    <!-- 为 true 时启用模块 C：重定位完成判据优化（C_t > tau 连续 K 帧才通过） -->
-    <arg name="use_covariance_reloc" default="false" />
-    <!-- 可选：覆盖 reloc_confidence_K（0 表示不覆盖，使用 YAML 中的默认值） -->
-    <arg name="reloc_confidence_K_override" default="0" />
-    <!-- 初值扰动（补充实验用）：对发布的 initialpose 加偏移，模拟出口估计不准；默认 0 表示不扰动 -->
-    <arg name="init_pose_offset_x" default="0.0" />
-    <arg name="init_pose_offset_y" default="0.0" />
-    <arg name="init_pose_offset_theta" default="0.0" />
-    <!-- 初始位姿协方差：让 AMCL 粒子有初始展开，nomotion update 才能使粒子分布有意义地演化 -->
-    <arg name="init_sigma_xy" default="0.0" />
-    <arg name="init_sigma_yaw" default="0.0" />
-    <!-- 为 true 时使用 move_base 标准全局规划器 navfn（默认，减少 NO PATH）；false 使用 ImprovedAStarPlanner -->
-    <arg name="use_navfn" default="true" />
+    <arg name="enable_module_a" default="false" />
 
     <!-- Launch Gazebo with the specified world -->
     <include file="$(find jackal_elevator)/launch/jackal_repos_world.launch">
@@ -39,6 +23,9 @@
         <arg name="headless" value="$(arg headless)" />
         <arg name="world_name" value="$(arg world_name)" />
         <arg name="front_laser" value="$(arg front_laser)" />
+        <arg name="x_pos" value="4.0" />
+        <arg name="y_pos" value="-5.0" />
+        <arg name="z_pos" value="0.5" />
     </include>
 
     <!-- Run the map server -->
@@ -57,37 +44,20 @@
         <rosparam file="$(find multi_floor_nav)/configs/amcl.yaml" command="load"/>
     </node>
 
-    <!-- 全局规划器（须在 move_base 启动前设置）：use_navfn 为 true 时用 navfn；false 时用 ImprovedAStarPlanner -->
-    <group if="$(arg use_navfn)">
-        <param name="move_base/base_global_planner" value="navfn/NavfnROS" />
-        <param name="move_base/NavfnROS/allow_unknown" value="true" />
-    </group>
-    <group unless="$(arg use_navfn)">
-        <param name="move_base/base_global_planner" value="improved_global_planner/ImprovedAStarPlanner" />
-        <rosparam ns="move_base/ImprovedAStarPlanner" subst_value="true">
-          use_dijkstra: false
-          use_improved_astar: false
-          use_quadratic: true
-          use_grid_path: false
-          allow_unknown: true
-          adaptive_density_radius: 2
-          adaptive_inflation_lambda: 0.5
-          adaptive_threshold_open: 0.20
-          adaptive_threshold_narrow: 0.45
-          adaptive_w_obs_open: 0.15
-          adaptive_w_obs_normal: 0.45
-          adaptive_w_obs_narrow: 0.90
-          adaptive_w_dir_open: 0.35
-          adaptive_w_dir_normal: 0.25
-          adaptive_w_dir_narrow: 0.15
-          adaptive_alpha_open: 1.35
-          adaptive_alpha_normal: 1.15
-          adaptive_alpha_narrow: 1.00
-        </rosparam>
-    </group>
-
-    <!--- Run Move Base（路径规划统一走 move_base） -->
-    <include file="$(find jackal_navigation)/launch/include/move_base.launch" />
+    <!--- Run Move Base with Improved A* global planner -->
+    <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+        <rosparam file="$(find jackal_navigation)/params/costmap_common_params.yaml" command="load" ns="global_costmap" />
+        <rosparam file="$(find jackal_navigation)/params/costmap_common_params.yaml" command="load" ns="local_costmap" />
+        <rosparam file="$(find jackal_navigation)/params/map_nav_params/local_costmap_params.yaml" command="load" />
+        <rosparam file="$(find jackal_navigation)/params/map_nav_params/global_costmap_params.yaml" command="load" />
+        <rosparam file="$(find jackal_navigation)/params/base_local_planner_params.yaml" command="load" />
+        <rosparam file="$(find jackal_navigation)/params/move_base_params.yaml" command="load" />
+        <rosparam file="$(find multi_floor_nav)/configs/improved_astar_params.yaml"
+                  command="load" ns="ImprovedAStarPlanner" />
+        <param name="base_global_planner" type="string" value="improved_astar/ImprovedAStarPlanner" />
+        <param name="base_local_planner" value="base_local_planner/TrajectoryPlannerROS" />
+        <remap from="odom" to="odometry/filtered" />
+    </node>
 
     <!--- Run Jackal RViz -->  
     <include file="$(find jackal_viz)/launch/view_robot.launch">
@@ -97,37 +67,21 @@
     <!-- Run Change Map Node -->
     <node pkg="multi_floor_nav" type="change_map_node" name="change_map_node"/>
 
-    <!-- SPA-AMCL 区域初始化参数（仅当 use_region_init:=true 时加载） -->
-    <group if="$(arg use_region_init)">
-        <rosparam file="$(find multi_floor_nav)/configs/spa_amcl_region_init.yaml" ns="multi_floor_navigation_node"/>
-    </group>
-    <!-- AP-AMCL 模块 B 切层窗口参数（仅当 use_ap_amcl:=true 时加载，用于 Baseline vs AP-AMCL 对比） -->
-    <group if="$(arg use_ap_amcl)">
-        <rosparam file="$(find multi_floor_nav)/configs/ap_amcl_floor_window.yaml" ns="multi_floor_navigation_node"/>
-    </group>
-    <!-- 模块 C 重定位置信度判据（仅当 use_covariance_reloc:=true 时加载） -->
-    <group if="$(arg use_covariance_reloc)">
-        <rosparam file="$(find multi_floor_nav)/configs/reloc_confidence_criterion.yaml" ns="multi_floor_navigation_node"/>
-    </group>
-
-    <!-- 初始位姿协方差：仅在不使用 module A 时从 launch arg 设置，避免覆盖 spa_amcl yaml -->
-    <group unless="$(arg use_region_init)">
-        <param name="multi_floor_navigation_node/region_init_sigma_x" value="$(arg init_sigma_xy)"/>
-        <param name="multi_floor_navigation_node/region_init_sigma_y" value="$(arg init_sigma_xy)"/>
-        <param name="multi_floor_navigation_node/region_init_sigma_yaw" value="$(arg init_sigma_yaw)"/>
-    </group>
-
-    <!-- 可选覆盖 K 值：reloc_confidence_K_override > 0 时覆盖 YAML 中的默认值 -->
-    <group if="$(eval arg('reloc_confidence_K_override') > 0)">
-        <param name="multi_floor_navigation_node/reloc_confidence_K"
-               value="$(arg reloc_confidence_K_override)"/>
-    </group>
-
-    <!-- Run Multi Floor Navigation Node（初值扰动 / AP-AMCL / 模块 C 通过 args 或 rosparam 传入） -->
+    <!-- Run Multi Floor Navigation Node -->
     <node pkg="multi_floor_nav" type="multi_floor_navigation_node" name="multi_floor_navigation_node" output="screen">
-        <param name="init_pose_offset_x" value="$(arg init_pose_offset_x)"/>
-        <param name="init_pose_offset_y" value="$(arg init_pose_offset_y)"/>
-        <param name="init_pose_offset_theta" value="$(arg init_pose_offset_theta)"/>
+        <!-- Module A (SPA-AMCL region init) -->
+        <rosparam if="$(arg enable_module_a)" file="$(find multi_floor_nav)/configs/spa_amcl_region_init.yaml" command="load"/>
+        <!-- Large perturbation for initialpose -->
+        <param name="init_pose_offset_x" value="0.40" />
+        <param name="init_pose_offset_y" value="0.40" />
+        <param name="init_pose_offset_theta" value="0.20" />
+        <param name="lift_enter_linear_speed" value="0.25" />
+        <param name="lift_enter_target_distance" value="3.00" />
+        <param name="lift_front_safety_stop_distance" value="0.20" />
+        <param name="lift_front_scan_half_angle_rad" value="0.25" />
     </node>
+
+    <!-- Record actual trajectories per floor for RViz visualization -->
+    <node pkg="multi_floor_nav" type="trajectory_recorder.py" name="trajectory_recorder" output="screen"/>
 
 </launch>

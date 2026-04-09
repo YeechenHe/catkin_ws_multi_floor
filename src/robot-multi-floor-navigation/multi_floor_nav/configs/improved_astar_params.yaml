@@ -1,0 +1,35 @@
+# Improved A* planner parameters
+# Density-adaptive, direction-guided A* global planner
+
+# Local density estimation window radius (cells)
+density_radius: 2
+
+# Weight of inflation cells in density calculation
+inflation_lambda: 0.5
+
+# Density thresholds for region classification
+threshold_open: 0.20
+threshold_narrow: 0.45
+
+# Obstacle proximity penalty weights per region
+w_obs_open: 0.15
+w_obs_normal: 0.45
+w_obs_narrow: 0.90
+
+# Direction penalty weights per region
+w_dir_open: 0.35
+w_dir_normal: 0.25
+w_dir_narrow: 0.15
+
+# Heuristic inflation factor per region (alpha >= 1.0)
+alpha_open: 1.35
+alpha_normal: 1.15
+alpha_narrow: 1.00
+
+# Base cost unit (scales obstacle/direction/heuristic terms)
+neutral_cost: 50.0
+
+# Cells with costmap cost >= this value are treated as impassable by the planner.
+# 253 = INSCRIBED_INFLATED_OBSTACLE (default, allows full inflation zone)
+# Wall avoidance is handled by w_obs weights, not by raising this threshold.
+lethal_cost_threshold: 253

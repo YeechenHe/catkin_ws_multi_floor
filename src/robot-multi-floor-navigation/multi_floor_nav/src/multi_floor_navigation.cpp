@@ -1,5 +1,14 @@
 #include <multi_floor_nav/multi_floor_navigation.h>
 
+#include <fstream>
+#include <iomanip>
+#include <ros/package.h>
+#include <sstream>
+
+namespace {
+constexpr double kLiftEntryMinHardStopDistance = 0.18;
+}  // namespace
+
 using namespace std;
 
 MultiFloorNav::MultiFloorNav(){
@@ -8,9 +17,11 @@ MultiFloorNav::MultiFloorNav(){
     goal_active = false;
     goal_sent = false;
     to_start = false;
+    received_scan_ = false;
     loop_rate = 1.0;
     max_angular_error = 0.0;
     max_linear_error = 0.0;
+    max_linear_error_L1_ = -1.0;  // >0：L1 单独门限；<=0 时与 L0 共用 max_linear_error
     curr_odom.pose.pose.orientation = first_odom.pose.pose.orientation =
         tf::createQuaternionMsgFromRollPitchYaw(0.0, 0.0, 0.0);
     desired_map_level = 0;
@@ -38,6 +49,19 @@ MultiFloorNav::MultiFloorNav(){
     region_init_sigma_adaptive_alpha_ = 0.5;
     region_init_sigma_min_scale_ = 0.03;
     region_init_sigma_min_yaw_ = 0.02;
+    scan_topic_ = "front/scan";
+    lift_enter_linear_speed_ = 0.12;
+    lift_enter_target_distance_ = 3.0;
+    lift_front_safety_stop_distance_ = 0.35;
+    lift_front_scan_half_angle_rad_ = 0.20;
+    lift_enter_max_heading_error_rad_ = 0.10;
+    lift_enter_align_kp_ = 1.8;
+    lift_enter_align_max_w_ = 0.35;
+    reloc_curve_logging_enabled_ = true;
+    reloc_curve_csv_path_.clear();
+    reloc_curve_csv_path_param_.clear();
+    reloc_curve_sample_period_sec_ = 0.2;
+    reloc_curve_pass_row_logged_ = false;
 }
 
 void MultiFloorNav::initialize(ros::NodeHandle& n){
@@ -46,6 +70,25 @@ void MultiFloorNav::initialize(ros::NodeHandle& n){
     ros::param::param<double>("~loop_rate", loop_rate, 5.0);
     ros::param::param<double>("~max_angular_error", max_angular_error, 0.05);
     ros::param::param<double>("~max_linear_error", max_linear_error, 0.5);
+    ros::param::param<double>("~max_linear_error_L1", max_linear_error_L1_, -1.0);
+    ros::param::param<std::string>("~scan_topic", scan_topic_, "front/scan");
+    ros::param::param<double>("~lift_enter_linear_speed", lift_enter_linear_speed_, 0.12);
+    ros::param::param<double>("~lift_enter_target_distance", lift_enter_target_distance_, 3.0);
+    ros::param::param<double>("~lift_front_safety_stop_distance", lift_front_safety_stop_distance_, 0.35);
+    ros::param::param<double>("~lift_front_scan_half_angle_rad", lift_front_scan_half_angle_rad_, 0.20);
+    ros::param::param<double>("~lift_enter_max_heading_error_rad", lift_enter_max_heading_error_rad_, 0.10);
+    ros::param::param<double>("~lift_enter_align_kp", lift_enter_align_kp_, 1.8);
+    ros::param::param<double>("~lift_enter_align_max_w", lift_enter_align_max_w_, 0.35);
+    ros::param::param<bool>("~reloc_curve_logging_enabled", reloc_curve_logging_enabled_, true);
+    ros::param::param<std::string>("~reloc_curve_csv_path", reloc_curve_csv_path_param_, std::string(""));
+    ros::param::param<double>("~reloc_curve_sample_period_sec", reloc_curve_sample_period_sec_, 0.2);
+    if (reloc_curve_sample_period_sec_ < 0.05) {
+        reloc_curve_sample_period_sec_ = 0.05;
+    }
+    reloc_curve_csv_path_.clear();
+    if (max_linear_error_L1_ > 0.0) {
+        ROS_INFO("[Multi Floor Nav] L1 linear error threshold: %.3f m (L0: %.3f m)", max_linear_error_L1_, max_linear_error);
+    }
 
     initial_pose_pub = n.advertise<geometry_msgs::PoseWithCovarianceStamped>("initialpose", 1, true);
     goal_pub = n.advertise<geometry_msgs::PoseStamped>("move_base_simple/goal", 1);
@@ -56,20 +99,17 @@ void MultiFloorNav::initialize(ros::NodeHandle& n){
     odom_sub = n.subscribe("odometry/filtered", 1, &MultiFloorNav::odomCallback, this);
     move_base_status_sub = n.subscribe("move_base/status", 1, &MultiFloorNav::movebaseStatusCallback, this);
     start_sub = n.subscribe("start",1, &MultiFloorNav::startCallback, this);
+    scan_sub = n.subscribe(scan_topic_, 1, &MultiFloorNav::scanCallback, this);
 
     change_map_client = n.serviceClient<multi_floor_nav::IntTrigger>("change_map");
 
-    // 模块 B：切层窗口参数切换（AP-AMCL）
-    ros::param::param<bool>("~use_floor_window_params", use_floor_window_params_, false);
+    // Module B (AP-AMCL): disabled, use plain AMCL
+    use_floor_window_params_ = false;
     ros::param::param<int>("~amcl_window_max_particles", amcl_window_max_particles_, 3500);
     ros::param::param<double>("~amcl_window_recovery_alpha_fast", amcl_window_recovery_alpha_fast_, 0.2);
-    if (use_floor_window_params_) {
-        amcl_reconf_client_ = new dynamic_reconfigure::Client<amcl::AMCLConfig>("amcl", 0, 0);
-        ROS_INFO("[Multi Floor Nav] AP-AMCL: floor-window params enabled (window: max_particles=%d, recovery_alpha_fast=%.2f)",
-                 amcl_window_max_particles_, amcl_window_recovery_alpha_fast_);
-    }
 
-    // 模块 C：重定位完成判据优化（C_t = exp(-λ·tr(Σ))，连续 K 帧 C_t > tau 才通过）
+    // Module C (covariance reloc criterion): disabled, use plain AMCL
+    use_covariance_reloc_ = false;
     ros::param::param<bool>("~use_covariance_reloc", use_covariance_reloc_, false);
     ros::param::param<double>("~reloc_confidence_lambda", reloc_confidence_lambda_, 1.0);
     ros::param::param<double>("~reloc_confidence_tau", reloc_confidence_tau_, 0.8);
@@ -83,17 +123,21 @@ void MultiFloorNav::initialize(ros::NodeHandle& n){
                  reloc_confidence_lambda_, reloc_confidence_tau_, reloc_confidence_K_, reloc_post_monitor_duration_, reloc_min_check_delay_sec_);
     }
 
-    // 修复缺陷一：per-floor 区域初始化 sigma（回退到全局参数，若楼层参数未设则继承全局）
-    double global_sx = 0.0, global_sy = 0.0, global_syaw = 0.0;
-    ros::param::param<double>("~region_init_sigma_x",   global_sx,   0.0);
-    ros::param::param<double>("~region_init_sigma_y",   global_sy,   0.0);
-    ros::param::param<double>("~region_init_sigma_yaw", global_syaw, 0.0);
-    ros::param::param<double>("~region_init_sigma_x_L0",   region_init_sigma_x_L0_,   global_sx);
-    ros::param::param<double>("~region_init_sigma_y_L0",   region_init_sigma_y_L0_,   global_sy);
-    ros::param::param<double>("~region_init_sigma_yaw_L0", region_init_sigma_yaw_L0_, global_syaw);
-    ros::param::param<double>("~region_init_sigma_x_L1",   region_init_sigma_x_L1_,   global_sx);
-    ros::param::param<double>("~region_init_sigma_y_L1",   region_init_sigma_y_L1_,   global_sy);
-    ros::param::param<double>("~region_init_sigma_yaw_L1", region_init_sigma_yaw_L1_, global_syaw);
+    // Module A (SPA-AMCL region init): load configurable sigma values.
+    // If no params are provided, defaults remain 0.0 (plain AMCL single-point init).
+    double region_init_sigma_x = 0.0;
+    double region_init_sigma_y = 0.0;
+    double region_init_sigma_yaw = 0.0;
+    ros::param::param<double>("~region_init_sigma_x",   region_init_sigma_x,   0.0);
+    ros::param::param<double>("~region_init_sigma_y",   region_init_sigma_y,   0.0);
+    ros::param::param<double>("~region_init_sigma_yaw", region_init_sigma_yaw, 0.0);
+
+    ros::param::param<double>("~region_init_sigma_x_L0",   region_init_sigma_x_L0_,   region_init_sigma_x);
+    ros::param::param<double>("~region_init_sigma_y_L0",   region_init_sigma_y_L0_,   region_init_sigma_y);
+    ros::param::param<double>("~region_init_sigma_yaw_L0", region_init_sigma_yaw_L0_, region_init_sigma_yaw);
+    ros::param::param<double>("~region_init_sigma_x_L1",   region_init_sigma_x_L1_,   region_init_sigma_x);
+    ros::param::param<double>("~region_init_sigma_y_L1",   region_init_sigma_y_L1_,   region_init_sigma_y);
+    ros::param::param<double>("~region_init_sigma_yaw_L1", region_init_sigma_yaw_L1_, region_init_sigma_yaw);
 
     // 修复缺陷二：per-floor nomotion 等待时间（未设时继承全局 reloc_min_check_delay_sec）
     ros::param::param<double>("~reloc_min_check_delay_L0", reloc_min_check_delay_L0_, reloc_min_check_delay_sec_);
@@ -141,6 +185,34 @@ void MultiFloorNav::startCallback(const std_msgs::Empty::ConstPtr& msg){
     to_start = true;
 }
 
+void MultiFloorNav::scanCallback(const sensor_msgs::LaserScan::ConstPtr& msg){
+    latest_scan_ = *msg;
+    received_scan_ = true;
+}
+
+double MultiFloorNav::getFrontObstacleDistance() const{
+    if (!received_scan_) {
+        return std::numeric_limits<double>::infinity();
+    }
+
+    double min_range = std::numeric_limits<double>::infinity();
+    int32_t count = static_cast<int32_t>(latest_scan_.ranges.size());
+    for (int32_t i = 0; i < count; ++i) {
+        double angle = latest_scan_.angle_min + static_cast<double>(i) * latest_scan_.angle_increment;
+        if (fabs(angle) > lift_front_scan_half_angle_rad_) {
+            continue;
+        }
+        float range = latest_scan_.ranges.at(i);
+        if (!std::isfinite(range)) {
+            continue;
+        }
+        if (range >= latest_scan_.range_min && range <= latest_scan_.range_max && range < min_range) {
+            min_range = range;
+        }
+    }
+    return min_range;
+}
+
 tf2::Quaternion MultiFloorNav::convertYawtoQuartenion(double yaw){
     tf2::Quaternion quat;
     quat.setRPY(0.0, 0.0, yaw);
@@ -155,6 +227,12 @@ void MultiFloorNav::set_init_pose(geometry_msgs::Pose2D pose){
     ros::param::param<double>("~init_pose_offset_x", offset_x, 0.0);
     ros::param::param<double>("~init_pose_offset_y", offset_y, 0.0);
     ros::param::param<double>("~init_pose_offset_theta", offset_theta, 0.0);
+    // 仅在 L1 施加扰动；L0 使用无偏初值，避免在起始层因人工扰动导致重定位卡死。
+    if (desired_map_level == 0) {
+        offset_x = 0.0;
+        offset_y = 0.0;
+        offset_theta = 0.0;
+    }
     pose.x += offset_x;
     pose.y += offset_y;
     pose.theta += offset_theta;
@@ -184,12 +262,14 @@ void MultiFloorNav::set_init_pose(geometry_msgs::Pose2D pose){
     double sigma_yaw = (desired_map_level == 0) ? region_init_sigma_yaw_L0_ : region_init_sigma_yaw_L1_;
 
     // 自适应 sigma：根据偏移量动态缩放，使 sigma 与不确定性匹配
-    // 无偏移时 sigma 归零（退化为单点初始化，避免无谓散布）
+    // 注意：模块 A 开启时，即便无偏移也应保留配置的区域初始化 sigma，
+    // 以实现 SPA-AMCL 的“区域粒子散布”效果；纯 AMCL 对照组通过不加载模块 A
+    // 参数文件使 sigma=0 达成。
     if (sigma_x > 0.0 || sigma_y > 0.0 || sigma_yaw > 0.0) {
         double offset_planar = sqrt(offset_x * offset_x + offset_y * offset_y);
         if (offset_planar < 1e-6 && fabs(offset_theta) < 1e-6) {
-            sigma_x = sigma_y = sigma_yaw = 0.0;
-            ROS_INFO("[Multi Floor Nav] Adaptive sigma: no offset detected, sigma set to 0 (single-point init)");
+            ROS_INFO("[Multi Floor Nav] Adaptive sigma: no offset detected, keep configured sigma (%.3f, %.3f, %.3f)",
+                     sigma_x, sigma_y, sigma_yaw);
         } else {
             double adaptive_scale = std::max(region_init_sigma_min_scale_,
                                              region_init_sigma_adaptive_alpha_ * offset_planar);
@@ -237,7 +317,13 @@ bool MultiFloorNav::check_robot_pose(geometry_msgs::Pose2D pose){
     ROS_INFO("[Multi Floor Nav] Current Robot Pose, x: %.2f, y: %.2f, yaw: %.2f", amcl_x, amcl_y, amcl_yaw);
     ROS_INFO("[Multi Floor Nav] Linear Error: %.2f, Angular Error: %.2f", linear_error, angular_error);
 
-    bool linear_ok = (linear_error < max_linear_error);
+    double eps_lin = max_linear_error;
+    if (desired_map_level == 1 && max_linear_error_L1_ > 0.0) {
+        eps_lin = max_linear_error_L1_;
+    }
+    bool linear_ok = (linear_error < eps_lin);
+    bool angular_ok = (angular_error < max_angular_error);
+    bool pose_ok = (linear_ok && angular_ok);
 
     if (use_covariance_reloc_) {
         // 模块 C：C_t = exp(-λ · tr(Σ))，tr(Σ) 取 x,y,yaw 方差（covariance 索引 0,7,35）
@@ -245,8 +331,8 @@ bool MultiFloorNav::check_robot_pose(geometry_msgs::Pose2D pose){
         double C_t = exp(-reloc_confidence_lambda_ * tr_sigma);
         bool confidence_ok = (C_t > reloc_confidence_tau_);
         ROS_INFO("[Multi Floor Nav] Module C: tr(Σ)=%.4f, C_t=%.4f (tau=%.2f), frame_ok=%d",
-                 tr_sigma, C_t, reloc_confidence_tau_, (linear_ok && confidence_ok) ? 1 : 0);
-        if (linear_ok && confidence_ok) {
+                 tr_sigma, C_t, reloc_confidence_tau_, (pose_ok && confidence_ok) ? 1 : 0);
+        if (pose_ok && confidence_ok) {
             reloc_confidence_consecutive_count_++;
             bool passed = (reloc_confidence_consecutive_count_ >= reloc_confidence_K_);
             if (passed)
@@ -258,7 +344,7 @@ bool MultiFloorNav::check_robot_pose(geometry_msgs::Pose2D pose){
         }
     }
 
-    return linear_ok;
+    return pose_ok;
 }
 
 void MultiFloorNav::send_simple_goal(geometry_msgs::Pose2D goal_pose){
@@ -343,6 +429,71 @@ void MultiFloorNav::apply_amcl_floor_window_params(bool use_window){
     }
 }
 
+void MultiFloorNav::startRelocCurveLog() {
+    if (!reloc_curve_logging_enabled_) {
+        return;
+    }
+
+    std::string csv_path = reloc_curve_csv_path_param_;
+    if (csv_path.empty()) {
+        std::string package_path = ros::package::getPath("multi_floor_nav");
+        std::ostringstream stream;
+        stream << package_path << "/experiment_logs/reloc_curve_"
+               << ros::WallTime::now().sec << "_L" << desired_map_level << ".csv";
+        csv_path = stream.str();
+    }
+    reloc_curve_csv_path_ = csv_path;
+
+    std::ofstream out(csv_path.c_str(), std::ios::out | std::ios::trunc);
+    if (!out.is_open()) {
+        ROS_WARN("[Multi Floor Nav] Failed to create reloc curve csv: %s", csv_path.c_str());
+        reloc_curve_logging_enabled_ = false;
+        return;
+    }
+
+    out << "elapsed_sec,linear_error_nom,angular_error_nom,linear_error_pub,angular_error_pub,"
+           "tr_sigma,C_t,pose_ok,pass_now\n";
+    out.close();
+
+    reloc_curve_start_time_ = ros::Time::now();
+    reloc_curve_last_sample_time_ = ros::Time(0);
+    reloc_curve_pass_row_logged_ = false;
+    ROS_INFO("[Multi Floor Nav] Reloc curve logging to: %s", csv_path.c_str());
+}
+
+void MultiFloorNav::appendRelocCurveSample(const double elapsed_sec,
+                                           const double linear_error_nom,
+                                           const double angular_error_nom,
+                                           const double linear_error_pub,
+                                           const double angular_error_pub,
+                                           const double tr_sigma,
+                                           const double c_t,
+                                           const bool pose_ok,
+                                           const bool pass_now) {
+    if (!reloc_curve_logging_enabled_ || reloc_curve_csv_path_.empty()) {
+        return;
+    }
+
+    std::ofstream out(reloc_curve_csv_path_.c_str(), std::ios::out | std::ios::app);
+    if (!out.is_open()) {
+        ROS_WARN_THROTTLE(1.0, "[Multi Floor Nav] Failed to append reloc curve csv: %s",
+                          reloc_curve_csv_path_.c_str());
+        return;
+    }
+
+    out << std::fixed << std::setprecision(4)
+        << elapsed_sec << ","
+        << linear_error_nom << ","
+        << angular_error_nom << ","
+        << linear_error_pub << ","
+        << angular_error_pub << ","
+        << tr_sigma << ","
+        << c_t << ","
+        << (pose_ok ? 1 : 0) << ","
+        << (pass_now ? 1 : 0) << "\n";
+    out.close();
+}
+
 void MultiFloorNav::execute(){
     if (reloc_post_monitoring_ && received_amcl_pose) {
         double dt_post = (ros::Time::now() - reloc_pass_time_).toSec();
@@ -367,8 +518,8 @@ void MultiFloorNav::execute(){
                     // 修复缺陷五：切换楼层时重置退避计数器
                     reloc_retry_count_ = 0;
                     if(desired_map_level == 0){
-                        desired_init_pose.x = 5.0;
-                        desired_init_pose.y = -0.5;
+                        desired_init_pose.x = 4.0;
+                        desired_init_pose.y = -5.0;
                         desired_init_pose.theta = 0.0;
                     }
                     else{
@@ -392,6 +543,7 @@ void MultiFloorNav::execute(){
             // 修复缺陷五：首次进入楼层时重置退避计数器（LOAD_MAP → INIT_POSE 切换时 retry=0）
             // retry 后再次进入 INIT_POSE 则不重置，由 CHECK_INITPOSE 的 else 分支递增
             set_init_pose(desired_init_pose);
+            startRelocCurveLog();
             ROS_INFO("[Multi Floor Nav] Initializing Pose to x: %.2f, y: %.2f at level: %d",
                         desired_init_pose.x, desired_init_pose.y, desired_map_level);
             reloc_check_start_time_ = ros::Time::now();
@@ -403,40 +555,119 @@ void MultiFloorNav::execute(){
             std_srvs::Empty nomotion_srv;
             nomotion_update_client_.call(nomotion_srv);
 
-            // 修复缺陷二：使用 per-floor delay 替代全局 reloc_min_check_delay_sec_
             double floor_delay = (desired_map_level == 0) ? reloc_min_check_delay_L0_ : reloc_min_check_delay_L1_;
             double elapsed_since_init = (ros::Time::now() - reloc_check_start_time_).toSec();
-            if (elapsed_since_init < floor_delay) {
+            const bool after_delay = elapsed_since_init >= floor_delay;
+            bool reloc_pass = false;
+
+            if (received_amcl_pose) {
+                const double amcl_x = curr_pose.pose.pose.position.x;
+                const double amcl_y = curr_pose.pose.pose.position.y;
+                const double amcl_yaw = tf::getYaw(curr_pose.pose.pose.orientation);
+                const double linear_error_nom =
+                    sqrt(pow(desired_init_pose.x - amcl_x, 2) + pow(desired_init_pose.y - amcl_y, 2));
+                const double angular_error_nom =
+                    fabs(angles::normalize_angle(desired_init_pose.theta - amcl_yaw));
+
+                double offset_x = 0.0;
+                double offset_y = 0.0;
+                double offset_theta = 0.0;
+                ros::param::param<double>("~init_pose_offset_x", offset_x, 0.0);
+                ros::param::param<double>("~init_pose_offset_y", offset_y, 0.0);
+                ros::param::param<double>("~init_pose_offset_theta", offset_theta, 0.0);
+                if (desired_map_level == 0) {
+                    offset_x = 0.0;
+                    offset_y = 0.0;
+                    offset_theta = 0.0;
+                }
+                const double pub_x = desired_init_pose.x + offset_x;
+                const double pub_y = desired_init_pose.y + offset_y;
+                const double pub_yaw = desired_init_pose.theta + offset_theta;
+                const double linear_error_pub =
+                    sqrt(pow(pub_x - amcl_x, 2) + pow(pub_y - amcl_y, 2));
+                const double angular_error_pub =
+                    fabs(angles::normalize_angle(pub_yaw - amcl_yaw));
+
+                double eps_lin = max_linear_error;
+                if (desired_map_level == 1 && max_linear_error_L1_ > 0.0) {
+                    eps_lin = max_linear_error_L1_;
+                }
+                const bool pose_ok_for_curve =
+                    after_delay && (linear_error_nom < eps_lin) && (angular_error_nom < max_angular_error);
+                const double tr_sigma =
+                    curr_pose.pose.covariance[0] + curr_pose.pose.covariance[7] +
+                    curr_pose.pose.covariance[35];
+                const double c_t = exp(-reloc_confidence_lambda_ * tr_sigma);
+                reloc_pass = after_delay && check_robot_pose(desired_init_pose);
+
+                const ros::Time now = ros::Time::now();
+                const double elapsed_curve = (now - reloc_curve_start_time_).toSec();
+                bool should_sample = false;
+                if (reloc_curve_logging_enabled_ && !reloc_curve_csv_path_.empty()) {
+                    if (reloc_curve_last_sample_time_.isZero()) {
+                        should_sample = true;
+                    } else if ((now - reloc_curve_last_sample_time_).toSec() >= reloc_curve_sample_period_sec_) {
+                        should_sample = true;
+                    }
+                    if (reloc_pass && !reloc_curve_pass_row_logged_) {
+                        should_sample = true;
+                    }
+                }
+                if (should_sample) {
+                    appendRelocCurveSample(elapsed_curve,
+                                           linear_error_nom,
+                                           angular_error_nom,
+                                           linear_error_pub,
+                                           angular_error_pub,
+                                           tr_sigma,
+                                           c_t,
+                                           pose_ok_for_curve,
+                                           reloc_pass);
+                    reloc_curve_last_sample_time_ = now;
+                    if (reloc_pass) {
+                        reloc_curve_pass_row_logged_ = true;
+                    }
+                }
+            }
+
+            if (!after_delay) {
                 ROS_INFO_THROTTLE(1.0, "[Multi Floor Nav] Waiting for AMCL nomotion updates (%.1f/%.1fs, L%d)...",
                                   elapsed_since_init, floor_delay, desired_map_level);
                 break;
             }
 
-            // Pass criterion: AMCL pose vs nominal ground truth (desired_init_pose).
-            // This matches the experiment plan (e_pass / HLF vs true pose). Perturbation
-            // is applied only in set_init_pose(); here we judge whether the filter has
-            // converged close enough to the robot's actual map pose.
-            if(check_robot_pose(desired_init_pose)){
+            if(reloc_pass){
                 ROS_INFO("[Multi Floor Nav] Robot at correct pose");
                 {
-                    double amcl_x = curr_pose.pose.pose.position.x;
-                    double amcl_y = curr_pose.pose.pose.position.y;
-                    double amcl_yaw = tf::getYaw(curr_pose.pose.pose.orientation);
-                    // Error w.r.t. nominal ground-truth (no offset).
-                    double le = sqrt(pow(desired_init_pose.x - amcl_x, 2) + pow(desired_init_pose.y - amcl_y, 2));
-                    double ae = fabs(angles::normalize_angle(desired_init_pose.theta - amcl_yaw));
-                    // Error w.r.t. actually published initialpose (nominal + offset).
-                    double offset_x = 0.0, offset_y = 0.0, offset_theta = 0.0;
+                    const double amcl_px = curr_pose.pose.pose.position.x;
+                    const double amcl_py = curr_pose.pose.pose.position.y;
+                    const double amcl_pyaw = tf::getYaw(curr_pose.pose.pose.orientation);
+                    const double le =
+                        sqrt(pow(desired_init_pose.x - amcl_px, 2) + pow(desired_init_pose.y - amcl_py, 2));
+                    const double ae =
+                        fabs(angles::normalize_angle(desired_init_pose.theta - amcl_pyaw));
+                    double offset_x = 0.0;
+                    double offset_y = 0.0;
+                    double offset_theta = 0.0;
                     ros::param::param<double>("~init_pose_offset_x", offset_x, 0.0);
                     ros::param::param<double>("~init_pose_offset_y", offset_y, 0.0);
                     ros::param::param<double>("~init_pose_offset_theta", offset_theta, 0.0);
-                    double pub_x = desired_init_pose.x + offset_x;
-                    double pub_y = desired_init_pose.y + offset_y;
-                    double pub_yaw = desired_init_pose.theta + offset_theta;
-                    double le_pub = sqrt(pow(pub_x - amcl_x, 2) + pow(pub_y - amcl_y, 2));
-                    double ae_pub = fabs(angles::normalize_angle(pub_yaw - amcl_yaw));
-                    double tr_s = curr_pose.pose.covariance[0] + curr_pose.pose.covariance[7] + curr_pose.pose.covariance[35];
-                    double ct = exp(-reloc_confidence_lambda_ * tr_s);
+                    if (desired_map_level == 0) {
+                        offset_x = 0.0;
+                        offset_y = 0.0;
+                        offset_theta = 0.0;
+                    }
+                    const double pub_x = desired_init_pose.x + offset_x;
+                    const double pub_y = desired_init_pose.y + offset_y;
+                    const double pub_yaw = desired_init_pose.theta + offset_theta;
+                    const double le_pub =
+                        sqrt(pow(pub_x - amcl_px, 2) + pow(pub_y - amcl_py, 2));
+                    const double ae_pub =
+                        fabs(angles::normalize_angle(pub_yaw - amcl_pyaw));
+                    const double tr_s =
+                        curr_pose.pose.covariance[0] + curr_pose.pose.covariance[7] +
+                        curr_pose.pose.covariance[35];
+                    const double ct = exp(-reloc_confidence_lambda_ * tr_s);
                     ROS_INFO("[Multi Floor Nav] RELOC_PASS: linear_error=%.4f, angular_error=%.4f, linear_error_init=%.4f, angular_error_init=%.4f, tr_sigma=%.4f, C_t=%.4f",
                              le, ae, le_pub, ae_pub, tr_s, ct);
                     reloc_post_monitoring_ = true;
@@ -466,7 +697,7 @@ void MultiFloorNav::execute(){
             if(!goal_sent){
                 if(desired_map_level ==0 ){
                     desired_goal_pose.x = 3.0;
-                    desired_goal_pose.y =-0.5;
+                    desired_goal_pose.y = -0.52;
                     desired_goal_pose.theta = M_PI;                    
                 }
                 else{
@@ -497,13 +728,32 @@ void MultiFloorNav::execute(){
         case MultiFloorNav::State::SEND_LIFT_0:
             ROS_INFO_ONCE("[Multi Floor Nav] Requesting Lift to Level 0");
             request_lift("0");
-            nav_state= MultiFloorNav::State::ENTER_LIFT_LEVEL_0;
+            nav_state = MultiFloorNav::State::ENTER_LIFT_LEVEL_0;
             break;
 
         case MultiFloorNav::State::ENTER_LIFT_LEVEL_0:
             ROS_INFO_ONCE("[Multi Floor Nav] Entering Lift at Level 0");
-            send_cmd_vel(0.25); 
-            if(reached_distance(3.0)){
+            {
+                double front_obstacle_distance = getFrontObstacleDistance();
+                if (std::isfinite(front_obstacle_distance) &&
+                    front_obstacle_distance < std::max(lift_front_safety_stop_distance_, kLiftEntryMinHardStopDistance)) {
+                    send_cmd_vel();
+                    ROS_WARN_THROTTLE(0.5,
+                                      "[Multi Floor Nav] Lift entry safety stop: front obstacle %.3f m < %.3f m",
+                                      front_obstacle_distance,
+                                      std::max(lift_front_safety_stop_distance_, kLiftEntryMinHardStopDistance));
+                    break;
+                }
+
+                send_cmd_vel(lift_enter_linear_speed_);
+                ROS_INFO_THROTTLE(0.5,
+                                  "[Multi Floor Nav] Lift entry simple drive: front=%.3f m, cmd_v=%.3f, target_dist=%.3f",
+                                  front_obstacle_distance,
+                                  lift_enter_linear_speed_,
+                                  lift_enter_target_distance_);
+            }
+
+            if(reached_distance(lift_enter_target_distance_)){
                 send_cmd_vel();
                 nav_state= MultiFloorNav::State::SEND_LIFT_1;
                 first_odom = curr_odom;

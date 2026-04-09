@@ -1,6 +1,7 @@
 #!/bin/bash
 # 单次初值扰动实验：启动 nav（headless）、等待就绪、发送 /start、运行固定时长、保存日志
 # 用法: run_one_experiment.sh <method> <offset_x> <offset_y> <offset_theta> <run_id> [duration_sec] [log_dir]
+#       [sigma_xy_L0] [sigma_yaw_L0] [sigma_xy_L1] [sigma_yaw_L1] [reloc_K_override] [max_linear_error_L1]
 #  method: baseline | spamcl | apamcl（模块 B） | relocc（模块 C：重定位置信度判据）
 #          sp_amcl_c（模块 A + 模块 C 联合）
 # 示例: ./run_one_experiment.sh baseline 0 0 0 1 180 /tmp/exp_logs
@@ -42,6 +43,7 @@ SIGMA_YAW_L0="${9:-0.1}"
 SIGMA_XY_L1="${10:-$SIGMA_XY_L0}"    # 未指定时 L1 继承 L0
 SIGMA_YAW_L1="${11:-$SIGMA_YAW_L0}"
 RELOC_K_OVERRIDE="${12:-0}"          # 可选：覆盖 reloc_confidence_K（large 工况设 2，0=不覆盖）
+MAX_LINEAR_ERROR_L1="${13:--1}"     # 可选：L1 线误差门限（m），默认 -1 与 L0 共用；>0 仅放宽 L1
 
 mkdir -p "$LOG_DIR"
 PERT_NAME="pert_${OX}_${OY}_${OT}"
@@ -55,16 +57,19 @@ if [ "$METHOD" = "apamcl" ] || [ "$METHOD" = "ap_amcl" ]; then USE_AP_AMCL="true
 if [ "$METHOD" = "relocc" ]; then USE_COVARIANCE_RELOC="true"; fi
 if [ "$METHOD" = "sp_amcl_c" ]; then USE_REGION="true"; USE_COVARIANCE_RELOC="true"; fi
 
-echo "[run_one_experiment] method=$METHOD pert=($OX,$OY,$OT) sigma_L0=($SIGMA_XY_L0,$SIGMA_YAW_L0) sigma_L1=($SIGMA_XY_L1,$SIGMA_YAW_L1) K_override=$RELOC_K_OVERRIDE run=$RUN_ID duration=${DURATION}s log=$LOG_FILE"
+echo "[run_one_experiment] method=$METHOD pert=($OX,$OY,$OT) sigma_L0=($SIGMA_XY_L0,$SIGMA_YAW_L0) sigma_L1=($SIGMA_XY_L1,$SIGMA_YAW_L1) K_override=$RELOC_K_OVERRIDE max_linear_error_L1=$MAX_LINEAR_ERROR_L1 run=$RUN_ID duration=${DURATION}s log=$LOG_FILE"
 
-# 启动 roslaunch 在后台，最长 240s 让 Gazebo 起来（超时则终止）
+# roslaunch 须在「等待 map + 稳定 + /start 后 sleep DURATION」整段期间保持存活。
+# 旧版固定 timeout 240 会在 DURATION=240 时过早 SIGINT，导致日志截断、实验未完成。
+LAUNCH_TIMEOUT_SEC=$(( DURATION + 240 ))
 (
   export ROS_MASTER_URI="${ROS_MASTER_URI:-http://localhost:11311}"
-  timeout --signal=INT 240 roslaunch multi_floor_nav nav.launch \
+  timeout --signal=INT "$LAUNCH_TIMEOUT_SEC" roslaunch multi_floor_nav nav.launch \
     use_region_init:="$USE_REGION" \
     use_ap_amcl:="$USE_AP_AMCL" \
     use_covariance_reloc:="$USE_COVARIANCE_RELOC" \
     reloc_confidence_K_override:="$RELOC_K_OVERRIDE" \
+    max_linear_error_L1:="$MAX_LINEAR_ERROR_L1" \
     init_pose_offset_x:="$OX" init_pose_offset_y:="$OY" init_pose_offset_theta:="$OT" \
     init_sigma_xy:="$SIGMA_XY_L0" init_sigma_yaw:="$SIGMA_YAW_L0" \
     gui:=false headless:=true \

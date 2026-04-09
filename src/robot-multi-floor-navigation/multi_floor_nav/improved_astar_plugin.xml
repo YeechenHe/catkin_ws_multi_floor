@@ -1,0 +1,11 @@
+<library path="lib/libimproved_astar_planner">
+  <class name="improved_astar/ImprovedAStarPlanner"
+         type="improved_astar::ImprovedAStarPlanner"
+         base_class_type="nav_core::BaseGlobalPlanner">
+    <description>
+      Density-adaptive, direction-guided A* global planner.
+      Uses local obstacle density to adapt obstacle/direction/heuristic weights,
+      goal-biased 4+2 neighborhood expansion, and ESDF-based proximity penalty.
+    </description>
+  </class>
+</library>

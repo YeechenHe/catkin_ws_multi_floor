@@ -12,11 +12,13 @@ find_package(catkin REQUIRED COMPONENTS
   nav_msgs
   roscpp
   std_msgs
-  std_srvs
   tf
   actionlib_msgs
-  amcl
   dynamic_reconfigure
+  amcl
+  nav_core
+  costmap_2d
+  pluginlib
 )
 
 ## System dependencies are found with CMake's conventions
@@ -110,10 +112,9 @@ generate_messages(
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
-#  INCLUDE_DIRS include
-#  LIBRARIES multi_floor_nav
-#  CATKIN_DEPENDS geometry_msgs nav_msgs roscpp std_msgs tf
-#  DEPENDS system_lib
+  INCLUDE_DIRS include
+  LIBRARIES improved_astar_planner
+  CATKIN_DEPENDS geometry_msgs nav_msgs roscpp std_msgs tf nav_core costmap_2d pluginlib
 )
 
 ###########
@@ -127,10 +128,10 @@ include_directories(
   ${catkin_INCLUDE_DIRS}
 )
 
-## Declare a C++ library
-# add_library(${PROJECT_NAME}
-#   src/${PROJECT_NAME}/multi_floor_nav.cpp
-# )
+## Improved A* global planner plugin library
+add_library(improved_astar_planner src/improved_astar_planner.cpp)
+target_link_libraries(improved_astar_planner ${catkin_LIBRARIES})
+add_dependencies(improved_astar_planner ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Add cmake target dependencies of the library
 ## as an example, code may need to be generated before libraries
@@ -176,6 +177,12 @@ target_link_libraries(change_map_node ${catkin_LIBRARIES})
 #   scripts/my_python_script
 #   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 # )
+
+install(PROGRAMS
+  scripts/teleport_jackal.sh
+  scripts/trajectory_recorder.py
+  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
 
 ## Mark executables for installation
 ## See http://docs.ros.org/melodic/api/catkin/html/howto/format1/building_executables.html

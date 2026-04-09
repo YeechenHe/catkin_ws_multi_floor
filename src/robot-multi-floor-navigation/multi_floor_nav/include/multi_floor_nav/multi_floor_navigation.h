@@ -12,12 +12,14 @@
 #include "std_msgs/Int32.h"
 #include "geometry_msgs/Pose2D.h"
 #include "std_msgs/Empty.h"
+#include "sensor_msgs/LaserScan.h"
 #include <std_srvs/Empty.h>
 
 #include <tf2_geometry_msgs/tf2_geometry_msgs.h>
 #include <tf/tf.h>
 #include <angles/angles.h>
 #include <math.h>
+#include <limits>
 #include <multi_floor_nav/IntTrigger.h>
 #include <dynamic_reconfigure/client.h>
 #include <amcl/AMCLConfig.h>
@@ -38,15 +40,25 @@ class MultiFloorNav{
         State nav_state;
         int desired_map_level;
         bool received_amcl_pose, goal_sent, goal_active, to_start;
-        double loop_rate, max_linear_error, max_angular_error;
+        bool received_scan_;
+        double loop_rate, max_linear_error, max_linear_error_L1_, max_angular_error;
         ros::Publisher initial_pose_pub, goal_pub, cmd_vel_pub, elevator_pub;
-        ros::Subscriber amcl_pose_sub, odom_sub, move_base_status_sub, start_sub;
+        ros::Subscriber amcl_pose_sub, odom_sub, move_base_status_sub, start_sub, scan_sub;
         ros::ServiceClient change_map_client;
         geometry_msgs::PoseWithCovarianceStamped curr_pose;
         nav_msgs::Odometry curr_odom, first_odom;
         actionlib_msgs::GoalStatusArray move_base_status_msg;
+        sensor_msgs::LaserScan latest_scan_;
         geometry_msgs::Pose2D desired_init_pose, desired_goal_pose;
         multi_floor_nav::IntTrigger srv;
+        std::string scan_topic_;
+        double lift_enter_linear_speed_;
+        double lift_enter_target_distance_;
+        double lift_front_safety_stop_distance_;
+        double lift_front_scan_half_angle_rad_;
+        double lift_enter_max_heading_error_rad_;
+        double lift_enter_align_kp_;
+        double lift_enter_align_max_w_;
         // 模块 B：切层窗口参数切换（AP-AMCL）
         bool use_floor_window_params_;
         int amcl_window_max_particles_;
@@ -95,11 +107,20 @@ class MultiFloorNav{
         ros::Time reloc_pass_time_;
         double reloc_post_monitor_duration_;
         geometry_msgs::Pose2D reloc_pass_desired_pose_;
+        bool reloc_curve_logging_enabled_;
+        std::string reloc_curve_csv_path_param_;
+        std::string reloc_curve_csv_path_;
+        ros::Time reloc_curve_start_time_;
+        double reloc_curve_sample_period_sec_;
+        ros::Time reloc_curve_last_sample_time_;
+        bool reloc_curve_pass_row_logged_;
 
         void amclPoseCallback(const geometry_msgs::PoseWithCovarianceStamped::ConstPtr& msg);
         void odomCallback(const nav_msgs::Odometry::ConstPtr& msg);
         void movebaseStatusCallback(const actionlib_msgs::GoalStatusArray::ConstPtr& msg);
         void startCallback(const std_msgs::Empty::ConstPtr& msg);
+        void scanCallback(const sensor_msgs::LaserScan::ConstPtr& msg);
+        double getFrontObstacleDistance() const;
 
         tf2::Quaternion convertYawtoQuartenion(double yaw);
         void set_init_pose(geometry_msgs::Pose2D pose);
@@ -112,6 +133,16 @@ class MultiFloorNav{
         double getPositionOffset(geometry_msgs::Point A, geometry_msgs::Point B);
         bool reached_distance(double distance);
         void set_desired_level(int level_id);
+        void startRelocCurveLog();
+        void appendRelocCurveSample(const double elapsed_sec,
+                                    const double linear_error_nom,
+                                    const double angular_error_nom,
+                                    const double linear_error_pub,
+                                    const double angular_error_pub,
+                                    const double tr_sigma,
+                                    const double c_t,
+                                    const bool pose_ok,
+                                    const bool pass_now);
 
     public:
         MultiFloorNav();
